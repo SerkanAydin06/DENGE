@@ -1,0 +1,2569 @@
+[gd_scene load_steps=43 format=3]
+
+[ext_resource type="Material" path="res://assets/materials/concrete.tres" id="m_concrete"]
+[ext_resource type="Material" path="res://assets/materials/dark_concrete.tres" id="m_dark_concrete"]
+[ext_resource type="Material" path="res://assets/materials/polished_floor.tres" id="m_polished_floor"]
+[ext_resource type="Material" path="res://assets/materials/dark_metal.tres" id="m_dark_metal"]
+[ext_resource type="Material" path="res://assets/materials/metal.tres" id="m_metal"]
+[ext_resource type="Material" path="res://assets/materials/desk.tres" id="m_desk"]
+[ext_resource type="Material" path="res://assets/materials/leather.tres" id="m_leather"]
+[ext_resource type="Material" path="res://assets/materials/wood.tres" id="m_wood"]
+[ext_resource type="Material" path="res://assets/materials/screen.tres" id="m_screen"]
+[ext_resource type="Material" path="res://assets/materials/dome.tres" id="m_dome"]
+[ext_resource type="Material" path="res://assets/materials/dome_light.tres" id="m_dome_light"]
+[ext_resource type="Material" path="res://assets/materials/sconce.tres" id="m_sconce"]
+
+[sub_resource type="CylinderMesh" id="c_Floor"]
+top_radius = 17.7
+bottom_radius = 17.7
+height = 0.24
+radial_segments = 64
+cap_top = true
+cap_bottom = true
+
+[sub_resource type="BoxMesh" id="b_Tile"]
+size = Vector3(2.28, 0.028, 2.28)
+
+[sub_resource type="BoxMesh" id="b_WallSegment"]
+size = Vector3(2.4, 9.7, 0.48)
+
+[sub_resource type="BoxMesh" id="b_WallSeam"]
+size = Vector3(0.055, 9.5, 0.49)
+
+[sub_resource type="TorusMesh" id="t_Cornice"]
+inner_radius = 17.07
+outer_radius = 17.43
+rings = 96
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="c_DomeTier0"]
+top_radius = 16.99034699156847
+bottom_radius = 17.2
+height = 0.9551
+radial_segments = 80
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="TorusMesh" id="t_DomeRing0"]
+inner_radius = 16.940346991568468
+outer_radius = 17.04034699156847
+rings = 96
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="c_DomeTier1"]
+top_radius = 16.367758166845537
+bottom_radius = 16.99034699156847
+height = 0.926
+radial_segments = 80
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="TorusMesh" id="t_DomeRing1"]
+inner_radius = 16.317758166845536
+outer_radius = 16.417758166845537
+rings = 96
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="c_DomeTier2"]
+top_radius = 15.351150572225254
+bottom_radius = 16.367758166845537
+height = 0.8689
+radial_segments = 80
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="TorusMesh" id="t_DomeRing2"]
+inner_radius = 15.301150572225254
+outer_radius = 15.401150572225255
+rings = 96
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="c_DomeTier3"]
+top_radius = 13.971413315041897
+bottom_radius = 15.351150572225254
+height = 0.7853
+radial_segments = 80
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="TorusMesh" id="t_DomeRing3"]
+inner_radius = 13.921413315041896
+outer_radius = 14.021413315041897
+rings = 96
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="c_DomeTier4"]
+top_radius = 12.270469013674242
+bottom_radius = 13.971413315041897
+height = 0.6779
+radial_segments = 80
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="TorusMesh" id="t_DomeRing4"]
+inner_radius = 12.220469013674242
+outer_radius = 12.320469013674243
+rings = 96
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="c_DomeTier5"]
+top_radius = 10.3
+bottom_radius = 12.270469013674242
+height = 0.5499
+radial_segments = 80
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="TorusMesh" id="t_DomeRing5"]
+inner_radius = 10.25
+outer_radius = 10.350000000000001
+rings = 96
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="c_DomeTier6"]
+top_radius = 8.11987797789423
+bottom_radius = 10.3
+height = 0.4052
+radial_segments = 80
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="TorusMesh" id="t_DomeRing6"]
+inner_radius = 8.06987797789423
+outer_radius = 8.169877977894231
+rings = 96
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="c_DomeTier7"]
+top_radius = 5.7963448518036405
+bottom_radius = 8.11987797789423
+height = 0.2481
+radial_segments = 80
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="TorusMesh" id="t_DomeRing7"]
+inner_radius = 5.746344851803641
+outer_radius = 5.84634485180364
+rings = 96
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="c_DomeTier8"]
+top_radius = 3.400000000000002
+bottom_radius = 5.7963448518036405
+height = 0.0836
+radial_segments = 80
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="TorusMesh" id="t_DomeRing8"]
+inner_radius = 3.3500000000000023
+outer_radius = 3.450000000000002
+rings = 96
+ring_segments = 6
+
+[sub_resource type="CylinderMesh" id="c_Oculus"]
+top_radius = 3.45
+bottom_radius = 3.45
+height = 0.08
+radial_segments = 64
+cap_top = true
+cap_bottom = true
+
+[sub_resource type="CylinderMesh" id="c_GalleryFoundation"]
+top_radius = 11.6
+bottom_radius = 11.6
+height = 0.35
+radial_segments = 64
+cap_top = true
+cap_bottom = true
+
+[sub_resource type="BoxMesh" id="b_GalleryRail"]
+size = Vector3(2.05, 1.02, 0.15)
+
+[sub_resource type="BoxMesh" id="b_GalleryTop"]
+size = Vector3(2.15, 0.12, 0.22)
+
+[sub_resource type="BoxMesh" id="b_GallerySeat"]
+size = Vector3(0.58, 0.1, 0.42)
+
+[sub_resource type="BoxMesh" id="b_GalleryBack"]
+size = Vector3(0.58, 0.67, 0.1)
+
+[sub_resource type="BoxMesh" id="b_WallSconce"]
+size = Vector3(0.85, 0.22, 0.25)
+
+[node name="RoomShell" type="Node3D"]
+
+
+[node name="Floor" type="Node3D" parent="."]
+
+
+[node name="WallPanels" type="Node3D" parent="."]
+
+
+[node name="Dome" type="Node3D" parent="."]
+
+
+[node name="Gallery" type="Node3D" parent="."]
+
+
+[node name="WallLights" type="Node3D" parent="."]
+
+
+[node name="StoneFoundation" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("c_Floor")
+material_override = ExtResource("m_polished_floor")
+position = Vector3(0, -0.13, 0)
+
+[node name="ConcreteTile_0_5" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-14.52, 0.01, -2.42)
+
+[node name="ConcreteTile_0_6" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-14.52, 0.01, 0)
+
+[node name="ConcreteTile_0_7" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-14.52, 0.01, 2.42)
+
+[node name="ConcreteTile_1_3" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-12.1, 0.01, -7.26)
+
+[node name="ConcreteTile_1_4" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-12.1, 0.01, -4.84)
+
+[node name="ConcreteTile_1_5" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-12.1, 0.01, -2.42)
+
+[node name="ConcreteTile_1_6" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-12.1, 0.01, 0)
+
+[node name="ConcreteTile_1_7" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-12.1, 0.01, 2.42)
+
+[node name="ConcreteTile_1_8" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-12.1, 0.01, 4.84)
+
+[node name="ConcreteTile_1_9" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-12.1, 0.01, 7.26)
+
+[node name="ConcreteTile_2_2" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-9.68, 0.01, -9.68)
+
+[node name="ConcreteTile_2_3" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-9.68, 0.01, -7.26)
+
+[node name="ConcreteTile_2_4" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-9.68, 0.01, -4.84)
+
+[node name="ConcreteTile_2_5" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-9.68, 0.01, -2.42)
+
+[node name="ConcreteTile_2_6" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-9.68, 0.01, 0)
+
+[node name="ConcreteTile_2_7" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-9.68, 0.01, 2.42)
+
+[node name="ConcreteTile_2_8" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-9.68, 0.01, 4.84)
+
+[node name="ConcreteTile_2_9" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-9.68, 0.01, 7.26)
+
+[node name="ConcreteTile_2_10" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-9.68, 0.01, 9.68)
+
+[node name="ConcreteTile_3_1" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-7.26, 0.01, -12.1)
+
+[node name="ConcreteTile_3_2" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-7.26, 0.01, -9.68)
+
+[node name="ConcreteTile_3_3" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-7.26, 0.01, -7.26)
+
+[node name="ConcreteTile_3_4" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-7.26, 0.01, -4.84)
+
+[node name="ConcreteTile_3_5" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-7.26, 0.01, -2.42)
+
+[node name="ConcreteTile_3_6" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-7.26, 0.01, 0)
+
+[node name="ConcreteTile_3_7" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-7.26, 0.01, 2.42)
+
+[node name="ConcreteTile_3_8" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-7.26, 0.01, 4.84)
+
+[node name="ConcreteTile_3_9" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-7.26, 0.01, 7.26)
+
+[node name="ConcreteTile_3_10" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-7.26, 0.01, 9.68)
+
+[node name="ConcreteTile_3_11" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-7.26, 0.01, 12.1)
+
+[node name="ConcreteTile_4_1" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-4.84, 0.01, -12.1)
+
+[node name="ConcreteTile_4_2" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-4.84, 0.01, -9.68)
+
+[node name="ConcreteTile_4_3" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-4.84, 0.01, -7.26)
+
+[node name="ConcreteTile_4_4" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-4.84, 0.01, -4.84)
+
+[node name="ConcreteTile_4_5" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-4.84, 0.01, -2.42)
+
+[node name="ConcreteTile_4_7" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-4.84, 0.01, 2.42)
+
+[node name="ConcreteTile_4_8" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-4.84, 0.01, 4.84)
+
+[node name="ConcreteTile_4_9" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-4.84, 0.01, 7.26)
+
+[node name="ConcreteTile_4_10" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-4.84, 0.01, 9.68)
+
+[node name="ConcreteTile_4_11" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-4.84, 0.01, 12.1)
+
+[node name="ConcreteTile_5_0" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-2.42, 0.01, -14.52)
+
+[node name="ConcreteTile_5_1" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-2.42, 0.01, -12.1)
+
+[node name="ConcreteTile_5_2" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-2.42, 0.01, -9.68)
+
+[node name="ConcreteTile_5_3" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-2.42, 0.01, -7.26)
+
+[node name="ConcreteTile_5_4" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-2.42, 0.01, -4.84)
+
+[node name="ConcreteTile_5_8" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-2.42, 0.01, 4.84)
+
+[node name="ConcreteTile_5_9" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-2.42, 0.01, 7.26)
+
+[node name="ConcreteTile_5_10" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(-2.42, 0.01, 9.68)
+
+[node name="ConcreteTile_5_11" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-2.42, 0.01, 12.1)
+
+[node name="ConcreteTile_5_12" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(-2.42, 0.01, 14.52)
+
+[node name="ConcreteTile_6_0" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(0, 0.01, -14.52)
+
+[node name="ConcreteTile_6_1" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(0, 0.01, -12.1)
+
+[node name="ConcreteTile_6_2" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(0, 0.01, -9.68)
+
+[node name="ConcreteTile_6_3" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(0, 0.01, -7.26)
+
+[node name="ConcreteTile_6_9" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(0, 0.01, 7.26)
+
+[node name="ConcreteTile_6_10" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(0, 0.01, 9.68)
+
+[node name="ConcreteTile_6_11" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(0, 0.01, 12.1)
+
+[node name="ConcreteTile_6_12" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(0, 0.01, 14.52)
+
+[node name="ConcreteTile_7_0" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(2.42, 0.01, -14.52)
+
+[node name="ConcreteTile_7_1" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(2.42, 0.01, -12.1)
+
+[node name="ConcreteTile_7_2" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(2.42, 0.01, -9.68)
+
+[node name="ConcreteTile_7_3" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(2.42, 0.01, -7.26)
+
+[node name="ConcreteTile_7_4" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(2.42, 0.01, -4.84)
+
+[node name="ConcreteTile_7_8" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(2.42, 0.01, 4.84)
+
+[node name="ConcreteTile_7_9" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(2.42, 0.01, 7.26)
+
+[node name="ConcreteTile_7_10" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(2.42, 0.01, 9.68)
+
+[node name="ConcreteTile_7_11" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(2.42, 0.01, 12.1)
+
+[node name="ConcreteTile_7_12" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(2.42, 0.01, 14.52)
+
+[node name="ConcreteTile_8_1" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(4.84, 0.01, -12.1)
+
+[node name="ConcreteTile_8_2" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(4.84, 0.01, -9.68)
+
+[node name="ConcreteTile_8_3" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(4.84, 0.01, -7.26)
+
+[node name="ConcreteTile_8_4" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(4.84, 0.01, -4.84)
+
+[node name="ConcreteTile_8_5" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(4.84, 0.01, -2.42)
+
+[node name="ConcreteTile_8_7" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(4.84, 0.01, 2.42)
+
+[node name="ConcreteTile_8_8" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(4.84, 0.01, 4.84)
+
+[node name="ConcreteTile_8_9" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(4.84, 0.01, 7.26)
+
+[node name="ConcreteTile_8_10" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(4.84, 0.01, 9.68)
+
+[node name="ConcreteTile_8_11" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(4.84, 0.01, 12.1)
+
+[node name="ConcreteTile_9_1" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(7.26, 0.01, -12.1)
+
+[node name="ConcreteTile_9_2" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(7.26, 0.01, -9.68)
+
+[node name="ConcreteTile_9_3" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(7.26, 0.01, -7.26)
+
+[node name="ConcreteTile_9_4" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(7.26, 0.01, -4.84)
+
+[node name="ConcreteTile_9_5" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(7.26, 0.01, -2.42)
+
+[node name="ConcreteTile_9_6" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(7.26, 0.01, 0)
+
+[node name="ConcreteTile_9_7" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(7.26, 0.01, 2.42)
+
+[node name="ConcreteTile_9_8" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(7.26, 0.01, 4.84)
+
+[node name="ConcreteTile_9_9" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(7.26, 0.01, 7.26)
+
+[node name="ConcreteTile_9_10" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(7.26, 0.01, 9.68)
+
+[node name="ConcreteTile_9_11" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(7.26, 0.01, 12.1)
+
+[node name="ConcreteTile_10_2" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(9.68, 0.01, -9.68)
+
+[node name="ConcreteTile_10_3" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(9.68, 0.01, -7.26)
+
+[node name="ConcreteTile_10_4" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(9.68, 0.01, -4.84)
+
+[node name="ConcreteTile_10_5" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(9.68, 0.01, -2.42)
+
+[node name="ConcreteTile_10_6" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(9.68, 0.01, 0)
+
+[node name="ConcreteTile_10_7" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(9.68, 0.01, 2.42)
+
+[node name="ConcreteTile_10_8" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(9.68, 0.01, 4.84)
+
+[node name="ConcreteTile_10_9" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(9.68, 0.01, 7.26)
+
+[node name="ConcreteTile_10_10" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(9.68, 0.01, 9.68)
+
+[node name="ConcreteTile_11_3" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(12.1, 0.01, -7.26)
+
+[node name="ConcreteTile_11_4" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(12.1, 0.01, -4.84)
+
+[node name="ConcreteTile_11_5" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(12.1, 0.01, -2.42)
+
+[node name="ConcreteTile_11_6" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(12.1, 0.01, 0)
+
+[node name="ConcreteTile_11_7" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(12.1, 0.01, 2.42)
+
+[node name="ConcreteTile_11_8" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(12.1, 0.01, 4.84)
+
+[node name="ConcreteTile_11_9" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(12.1, 0.01, 7.26)
+
+[node name="ConcreteTile_12_5" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(14.52, 0.01, -2.42)
+
+[node name="ConcreteTile_12_6" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(14.52, 0.01, 0)
+
+[node name="ConcreteTile_12_7" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("b_Tile")
+material_override = ExtResource("m_concrete")
+position = Vector3(14.52, 0.01, 2.42)
+
+[node name="Wall_00" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(0, 4.85, 17.4)
+rotation_degrees = Vector3(0, 0, 0)
+
+[node name="Joint_00" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(1.22561, 4.85, 17.13623)
+rotation_degrees = Vector3(0, 4.090909090909091, 0)
+
+[node name="Wall_01" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(2.47628, 4.85, 17.22289)
+rotation_degrees = Vector3(0, 8.181818181818182, 0)
+
+[node name="Joint_01" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(3.65187, 4.85, 16.78738)
+rotation_degrees = Vector3(0, 12.272727272727272, 0)
+
+[node name="Wall_02" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(4.90215, 4.85, 16.69518)
+rotation_degrees = Vector3(0, 16.363636363636363, 0)
+
+[node name="Joint_02" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(6.00379, 4.85, 16.0968)
+rotation_degrees = Vector3(0, 20.454545454545457, 0)
+
+[node name="Wall_03" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(7.22822, 4.85, 15.8276)
+rotation_degrees = Vector3(0, 24.545454545454543, 0)
+
+[node name="Joint_03" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(8.2335, 4.85, 15.07853)
+rotation_degrees = Vector3(0, 28.636363636363637, 0)
+
+[node name="Wall_04" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(9.40715, 4.85, 14.63781)
+rotation_degrees = Vector3(0, 32.72727272727273, 0)
+
+[node name="Joint_04" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(10.29559, 4.85, 13.7533)
+rotation_degrees = Vector3(0, 36.81818181818182, 0)
+
+[node name="Wall_05" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(11.39458, 4.85, 13.15004)
+rotation_degrees = Vector3(0, 40.909090909090914, 0)
+
+[node name="Joint_05" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(12.14809, 4.85, 12.14809)
+rotation_degrees = Vector3(0, 45, 0)
+
+[node name="Wall_06" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(13.15004, 4.85, 11.39458)
+rotation_degrees = Vector3(0, 49.090909090909086, 0)
+
+[node name="Joint_06" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(13.7533, 4.85, 10.29559)
+rotation_degrees = Vector3(0, 53.18181818181817, 0)
+
+[node name="Wall_07" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(14.63781, 4.85, 9.40715)
+rotation_degrees = Vector3(0, 57.27272727272727, 0)
+
+[node name="Joint_07" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(15.07853, 4.85, 8.2335)
+rotation_degrees = Vector3(0, 61.36363636363637, 0)
+
+[node name="Wall_08" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(15.8276, 4.85, 7.22822)
+rotation_degrees = Vector3(0, 65.45454545454545, 0)
+
+[node name="Joint_08" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(16.0968, 4.85, 6.00379)
+rotation_degrees = Vector3(0, 69.54545454545455, 0)
+
+[node name="Wall_09" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(16.69518, 4.85, 4.90215)
+rotation_degrees = Vector3(0, 73.63636363636364, 0)
+
+[node name="Joint_09" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(16.78738, 4.85, 3.65187)
+rotation_degrees = Vector3(0, 77.72727272727272, 0)
+
+[node name="Wall_10" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(17.22289, 4.85, 2.47628)
+rotation_degrees = Vector3(0, 81.81818181818183, 0)
+
+[node name="Joint_10" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(17.13623, 4.85, 1.22561)
+rotation_degrees = Vector3(0, 85.90909090909092, 0)
+
+[node name="Wall_11" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(17.4, 4.85, 0)
+rotation_degrees = Vector3(0, 89.99999999999999, 0)
+
+[node name="Joint_11" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(17.13623, 4.85, -1.22561)
+rotation_degrees = Vector3(0, 94.09090909090907, 0)
+
+[node name="Wall_12" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(17.22289, 4.85, -2.47628)
+rotation_degrees = Vector3(0, 98.18181818181817, 0)
+
+[node name="Joint_12" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(16.78738, 4.85, -3.65187)
+rotation_degrees = Vector3(0, 102.27272727272727, 0)
+
+[node name="Wall_13" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(16.69518, 4.85, -4.90215)
+rotation_degrees = Vector3(0, 106.36363636363637, 0)
+
+[node name="Joint_13" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(16.0968, 4.85, -6.00379)
+rotation_degrees = Vector3(0, 110.45454545454545, 0)
+
+[node name="Wall_14" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(15.8276, 4.85, -7.22822)
+rotation_degrees = Vector3(0, 114.54545454545455, 0)
+
+[node name="Joint_14" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(15.07853, 4.85, -8.2335)
+rotation_degrees = Vector3(0, 118.63636363636364, 0)
+
+[node name="Wall_15" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(14.63781, 4.85, -9.40715)
+rotation_degrees = Vector3(0, 122.72727272727272, 0)
+
+[node name="Joint_15" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(13.7533, 4.85, -10.29559)
+rotation_degrees = Vector3(0, 126.8181818181818, 0)
+
+[node name="Wall_16" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(13.15004, 4.85, -11.39458)
+rotation_degrees = Vector3(0, 130.9090909090909, 0)
+
+[node name="Joint_16" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(12.14809, 4.85, -12.14809)
+rotation_degrees = Vector3(0, 135, 0)
+
+[node name="Wall_17" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(11.39458, 4.85, -13.15004)
+rotation_degrees = Vector3(0, 139.0909090909091, 0)
+
+[node name="Joint_17" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(10.29559, 4.85, -13.7533)
+rotation_degrees = Vector3(0, 143.1818181818182, 0)
+
+[node name="Wall_18" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(9.40715, 4.85, -14.63781)
+rotation_degrees = Vector3(0, 147.27272727272728, 0)
+
+[node name="Joint_18" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(8.2335, 4.85, -15.07853)
+rotation_degrees = Vector3(0, 151.36363636363637, 0)
+
+[node name="Wall_19" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(7.22822, 4.85, -15.8276)
+rotation_degrees = Vector3(0, 155.45454545454544, 0)
+
+[node name="Joint_19" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(6.00379, 4.85, -16.0968)
+rotation_degrees = Vector3(0, 159.54545454545453, 0)
+
+[node name="Wall_20" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(4.90215, 4.85, -16.69518)
+rotation_degrees = Vector3(0, 163.63636363636365, 0)
+
+[node name="Joint_20" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(3.65187, 4.85, -16.78738)
+rotation_degrees = Vector3(0, 167.72727272727275, 0)
+
+[node name="Wall_21" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(2.47628, 4.85, -17.22289)
+rotation_degrees = Vector3(0, 171.81818181818184, 0)
+
+[node name="Joint_21" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(1.22561, 4.85, -17.13623)
+rotation_degrees = Vector3(0, 175.9090909090909, 0)
+
+[node name="Wall_22" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(0, 4.85, -17.4)
+rotation_degrees = Vector3(0, 179.99999999999997, 0)
+
+[node name="Joint_22" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-1.22561, 4.85, -17.13623)
+rotation_degrees = Vector3(0, 184.09090909090907, 0)
+
+[node name="Wall_23" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-2.47628, 4.85, -17.22289)
+rotation_degrees = Vector3(0, 188.1818181818182, 0)
+
+[node name="Joint_23" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-3.65187, 4.85, -16.78738)
+rotation_degrees = Vector3(0, 192.27272727272725, 0)
+
+[node name="Wall_24" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-4.90215, 4.85, -16.69518)
+rotation_degrees = Vector3(0, 196.36363636363635, 0)
+
+[node name="Joint_24" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-6.00379, 4.85, -16.0968)
+rotation_degrees = Vector3(0, 200.45454545454544, 0)
+
+[node name="Wall_25" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-7.22822, 4.85, -15.8276)
+rotation_degrees = Vector3(0, 204.54545454545456, 0)
+
+[node name="Joint_25" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-8.2335, 4.85, -15.07853)
+rotation_degrees = Vector3(0, 208.63636363636365, 0)
+
+[node name="Wall_26" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-9.40715, 4.85, -14.63781)
+rotation_degrees = Vector3(0, 212.72727272727275, 0)
+
+[node name="Joint_26" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-10.29559, 4.85, -13.7533)
+rotation_degrees = Vector3(0, 216.8181818181818, 0)
+
+[node name="Wall_27" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-11.39458, 4.85, -13.15004)
+rotation_degrees = Vector3(0, 220.9090909090909, 0)
+
+[node name="Joint_27" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-12.14809, 4.85, -12.14809)
+rotation_degrees = Vector3(0, 225, 0)
+
+[node name="Wall_28" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-13.15004, 4.85, -11.39458)
+rotation_degrees = Vector3(0, 229.0909090909091, 0)
+
+[node name="Joint_28" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-13.7533, 4.85, -10.29559)
+rotation_degrees = Vector3(0, 233.18181818181816, 0)
+
+[node name="Wall_29" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-14.63781, 4.85, -9.40715)
+rotation_degrees = Vector3(0, 237.27272727272728, 0)
+
+[node name="Joint_29" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-15.07853, 4.85, -8.2335)
+rotation_degrees = Vector3(0, 241.3636363636364, 0)
+
+[node name="Wall_30" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-15.8276, 4.85, -7.22822)
+rotation_degrees = Vector3(0, 245.45454545454544, 0)
+
+[node name="Joint_30" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-16.0968, 4.85, -6.00379)
+rotation_degrees = Vector3(0, 249.5454545454545, 0)
+
+[node name="Wall_31" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-16.69518, 4.85, -4.90215)
+rotation_degrees = Vector3(0, 253.63636363636365, 0)
+
+[node name="Joint_31" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-16.78738, 4.85, -3.65187)
+rotation_degrees = Vector3(0, 257.72727272727275, 0)
+
+[node name="Wall_32" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-17.22289, 4.85, -2.47628)
+rotation_degrees = Vector3(0, 261.8181818181818, 0)
+
+[node name="Joint_32" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-17.13623, 4.85, -1.22561)
+rotation_degrees = Vector3(0, 265.90909090909093, 0)
+
+[node name="Wall_33" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-17.4, 4.85, 0)
+rotation_degrees = Vector3(0, 270, 0)
+
+[node name="Joint_33" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-17.13623, 4.85, 1.22561)
+rotation_degrees = Vector3(0, 274.0909090909091, 0)
+
+[node name="Wall_34" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-17.22289, 4.85, 2.47628)
+rotation_degrees = Vector3(0, 278.1818181818182, 0)
+
+[node name="Joint_34" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-16.78738, 4.85, 3.65187)
+rotation_degrees = Vector3(0, 282.2727272727273, 0)
+
+[node name="Wall_35" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-16.69518, 4.85, 4.90215)
+rotation_degrees = Vector3(0, 286.3636363636364, 0)
+
+[node name="Joint_35" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-16.0968, 4.85, 6.00379)
+rotation_degrees = Vector3(0, 290.45454545454544, 0)
+
+[node name="Wall_36" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-15.8276, 4.85, 7.22822)
+rotation_degrees = Vector3(0, 294.54545454545456, 0)
+
+[node name="Joint_36" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-15.07853, 4.85, 8.2335)
+rotation_degrees = Vector3(0, 298.6363636363636, 0)
+
+[node name="Wall_37" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-14.63781, 4.85, 9.40715)
+rotation_degrees = Vector3(0, 302.72727272727275, 0)
+
+[node name="Joint_37" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-13.7533, 4.85, 10.29559)
+rotation_degrees = Vector3(0, 306.81818181818187, 0)
+
+[node name="Wall_38" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-13.15004, 4.85, 11.39458)
+rotation_degrees = Vector3(0, 310.9090909090909, 0)
+
+[node name="Joint_38" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-12.14809, 4.85, 12.14809)
+rotation_degrees = Vector3(0, 315, 0)
+
+[node name="Wall_39" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-11.39458, 4.85, 13.15004)
+rotation_degrees = Vector3(0, 319.09090909090907, 0)
+
+[node name="Joint_39" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-10.29559, 4.85, 13.7533)
+rotation_degrees = Vector3(0, 323.1818181818182, 0)
+
+[node name="Wall_40" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-9.40715, 4.85, 14.63781)
+rotation_degrees = Vector3(0, 327.2727272727273, 0)
+
+[node name="Joint_40" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-8.2335, 4.85, 15.07853)
+rotation_degrees = Vector3(0, 331.3636363636364, 0)
+
+[node name="Wall_41" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-7.22822, 4.85, 15.8276)
+rotation_degrees = Vector3(0, 335.45454545454544, 0)
+
+[node name="Joint_41" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-6.00379, 4.85, 16.0968)
+rotation_degrees = Vector3(0, 339.5454545454545, 0)
+
+[node name="Wall_42" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-4.90215, 4.85, 16.69518)
+rotation_degrees = Vector3(0, 343.6363636363637, 0)
+
+[node name="Joint_42" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-3.65187, 4.85, 16.78738)
+rotation_degrees = Vector3(0, 347.72727272727275, 0)
+
+[node name="Wall_43" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSegment")
+material_override = ExtResource("m_concrete")
+position = Vector3(-2.47628, 4.85, 17.22289)
+rotation_degrees = Vector3(0, 351.8181818181818, 0)
+
+[node name="Joint_43" type="MeshInstance3D" parent="WallPanels"]
+mesh = SubResource("b_WallSeam")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(-1.22561, 4.85, 17.13623)
+rotation_degrees = Vector3(0, 355.90909090909093, 0)
+
+[node name="WallCornice" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("t_Cornice")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(0, 9.72, 0)
+
+[node name="DomeStep_0" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("c_DomeTier0")
+material_override = ExtResource("m_dome")
+position = Vector3(0, 10.2775, 0)
+
+[node name="IlluminatedRing_0" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("t_DomeRing0")
+material_override = ExtResource("m_dome_light")
+position = Vector3(0, 10.7351, 0)
+
+[node name="DomeStep_1" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("c_DomeTier1")
+material_override = ExtResource("m_dome")
+position = Vector3(0, 11.2181, 0)
+
+[node name="IlluminatedRing_1" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("t_DomeRing1")
+material_override = ExtResource("m_dome_light")
+position = Vector3(0, 11.6611, 0)
+
+[node name="DomeStep_2" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("c_DomeTier2")
+material_override = ExtResource("m_dome")
+position = Vector3(0, 12.1156, 0)
+
+[node name="IlluminatedRing_2" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("t_DomeRing2")
+material_override = ExtResource("m_dome_light")
+position = Vector3(0, 12.53, 0)
+
+[node name="DomeStep_3" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("c_DomeTier3")
+material_override = ExtResource("m_dome")
+position = Vector3(0, 12.9427, 0)
+
+[node name="IlluminatedRing_3" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("t_DomeRing3")
+material_override = ExtResource("m_dome_light")
+position = Vector3(0, 13.3153, 0)
+
+[node name="DomeStep_4" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("c_DomeTier4")
+material_override = ExtResource("m_dome")
+position = Vector3(0, 13.6743, 0)
+
+[node name="IlluminatedRing_4" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("t_DomeRing4")
+material_override = ExtResource("m_dome_light")
+position = Vector3(0, 13.9932, 0)
+
+[node name="DomeStep_5" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("c_DomeTier5")
+material_override = ExtResource("m_dome")
+position = Vector3(0, 14.2882, 0)
+
+[node name="IlluminatedRing_5" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("t_DomeRing5")
+material_override = ExtResource("m_dome_light")
+position = Vector3(0, 14.5431, 0)
+
+[node name="DomeStep_6" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("c_DomeTier6")
+material_override = ExtResource("m_dome")
+position = Vector3(0, 14.7657, 0)
+
+[node name="IlluminatedRing_6" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("t_DomeRing6")
+material_override = ExtResource("m_dome_light")
+position = Vector3(0, 14.9483, 0)
+
+[node name="DomeStep_7" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("c_DomeTier7")
+material_override = ExtResource("m_dome")
+position = Vector3(0, 15.0924, 0)
+
+[node name="IlluminatedRing_7" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("t_DomeRing7")
+material_override = ExtResource("m_dome_light")
+position = Vector3(0, 15.1964, 0)
+
+[node name="DomeStep_8" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("c_DomeTier8")
+material_override = ExtResource("m_dome")
+position = Vector3(0, 15.2582, 0)
+
+[node name="IlluminatedRing_8" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("t_DomeRing8")
+material_override = ExtResource("m_dome_light")
+position = Vector3(0, 15.28, 0)
+
+[node name="Skylight" type="MeshInstance3D" parent="Dome"]
+mesh = SubResource("c_Oculus")
+material_override = ExtResource("m_dome_light")
+position = Vector3(0, 15.35, 0)
+
+[node name="GallerySection_00" type="Node3D" parent="Gallery"]
+position = Vector3(1.1566, 0, 11.74318)
+rotation_degrees = Vector3(0, 5.625, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_00"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_00"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_00"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_00"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_00"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_00"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_01" type="Node3D" parent="Gallery"]
+position = Vector3(3.42536, 0, 11.2919)
+rotation_degrees = Vector3(0, 16.875, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_01"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_01"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_01"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_01"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_01"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_01"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_02" type="Node3D" parent="Gallery"]
+position = Vector3(5.56248, 0, 10.40667)
+rotation_degrees = Vector3(0, 28.125, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_02"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_02"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_02"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_02"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_02"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_02"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_03" type="Node3D" parent="Gallery"]
+position = Vector3(7.48584, 0, 9.12152)
+rotation_degrees = Vector3(0, 39.375, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_03"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_03"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_03"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_03"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_03"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_03"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_04" type="Node3D" parent="Gallery"]
+position = Vector3(9.12152, 0, 7.48584)
+rotation_degrees = Vector3(0, 50.62499999999999, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_04"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_04"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_04"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_04"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_04"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_04"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_05" type="Node3D" parent="Gallery"]
+position = Vector3(10.40667, 0, 5.56248)
+rotation_degrees = Vector3(0, 61.87499999999999, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_05"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_05"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_05"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_05"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_05"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_05"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_06" type="Node3D" parent="Gallery"]
+position = Vector3(11.2919, 0, 3.42536)
+rotation_degrees = Vector3(0, 73.12500000000001, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_06"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_06"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_06"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_06"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_06"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_06"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_07" type="Node3D" parent="Gallery"]
+position = Vector3(11.74318, 0, 1.1566)
+rotation_degrees = Vector3(0, 84.37499999999999, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_07"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_07"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_07"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_07"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_07"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_07"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_08" type="Node3D" parent="Gallery"]
+position = Vector3(11.74318, 0, -1.1566)
+rotation_degrees = Vector3(0, 95.62500000000001, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_08"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_08"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_08"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_08"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_08"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_08"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_09" type="Node3D" parent="Gallery"]
+position = Vector3(11.2919, 0, -3.42536)
+rotation_degrees = Vector3(0, 106.87499999999999, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_09"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_09"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_09"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_09"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_09"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_09"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_10" type="Node3D" parent="Gallery"]
+position = Vector3(10.40667, 0, -5.56248)
+rotation_degrees = Vector3(0, 118.12500000000001, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_10"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_10"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_10"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_10"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_10"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_10"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_11" type="Node3D" parent="Gallery"]
+position = Vector3(9.12152, 0, -7.48584)
+rotation_degrees = Vector3(0, 129.375, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_11"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_11"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_11"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_11"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_11"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_11"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_12" type="Node3D" parent="Gallery"]
+position = Vector3(7.48584, 0, -9.12152)
+rotation_degrees = Vector3(0, 140.625, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_12"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_12"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_12"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_12"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_12"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_12"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_13" type="Node3D" parent="Gallery"]
+position = Vector3(5.56248, 0, -10.40667)
+rotation_degrees = Vector3(0, 151.875, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_13"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_13"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_13"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_13"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_13"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_13"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_14" type="Node3D" parent="Gallery"]
+position = Vector3(3.42536, 0, -11.2919)
+rotation_degrees = Vector3(0, 163.125, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_14"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_14"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_14"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_14"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_14"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_14"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_15" type="Node3D" parent="Gallery"]
+position = Vector3(1.1566, 0, -11.74318)
+rotation_degrees = Vector3(0, 174.375, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_15"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_15"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_15"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_15"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_15"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_15"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_16" type="Node3D" parent="Gallery"]
+position = Vector3(-1.1566, 0, -11.74318)
+rotation_degrees = Vector3(0, 185.62500000000003, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_16"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_16"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_16"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_16"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_16"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_16"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_17" type="Node3D" parent="Gallery"]
+position = Vector3(-3.42536, 0, -11.2919)
+rotation_degrees = Vector3(0, 196.875, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_17"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_17"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_17"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_17"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_17"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_17"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_18" type="Node3D" parent="Gallery"]
+position = Vector3(-5.56248, 0, -10.40667)
+rotation_degrees = Vector3(0, 208.125, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_18"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_18"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_18"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_18"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_18"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_18"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_19" type="Node3D" parent="Gallery"]
+position = Vector3(-7.48584, 0, -9.12152)
+rotation_degrees = Vector3(0, 219.37499999999997, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_19"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_19"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_19"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_19"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_19"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_19"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_20" type="Node3D" parent="Gallery"]
+position = Vector3(-9.12152, 0, -7.48584)
+rotation_degrees = Vector3(0, 230.62499999999997, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_20"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_20"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_20"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_20"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_20"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_20"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_21" type="Node3D" parent="Gallery"]
+position = Vector3(-10.40667, 0, -5.56248)
+rotation_degrees = Vector3(0, 241.875, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_21"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_21"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_21"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_21"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_21"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_21"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_22" type="Node3D" parent="Gallery"]
+position = Vector3(-11.2919, 0, -3.42536)
+rotation_degrees = Vector3(0, 253.12500000000003, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_22"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_22"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_22"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_22"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_22"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_22"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_23" type="Node3D" parent="Gallery"]
+position = Vector3(-11.74318, 0, -1.1566)
+rotation_degrees = Vector3(0, 264.375, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_23"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_23"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_23"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_23"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_23"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_23"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_24" type="Node3D" parent="Gallery"]
+position = Vector3(-11.74318, 0, 1.1566)
+rotation_degrees = Vector3(0, 275.62499999999994, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_24"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_24"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_24"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_24"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_24"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_24"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_25" type="Node3D" parent="Gallery"]
+position = Vector3(-11.2919, 0, 3.42536)
+rotation_degrees = Vector3(0, 286.875, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_25"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_25"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_25"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_25"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_25"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_25"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_26" type="Node3D" parent="Gallery"]
+position = Vector3(-10.40667, 0, 5.56248)
+rotation_degrees = Vector3(0, 298.125, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_26"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_26"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_26"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_26"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_26"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_26"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_27" type="Node3D" parent="Gallery"]
+position = Vector3(-9.12152, 0, 7.48584)
+rotation_degrees = Vector3(0, 309.375, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_27"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_27"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_27"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_27"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_27"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_27"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_28" type="Node3D" parent="Gallery"]
+position = Vector3(-7.48584, 0, 9.12152)
+rotation_degrees = Vector3(0, 320.625, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_28"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_28"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_28"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_28"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_28"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_28"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_29" type="Node3D" parent="Gallery"]
+position = Vector3(-5.56248, 0, 10.40667)
+rotation_degrees = Vector3(0, 331.875, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_29"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_29"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_29"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_29"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_29"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_29"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_30" type="Node3D" parent="Gallery"]
+position = Vector3(-3.42536, 0, 11.2919)
+rotation_degrees = Vector3(0, 343.12499999999994, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_30"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_30"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_30"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_30"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_30"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_30"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="GallerySection_31" type="Node3D" parent="Gallery"]
+position = Vector3(-1.1566, 0, 11.74318)
+rotation_degrees = Vector3(0, 354.375, 0)
+
+[node name="WoodFront" type="MeshInstance3D" parent="Gallery/GallerySection_31"]
+mesh = SubResource("b_GalleryRail")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 0.54, 0)
+
+[node name="WoodTop" type="MeshInstance3D" parent="Gallery/GallerySection_31"]
+mesh = SubResource("b_GalleryTop")
+material_override = ExtResource("m_wood")
+position = Vector3(0, 1.1, 0)
+
+[node name="Seat_Left" type="MeshInstance3D" parent="Gallery/GallerySection_31"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 0.68, 0.72)
+
+[node name="Back_Left" type="MeshInstance3D" parent="Gallery/GallerySection_31"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(-0.5, 1.06, 0.97)
+
+[node name="Seat_Right" type="MeshInstance3D" parent="Gallery/GallerySection_31"]
+mesh = SubResource("b_GallerySeat")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 0.68, 0.72)
+
+[node name="Back_Right" type="MeshInstance3D" parent="Gallery/GallerySection_31"]
+mesh = SubResource("b_GalleryBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0.5, 1.06, 0.97)
+
+[node name="Sconce_0" type="MeshInstance3D" parent="WallLights"]
+mesh = SubResource("b_WallSconce")
+material_override = ExtResource("m_sconce")
+position = Vector3(6.35254, 4.2, 15.3364)
+rotation_degrees = Vector3(0, 22.5, 0)
+
+[node name="SconceLight_0" type="OmniLight3D" parent="WallLights"]
+position = Vector3(6.2760, 4.2, 15.1516)
+light_color = Color(1, 0.72, 0.45, 1)
+light_energy = 0.65
+omni_range = 6.0
+
+[node name="Sconce_1" type="MeshInstance3D" parent="WallLights"]
+mesh = SubResource("b_WallSconce")
+material_override = ExtResource("m_sconce")
+position = Vector3(15.3364, 4.2, 6.35254)
+rotation_degrees = Vector3(0, 67.5, 0)
+
+[node name="SconceLight_1" type="OmniLight3D" parent="WallLights"]
+position = Vector3(15.1516, 4.2, 6.2760)
+light_color = Color(1, 0.72, 0.45, 1)
+light_energy = 0.65
+omni_range = 6.0
+
+[node name="Sconce_2" type="MeshInstance3D" parent="WallLights"]
+mesh = SubResource("b_WallSconce")
+material_override = ExtResource("m_sconce")
+position = Vector3(15.3364, 4.2, -6.35254)
+rotation_degrees = Vector3(0, 112.5, 0)
+
+[node name="SconceLight_2" type="OmniLight3D" parent="WallLights"]
+position = Vector3(15.1516, 4.2, -6.2760)
+light_color = Color(1, 0.72, 0.45, 1)
+light_energy = 0.65
+omni_range = 6.0
+
+[node name="Sconce_3" type="MeshInstance3D" parent="WallLights"]
+mesh = SubResource("b_WallSconce")
+material_override = ExtResource("m_sconce")
+position = Vector3(6.35254, 4.2, -15.3364)
+rotation_degrees = Vector3(0, 157.5, 0)
+
+[node name="SconceLight_3" type="OmniLight3D" parent="WallLights"]
+position = Vector3(6.2760, 4.2, -15.1516)
+light_color = Color(1, 0.72, 0.45, 1)
+light_energy = 0.65
+omni_range = 6.0
+
+[node name="Sconce_4" type="MeshInstance3D" parent="WallLights"]
+mesh = SubResource("b_WallSconce")
+material_override = ExtResource("m_sconce")
+position = Vector3(-6.35254, 4.2, -15.3364)
+rotation_degrees = Vector3(0, 202.49999999999997, 0)
+
+[node name="SconceLight_4" type="OmniLight3D" parent="WallLights"]
+position = Vector3(-6.2760, 4.2, -15.1516)
+light_color = Color(1, 0.72, 0.45, 1)
+light_energy = 0.65
+omni_range = 6.0
+
+[node name="Sconce_5" type="MeshInstance3D" parent="WallLights"]
+mesh = SubResource("b_WallSconce")
+material_override = ExtResource("m_sconce")
+position = Vector3(-15.3364, 4.2, -6.35254)
+rotation_degrees = Vector3(0, 247.49999999999997, 0)
+
+[node name="SconceLight_5" type="OmniLight3D" parent="WallLights"]
+position = Vector3(-15.1516, 4.2, -6.2760)
+light_color = Color(1, 0.72, 0.45, 1)
+light_energy = 0.65
+omni_range = 6.0
+
+[node name="Sconce_6" type="MeshInstance3D" parent="WallLights"]
+mesh = SubResource("b_WallSconce")
+material_override = ExtResource("m_sconce")
+position = Vector3(-15.3364, 4.2, 6.35254)
+rotation_degrees = Vector3(0, 292.50000000000006, 0)
+
+[node name="SconceLight_6" type="OmniLight3D" parent="WallLights"]
+position = Vector3(-15.1516, 4.2, 6.2760)
+light_color = Color(1, 0.72, 0.45, 1)
+light_energy = 0.65
+omni_range = 6.0
+
+[node name="Sconce_7" type="MeshInstance3D" parent="WallLights"]
+mesh = SubResource("b_WallSconce")
+material_override = ExtResource("m_sconce")
+position = Vector3(-6.35254, 4.2, 15.3364)
+rotation_degrees = Vector3(0, 337.49999999999994, 0)
+
+[node name="SconceLight_7" type="OmniLight3D" parent="WallLights"]
+position = Vector3(-6.2760, 4.2, 15.1516)
+light_color = Color(1, 0.72, 0.45, 1)
+light_energy = 0.65
+omni_range = 6.0
