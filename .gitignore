@@ -1,0 +1,4 @@
+# Godot 4 imports and editor caches
+.godot/
+*.tmp
+.DS_Store
