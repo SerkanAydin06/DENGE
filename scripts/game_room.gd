@@ -214,7 +214,7 @@ func _build_terminal_ui() -> void:
 	prompt_label.text = "[E] SAYI TERMINALINI AC"
 	prompt_label.add_theme_font_size_override("font_size", 30)
 	prompt_label.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-	prompt_label.position = Vector2(765, 910)
+	prompt_label.position = Vector2(-200, -90)
 	prompt_label.visible = false
 	hints.add_child(prompt_label)
 	terminal_ui.connect("selection_locked", _on_selection_locked)
