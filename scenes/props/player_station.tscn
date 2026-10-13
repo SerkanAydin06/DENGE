@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3]
+[gd_scene load_steps=30 format=3]
 
 [ext_resource type="Script" path="res://scripts/player_station.gd" id="1_script"]
 [ext_resource type="Mesh" path="res://assets/models/angled_desk_top.obj" id="mesh_top"]
@@ -46,11 +46,17 @@ size = Vector3(0.84, 0.44, 0.07)
 [sub_resource type="BoxMesh" id="b_ConsoleGlass"]
 size = Vector3(0.74, 0.36, 0.018)
 
+[sub_resource type="BoxMesh" id="b_ResultBase"]
+size = Vector3(0.8, 0.16, 0.65)
+
+[sub_resource type="BoxMesh" id="b_ResultColumn"]
+size = Vector3(0.14, 1.12, 0.15)
+
 [sub_resource type="BoxMesh" id="b_MonitorBezel"]
-size = Vector3(0.70, 0.38, 0.07)
+size = Vector3(1.20, 0.66, 0.08)
 
 [sub_resource type="BoxMesh" id="b_MonitorGlass"]
-size = Vector3(0.62, 0.30, 0.01)
+size = Vector3(1.08, 0.54, 0.012)
 
 [node name="PlayerStation" type="Node3D"]
 script = ExtResource("1_script")
@@ -113,8 +119,8 @@ material_override = ExtResource("m_dark_metal")
 position = Vector3(0, 0.78, -0.86)
 
 [node name="TouchConsole" type="Node3D" parent="Desk"]
-position = Vector3(0, 1.06, -1.12)
-rotation_degrees = Vector3(-28, 0, 0)
+position = Vector3(0, 0.98, -0.52)
+rotation_degrees = Vector3(-76, 0, 0)
 
 [node name="ConsoleHousing" type="MeshInstance3D" parent="Desk/TouchConsole"]
 mesh = SubResource("b_ConsoleHousing")
@@ -142,28 +148,41 @@ font_size = 38
 modulate = Color(0.81, 0.94, 0.95, 1)
 horizontal_alignment = 1
 
-[node name="ResultMonitor" type="Node3D" parent="Desk"]
-position = Vector3(0, 1.04, -1.48)
-rotation_degrees = Vector3(-12, 0, 0)
+[node name="ResultDisplay" type="Node3D" parent="."]
+position = Vector3(0, 0, -2.30)
 
-[node name="MonitorBezel" type="MeshInstance3D" parent="Desk/ResultMonitor"]
+[node name="FloorBase" type="MeshInstance3D" parent="ResultDisplay"]
+mesh = SubResource("b_ResultBase")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(0, 0.09, 0)
+
+[node name="FloorColumn" type="MeshInstance3D" parent="ResultDisplay"]
+mesh = SubResource("b_ResultColumn")
+material_override = ExtResource("m_metal")
+position = Vector3(0, 0.58, 0)
+
+[node name="ResultMonitor" type="Node3D" parent="ResultDisplay"]
+position = Vector3(0, 1.23, 0)
+rotation_degrees = Vector3(-20, 0, 0)
+
+[node name="MonitorBezel" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
 mesh = SubResource("b_MonitorBezel")
 material_override = ExtResource("m_dark_metal")
 position = Vector3(0, 0, 0)
 
-[node name="MonitorGlass" type="MeshInstance3D" parent="Desk/ResultMonitor"]
+[node name="MonitorGlass" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
 mesh = SubResource("b_MonitorGlass")
 material_override = ExtResource("m_screen")
 position = Vector3(0, 0, 0.044)
 
-[node name="ResultTitle" type="Label3D" parent="Desk/ResultMonitor"]
+[node name="ResultTitle" type="Label3D" parent="ResultDisplay/ResultMonitor"]
 position = Vector3(0, 0.07, 0.06)
 text = "DENGE"
 pixel_size = 0.0018
 font_size = 34
 modulate = Color(0.88, 0.93, 0.95, 1)
 
-[node name="ResultBody" type="Label3D" parent="Desk/ResultMonitor"]
+[node name="ResultBody" type="Label3D" parent="ResultDisplay/ResultMonitor"]
 position = Vector3(0, -0.07, 0.06)
 text = "BEKLENIYOR"
 pixel_size = 0.0017
