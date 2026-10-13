@@ -101,8 +101,8 @@ func _build_seats() -> void:
 		root.name = "PlayerStation_%d" % (i + 1)
 		root.position = Vector3(sin(a) * SEAT_RADIUS, 0, cos(a) * SEAT_RADIUS)
 		# Godot'un -Z ekseni koltugun bakis yonudur.
-		root.look_at(Vector3(0, 0, 0), Vector3.UP)
 		add_child(root)
+		root.look_at(Vector3(0, 0, 0), Vector3.UP)
 		box_part("LeatherSeat", Vector3(0, 0.73, 0.65), Vector3(1.45, 0.26, 1.25), leather, root)
 		box_part("LeatherBack", Vector3(0, 1.46, 1.25), Vector3(1.42, 1.52, 0.24), leather, root)
 		box_part("Headrest", Vector3(0, 2.23, 1.25), Vector3(1.1, 0.2, 0.26), leather, root)
