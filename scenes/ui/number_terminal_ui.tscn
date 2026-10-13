@@ -1,0 +1,473 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/number_terminal_ui.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="PanelDark"]
+bg_color = Color(0.065, 0.085, 0.105, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.65, 0.72, 1)
+content_margin_left = 30.0
+content_margin_top = 28.0
+content_margin_right = 30.0
+content_margin_bottom = 28.0
+
+[node name="NumberTerminalUI" type="CanvasLayer"]
+layer = 5
+visible = false
+script = ExtResource("1_script")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.67)
+
+[node name="CenterPanel" type="PanelContainer" parent="Dim"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -400.0
+offset_right = 500.0
+offset_bottom = 400.0
+theme_override_styles/panel = SubResource("PanelDark")
+
+[node name="Layout" type="VBoxContainer" parent="Dim/CenterPanel"]
+theme_override_constants/separation = 14
+
+[node name="Heading" type="Label" parent="Dim/CenterPanel/Layout"]
+theme_override_font_sizes/font_size = 32
+text = "DENGE | DOKUNMATIK TERMINAL"
+horizontal_alignment = 1
+
+[node name="ChosenLabel" type="Label" parent="Dim/CenterPanel/Layout"]
+theme_override_font_sizes/font_size = 29
+text = "0-100 ARASINDA SAYI SEC"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="Dim/CenterPanel/Layout"]
+custom_minimum_size = Vector2(890, 550)
+size_flags_vertical = 3
+
+[node name="NumberGrid" type="GridContainer" parent="Dim/CenterPanel/Layout/Scroll"]
+columns = 11
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+
+[node name="Number_0" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "0"
+
+[node name="Number_1" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "1"
+
+[node name="Number_2" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "2"
+
+[node name="Number_3" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "3"
+
+[node name="Number_4" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "4"
+
+[node name="Number_5" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "5"
+
+[node name="Number_6" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "6"
+
+[node name="Number_7" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "7"
+
+[node name="Number_8" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "8"
+
+[node name="Number_9" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "9"
+
+[node name="Number_10" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "10"
+
+[node name="Number_11" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "11"
+
+[node name="Number_12" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "12"
+
+[node name="Number_13" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "13"
+
+[node name="Number_14" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "14"
+
+[node name="Number_15" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "15"
+
+[node name="Number_16" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "16"
+
+[node name="Number_17" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "17"
+
+[node name="Number_18" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "18"
+
+[node name="Number_19" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "19"
+
+[node name="Number_20" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "20"
+
+[node name="Number_21" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "21"
+
+[node name="Number_22" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "22"
+
+[node name="Number_23" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "23"
+
+[node name="Number_24" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "24"
+
+[node name="Number_25" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "25"
+
+[node name="Number_26" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "26"
+
+[node name="Number_27" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "27"
+
+[node name="Number_28" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "28"
+
+[node name="Number_29" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "29"
+
+[node name="Number_30" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "30"
+
+[node name="Number_31" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "31"
+
+[node name="Number_32" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "32"
+
+[node name="Number_33" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "33"
+
+[node name="Number_34" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "34"
+
+[node name="Number_35" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "35"
+
+[node name="Number_36" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "36"
+
+[node name="Number_37" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "37"
+
+[node name="Number_38" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "38"
+
+[node name="Number_39" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "39"
+
+[node name="Number_40" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "40"
+
+[node name="Number_41" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "41"
+
+[node name="Number_42" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "42"
+
+[node name="Number_43" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "43"
+
+[node name="Number_44" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "44"
+
+[node name="Number_45" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "45"
+
+[node name="Number_46" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "46"
+
+[node name="Number_47" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "47"
+
+[node name="Number_48" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "48"
+
+[node name="Number_49" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "49"
+
+[node name="Number_50" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "50"
+
+[node name="Number_51" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "51"
+
+[node name="Number_52" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "52"
+
+[node name="Number_53" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "53"
+
+[node name="Number_54" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "54"
+
+[node name="Number_55" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "55"
+
+[node name="Number_56" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "56"
+
+[node name="Number_57" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "57"
+
+[node name="Number_58" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "58"
+
+[node name="Number_59" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "59"
+
+[node name="Number_60" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "60"
+
+[node name="Number_61" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "61"
+
+[node name="Number_62" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "62"
+
+[node name="Number_63" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "63"
+
+[node name="Number_64" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "64"
+
+[node name="Number_65" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "65"
+
+[node name="Number_66" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "66"
+
+[node name="Number_67" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "67"
+
+[node name="Number_68" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "68"
+
+[node name="Number_69" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "69"
+
+[node name="Number_70" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "70"
+
+[node name="Number_71" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "71"
+
+[node name="Number_72" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "72"
+
+[node name="Number_73" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "73"
+
+[node name="Number_74" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "74"
+
+[node name="Number_75" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "75"
+
+[node name="Number_76" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "76"
+
+[node name="Number_77" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "77"
+
+[node name="Number_78" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "78"
+
+[node name="Number_79" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "79"
+
+[node name="Number_80" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "80"
+
+[node name="Number_81" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "81"
+
+[node name="Number_82" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "82"
+
+[node name="Number_83" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "83"
+
+[node name="Number_84" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "84"
+
+[node name="Number_85" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "85"
+
+[node name="Number_86" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "86"
+
+[node name="Number_87" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "87"
+
+[node name="Number_88" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "88"
+
+[node name="Number_89" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "89"
+
+[node name="Number_90" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "90"
+
+[node name="Number_91" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "91"
+
+[node name="Number_92" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "92"
+
+[node name="Number_93" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "93"
+
+[node name="Number_94" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "94"
+
+[node name="Number_95" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "95"
+
+[node name="Number_96" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "96"
+
+[node name="Number_97" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "97"
+
+[node name="Number_98" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "98"
+
+[node name="Number_99" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "99"
+
+[node name="Number_100" type="Button" parent="Dim/CenterPanel/Layout/Scroll/NumberGrid"]
+custom_minimum_size = Vector2(75, 49)
+text = "100"
+
+[node name="LockButton" type="Button" parent="Dim/CenterPanel/Layout"]
+custom_minimum_size = Vector2(0, 59)
+disabled = true
+text = "SAYIYI KILITLE"
+
+[node name="ExitButton" type="Button" parent="Dim/CenterPanel/Layout"]
+custom_minimum_size = Vector2(0, 45)
+text = "GERI (ESC)"
