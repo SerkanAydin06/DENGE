@@ -21,3 +21,8 @@ Tüm salon artık Godot sahnelerinde kaydedilmiş gerçek düğümlerden oluşur
 **Kontrol:** Fare ile bak; `E` ile koltuğun önündeki sayı terminalini aç; 0–100 arasında sayı seçip kilitle; `Esc` ile kapat.
 
 **Durum:** Bu sahneler yerleşim ve ışıklandırma açısından düzenlenebilir bir 3D prototiptir; filmin hazır 3D varlıklarının birebir kopyası değildir. Terminal seçimi hâlen 2D katman olarak açılır; fiziksel 3D ekran üzerinden doğrudan tıklama sonraki aşamadır.
+
+## Salon simetrisi ve giriş
+- Salon kabuğu ana sahnede %16 genişletildi; salon yüksekliği %6 artırıldı.
+- `scenes/props/entrance_door.tscn`: eski kürsünün bulunduğu eksende çift kanatlı kapı, gerçek duvar boşluğu ve açık galeri geçidi. Kapı kanatları ayrı `LeftHinge` / `RightHinge` düğümlerinden döndürülebilir.
+- 5 oyuncu istasyonu eşit açılarla dizilir ve aynı yüksekliktedir. Her istasyonun arkasında kendi terazisi vardır. Ortada terazi ve hâkim kürsüsü yoktur.
