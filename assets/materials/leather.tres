@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "leather"
+albedo_color = Color(0.08235, 0.09020, 0.09804, 1)
+metallic = 0.05
+roughness = 0.62
