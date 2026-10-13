@@ -1,4 +1,5 @@
 extends Node3D
+class_name DengePlayerStation
 ## Fully editable player station; geometry and screen labels live in player_station.tscn.
 @export_range(1, 5, 1) var player_number: int = 1
 
