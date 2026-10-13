@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "screen"
+albedo_color = Color(0.09804, 0.26275, 0.29804, 1)
+metallic = 0
+roughness = 0.22
+emission_enabled = true
+emission = Color(0.09804, 0.26275, 0.29804, 1)
+emission_energy_multiplier = 0.28
