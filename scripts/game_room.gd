@@ -7,9 +7,9 @@ extends Node3D
 @export_range(0.4, 0.99, 0.01) var terminal_look_threshold: float = 0.78
 
 @onready var player_camera: Camera3D = $PlayerCamera
-@onready var terminal_ui: CanvasLayer = $NumberTerminalUI
+@onready var terminal_ui: DengeNumberTerminal = $NumberTerminalUI
 @onready var prompt_label: Label = $InteractionHints/PromptLabel
-@onready var stations: Array[Node3D] = [
+@onready var stations: Array[DengePlayerStation] = [
 	$Arena/PlayerStation_1,
 	$Arena/PlayerStation_2,
 	$Arena/PlayerStation_3,
