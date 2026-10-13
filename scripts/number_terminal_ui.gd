@@ -1,4 +1,5 @@
 extends CanvasLayer
+class_name DengeNumberTerminal
 signal selection_locked(value: int)
 
 @onready var chosen_label: Label = $Dim/CenterPanel/Layout/ChosenLabel
