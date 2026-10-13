@@ -17,8 +17,8 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 - Game: original psychological number-selection strategy game inspired by a dramatic balance-game setting. Avoid copying trademarked art or branding.
 - Design locked (reference: wide courtroom-style round hall): dark concrete block walls, stepped dome with ring light strips, warm wall sconces, wooden gallery balustrade with arched seats around the hall; **stepped octagonal central platform** with **five angled desks forming a pentagon ring**, office chairs facing center; each desk has a **sloped touch screen for number entry** and an **upright result monitor visible only to that player**; host/judge bench with tall monolith opposite player 1; large decorative balance-scale statues around the platform.
 - Camera: player 1's seated eye-level view toward center/host.
-- Core files: scenes/game_room.tscn, scripts/game_room.gd (layout/camera/input), player_station.gd, balance_scale.gd, mesh_kit.gd (procedural helpers), room_materials.gd, number_terminal_ui.gd.
-- Asset hooks for future graphics: `res://assets/models/<slot>.tscn` replaces a procedural part (slots: player_chair, player_desk, touch_console, result_monitor, host_bench, gallery_section); `res://assets/materials/<name>.tres` replaces a material (names in room_materials.gd).
+- Core files: scenes/game_room.tscn, scenes/room_shell.tscn, scenes/center_platform.tscn, scenes/props/*.tscn, scenes/ui/number_terminal_ui.tscn, scripts/game_room.gd.
+- All architecture, furniture, individual screens, materials, camera and lighting must be **serialized and editable in Godot scenes**, not created procedurally from _ready(). Use packed scene instances and Inspector-friendly @export controls.
 - Current priority: refine/test the 3D room. Do not add gameplay, networking, menus or new dependencies without request.
 
 ## Workflow
