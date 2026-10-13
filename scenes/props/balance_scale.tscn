@@ -1,24 +1,14 @@
-[gd_scene load_steps=27 format=3]
+[gd_scene format=3 uid="uid://bha7yuu3layx0"]
 
-[ext_resource type="Script" path="res://scripts/balance_scale.gd" id="1_script"]
-[ext_resource type="Material" path="res://assets/materials/concrete.tres" id="m_concrete"]
+[ext_resource type="Script" uid="uid://injdyuc0rbxm" path="res://scripts/balance_scale.gd" id="1_script"]
 [ext_resource type="Material" path="res://assets/materials/dark_concrete.tres" id="m_dark_concrete"]
-[ext_resource type="Material" path="res://assets/materials/polished_floor.tres" id="m_polished_floor"]
-[ext_resource type="Material" path="res://assets/materials/dark_metal.tres" id="m_dark_metal"]
 [ext_resource type="Material" path="res://assets/materials/metal.tres" id="m_metal"]
-[ext_resource type="Material" path="res://assets/materials/desk.tres" id="m_desk"]
-[ext_resource type="Material" path="res://assets/materials/leather.tres" id="m_leather"]
-[ext_resource type="Material" path="res://assets/materials/wood.tres" id="m_wood"]
-[ext_resource type="Material" path="res://assets/materials/screen.tres" id="m_screen"]
-[ext_resource type="Material" path="res://assets/materials/dome.tres" id="m_dome"]
-[ext_resource type="Material" path="res://assets/materials/dome_light.tres" id="m_dome_light"]
-[ext_resource type="Material" path="res://assets/materials/sconce.tres" id="m_sconce"]
 
 [sub_resource type="BoxMesh" id="b_Pedestal"]
-size = Vector3(0.9, 2.2, 0.9)
+size = Vector3(0.64936525, 7.935498, 1.0131592)
 
 [sub_resource type="BoxMesh" id="b_Cap"]
-size = Vector3(1.12, 0.14, 1.12)
+size = Vector3(0.34152344, 0.14, 0.39588988)
 
 [sub_resource type="CylinderMesh" id="c_Stem"]
 top_radius = 0.065
@@ -27,7 +17,7 @@ height = 2.25
 radial_segments = 32
 
 [sub_resource type="CylinderMesh" id="c_Finial"]
-top_radius = 0
+top_radius = 0.0
 bottom_radius = 0.12
 height = 0.42
 radial_segments = 4
@@ -65,82 +55,81 @@ bottom_radius = 0.56
 height = 0.1
 radial_segments = 32
 
-[node name="BalanceScale" type="Node3D"]
+[node name="BalanceScale" type="Node3D" unique_id=2013197483]
 script = ExtResource("1_script")
 
-[node name="Pedestal" type="MeshInstance3D" parent="."]
-mesh = SubResource("b_Pedestal")
+[node name="Pedestal" type="MeshInstance3D" parent="." unique_id=49417588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11081542, -1.7677488, 0.04425049)
 material_override = ExtResource("m_dark_concrete")
-position = Vector3(0, 1.1, 0)
+mesh = SubResource("b_Pedestal")
 
-[node name="PedestalCap" type="MeshInstance3D" parent="."]
+[node name="PedestalCap" type="MeshInstance3D" parent="." unique_id=838420355]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.056503907, 2.28, 0.024451315)
+material_override = ExtResource("m_metal")
 mesh = SubResource("b_Cap")
-material_override = ExtResource("m_metal")
-position = Vector3(0, 2.28, 0)
 
-[node name="Stem" type="MeshInstance3D" parent="."]
+[node name="Stem" type="MeshInstance3D" parent="." unique_id=711513382]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.45, 0)
+material_override = ExtResource("m_metal")
 mesh = SubResource("c_Stem")
-material_override = ExtResource("m_metal")
-position = Vector3(0, 3.45, 0)
 
-[node name="Finial" type="MeshInstance3D" parent="."]
+[node name="Finial" type="MeshInstance3D" parent="." unique_id=726768023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.83, 0)
+material_override = ExtResource("m_metal")
 mesh = SubResource("c_Finial")
+
+[node name="BeamPivot" type="Node3D" parent="." unique_id=971499117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, 0)
+
+[node name="Beam" type="MeshInstance3D" parent="BeamPivot" unique_id=353620551]
 material_override = ExtResource("m_metal")
-position = Vector3(0, 4.83, 0)
-
-[node name="BeamPivot" type="Node3D" parent="."]
-position = Vector3(0, 4.40, 0)
-
-[node name="Beam" type="MeshInstance3D" parent="BeamPivot"]
 mesh = SubResource("b_Beam")
+
+[node name="LeftSuspension" type="Node3D" parent="BeamPivot" unique_id=1799623906]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.66, 0, 0)
+
+[node name="LeftChainA" type="MeshInstance3D" parent="BeamPivot/LeftSuspension" unique_id=1621579873]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, -0.55, 0)
 material_override = ExtResource("m_metal")
-position = Vector3(0, 0, 0)
-
-[node name="LeftSuspension" type="Node3D" parent="BeamPivot"]
-position = Vector3(-1.66, 0.0, 0)
-
-[node name="LeftChainA" type="MeshInstance3D" parent="BeamPivot/LeftSuspension"]
 mesh = SubResource("b_LeftA")
-material_override = ExtResource("m_metal")
-position = Vector3(-0.28, -0.55, 0)
 
-[node name="LeftChainB" type="MeshInstance3D" parent="BeamPivot/LeftSuspension"]
+[node name="LeftChainB" type="MeshInstance3D" parent="BeamPivot/LeftSuspension" unique_id=1151006060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, -0.55, 0)
+material_override = ExtResource("m_metal")
 mesh = SubResource("b_LeftB")
-material_override = ExtResource("m_metal")
-position = Vector3(0.28, -0.55, 0)
 
-[node name="LeftChainC" type="MeshInstance3D" parent="BeamPivot/LeftSuspension"]
+[node name="LeftChainC" type="MeshInstance3D" parent="BeamPivot/LeftSuspension" unique_id=152558343]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.55, 0.28)
+material_override = ExtResource("m_metal")
 mesh = SubResource("b_LeftC")
-material_override = ExtResource("m_metal")
-position = Vector3(0, -0.55, 0.28)
 
-[node name="LeftPan" type="MeshInstance3D" parent="BeamPivot/LeftSuspension"]
+[node name="LeftPan" type="MeshInstance3D" parent="BeamPivot/LeftSuspension" unique_id=2005816700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17, 0)
+material_override = ExtResource("m_metal")
 mesh = SubResource("c_LeftPan")
+
+[node name="RightSuspension" type="Node3D" parent="BeamPivot" unique_id=255594891]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.66, 0, 0)
+
+[node name="RightChainA" type="MeshInstance3D" parent="BeamPivot/RightSuspension" unique_id=1586687581]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, -0.55, 0)
 material_override = ExtResource("m_metal")
-position = Vector3(0, -1.17, 0)
-
-[node name="RightSuspension" type="Node3D" parent="BeamPivot"]
-position = Vector3(1.66, 0.0, 0)
-
-[node name="RightChainA" type="MeshInstance3D" parent="BeamPivot/RightSuspension"]
 mesh = SubResource("b_RightA")
-material_override = ExtResource("m_metal")
-position = Vector3(-0.28, -0.55, 0)
 
-[node name="RightChainB" type="MeshInstance3D" parent="BeamPivot/RightSuspension"]
+[node name="RightChainB" type="MeshInstance3D" parent="BeamPivot/RightSuspension" unique_id=593270200]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, -0.55, 0)
+material_override = ExtResource("m_metal")
 mesh = SubResource("b_RightB")
-material_override = ExtResource("m_metal")
-position = Vector3(0.28, -0.55, 0)
 
-[node name="RightChainC" type="MeshInstance3D" parent="BeamPivot/RightSuspension"]
+[node name="RightChainC" type="MeshInstance3D" parent="BeamPivot/RightSuspension" unique_id=133697504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.55, 0.28)
+material_override = ExtResource("m_metal")
 mesh = SubResource("b_RightC")
+
+[node name="SpillOutlet" type="Marker3D" parent="BeamPivot/RightSuspension" unique_id=1064061488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, -1.1, 0)
+
+[node name="RightPan" type="MeshInstance3D" parent="BeamPivot/RightSuspension" unique_id=200560663]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17, 0)
 material_override = ExtResource("m_metal")
-position = Vector3(0, -0.55, 0.28)
-
-[node name="SpillOutlet" type="Marker3D" parent="BeamPivot/RightSuspension"]
-position = Vector3(-0.18, -1.10, 0)
-
-[node name="RightPan" type="MeshInstance3D" parent="BeamPivot/RightSuspension"]
 mesh = SubResource("c_RightPan")
-material_override = ExtResource("m_metal")
-position = Vector3(0, -1.17, 0)

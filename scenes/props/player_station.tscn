@@ -1,21 +1,14 @@
-[gd_scene load_steps=31 format=3]
+[gd_scene format=3 uid="uid://c2764vuxhopfy"]
 
-[ext_resource type="Script" path="res://scripts/player_station.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://scenes/props/balance_scale.tscn" id="rear_balance_scale"]
-[ext_resource type="Mesh" path="res://assets/models/angled_desk_top.obj" id="mesh_top"]
-[ext_resource type="Mesh" path="res://assets/models/angled_desk_body.obj" id="mesh_body"]
-[ext_resource type="Material" path="res://assets/materials/concrete.tres" id="m_concrete"]
-[ext_resource type="Material" path="res://assets/materials/dark_concrete.tres" id="m_dark_concrete"]
-[ext_resource type="Material" path="res://assets/materials/polished_floor.tres" id="m_polished_floor"]
+[ext_resource type="Script" uid="uid://d22dtd2ank4as" path="res://scripts/player_station.gd" id="1_script"]
+[ext_resource type="ArrayMesh" uid="uid://rnwv80n80i81" path="res://assets/models/angled_desk_body.obj" id="mesh_body"]
+[ext_resource type="ArrayMesh" uid="uid://u5dkttlagc8u" path="res://assets/models/angled_desk_top.obj" id="mesh_top"]
 [ext_resource type="Material" path="res://assets/materials/dark_metal.tres" id="m_dark_metal"]
-[ext_resource type="Material" path="res://assets/materials/metal.tres" id="m_metal"]
 [ext_resource type="Material" path="res://assets/materials/desk.tres" id="m_desk"]
 [ext_resource type="Material" path="res://assets/materials/leather.tres" id="m_leather"]
-[ext_resource type="Material" path="res://assets/materials/wood.tres" id="m_wood"]
+[ext_resource type="Material" path="res://assets/materials/metal.tres" id="m_metal"]
 [ext_resource type="Material" path="res://assets/materials/screen.tres" id="m_screen"]
-[ext_resource type="Material" path="res://assets/materials/dome.tres" id="m_dome"]
-[ext_resource type="Material" path="res://assets/materials/dome_light.tres" id="m_dome_light"]
-[ext_resource type="Material" path="res://assets/materials/sconce.tres" id="m_sconce"]
+[ext_resource type="PackedScene" uid="uid://bha7yuu3layx0" path="res://scenes/props/balance_scale.tscn" id="rear_balance_scale"]
 
 [sub_resource type="BoxMesh" id="b_Seat"]
 size = Vector3(0.7, 0.13, 0.62)
@@ -54,146 +47,138 @@ size = Vector3(0.8, 0.16, 0.65)
 size = Vector3(0.14, 1.12, 0.15)
 
 [sub_resource type="BoxMesh" id="b_MonitorBezel"]
-size = Vector3(1.20, 0.66, 0.08)
+size = Vector3(1.2, 0.66, 0.08)
 
 [sub_resource type="BoxMesh" id="b_MonitorGlass"]
 size = Vector3(1.08, 0.54, 0.012)
 
-[node name="PlayerStation" type="Node3D"]
+[node name="PlayerStation" type="Node3D" unique_id=676832732]
 script = ExtResource("1_script")
 
-[node name="SeatEye" type="Marker3D" parent="."]
-position = Vector3(0, 1.15, 0.15)
+[node name="SeatEye" type="Marker3D" parent="." unique_id=930642353]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0.15)
 
-[node name="SpillTarget" type="Marker3D" parent="."]
-position = Vector3(0, 1.5, 0.15)
+[node name="SpillTarget" type="Marker3D" parent="." unique_id=1850153792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.15)
 
-[node name="RearBalanceScale" parent="." instance=ExtResource("rear_balance_scale")]
-position = Vector3(0, -0.6, 1.66)
-rotation_degrees = Vector3(0, 90, 0)
-scale = Vector3(1, 0.72, 1)
+[node name="RearBalanceScale" parent="." unique_id=1042972394 instance=ExtResource("rear_balance_scale")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 0.72, 0, -1, 0, -4.371139e-08, 0, 3.3955922, 2.7098055)
 
-[node name="Chair" type="Node3D" parent="."]
+[node name="Chair" type="Node3D" parent="." unique_id=1204447294]
 
-[node name="Seat" type="MeshInstance3D" parent="Chair"]
+[node name="Seat" type="MeshInstance3D" parent="Chair" unique_id=428542739]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.1)
+material_override = ExtResource("m_leather")
 mesh = SubResource("b_Seat")
-material_override = ExtResource("m_leather")
-position = Vector3(0, 0.45, 0.1)
 
-[node name="Back" type="MeshInstance3D" parent="Chair"]
+[node name="Back" type="MeshInstance3D" parent="Chair" unique_id=2119669492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92, 0.41)
+material_override = ExtResource("m_leather")
 mesh = SubResource("b_Back")
-material_override = ExtResource("m_leather")
-position = Vector3(0, 0.92, 0.41)
 
-[node name="Headrest" type="MeshInstance3D" parent="Chair"]
+[node name="Headrest" type="MeshInstance3D" parent="Chair" unique_id=1625755348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0.42)
+material_override = ExtResource("m_leather")
 mesh = SubResource("b_Headrest")
-material_override = ExtResource("m_leather")
-position = Vector3(0, 1.4, 0.42)
 
-[node name="ArmLeft" type="MeshInstance3D" parent="Chair"]
+[node name="ArmLeft" type="MeshInstance3D" parent="Chair" unique_id=1368697584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.72, 0.08)
+material_override = ExtResource("m_leather")
 mesh = SubResource("b_ArmLeft")
-material_override = ExtResource("m_leather")
-position = Vector3(-0.4, 0.72, 0.08)
 
-[node name="ArmRight" type="MeshInstance3D" parent="Chair"]
+[node name="ArmRight" type="MeshInstance3D" parent="Chair" unique_id=981465482]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.72, 0.08)
+material_override = ExtResource("m_leather")
 mesh = SubResource("b_ArmRight")
-material_override = ExtResource("m_leather")
-position = Vector3(0.4, 0.72, 0.08)
 
-[node name="Post" type="MeshInstance3D" parent="Chair"]
+[node name="Post" type="MeshInstance3D" parent="Chair" unique_id=235338895]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.13)
+material_override = ExtResource("m_metal")
 mesh = SubResource("b_Post")
-material_override = ExtResource("m_metal")
-position = Vector3(0, 0.25, 0.13)
 
-[node name="FootLeft" type="MeshInstance3D" parent="Chair"]
+[node name="FootLeft" type="MeshInstance3D" parent="Chair" unique_id=1909447959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29, 0.05, 0.14)
+material_override = ExtResource("m_metal")
 mesh = SubResource("b_FootLeft")
-material_override = ExtResource("m_metal")
-position = Vector3(-0.29, 0.05, 0.14)
 
-[node name="FootRight" type="MeshInstance3D" parent="Chair"]
+[node name="FootRight" type="MeshInstance3D" parent="Chair" unique_id=1887494561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, 0.05, 0.14)
+material_override = ExtResource("m_metal")
 mesh = SubResource("b_FootRight")
-material_override = ExtResource("m_metal")
-position = Vector3(0.29, 0.05, 0.14)
 
-[node name="Desk" type="Node3D" parent="."]
+[node name="Desk" type="Node3D" parent="." unique_id=926642882]
 
-[node name="DeskTop" type="MeshInstance3D" parent="Desk"]
-mesh = ExtResource("mesh_top")
+[node name="DeskTop" type="MeshInstance3D" parent="Desk" unique_id=579080074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84, -0.86)
 material_override = ExtResource("m_desk")
-position = Vector3(0, 0.84, -0.86)
+mesh = ExtResource("mesh_top")
 
-[node name="DeskBody" type="MeshInstance3D" parent="Desk"]
+[node name="DeskBody" type="MeshInstance3D" parent="Desk" unique_id=1387372174]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78, -0.86)
+material_override = ExtResource("m_dark_metal")
 mesh = ExtResource("mesh_body")
+
+[node name="TouchConsole" type="Node3D" parent="Desk" unique_id=905380867]
+transform = Transform3D(1, 0, 0, 0, 0.2419219, 0.9702957, 0, -0.9702957, 0.2419219, 0, 0.98, -0.52)
+
+[node name="ConsoleHousing" type="MeshInstance3D" parent="Desk/TouchConsole" unique_id=1554543729]
 material_override = ExtResource("m_dark_metal")
-position = Vector3(0, 0.78, -0.86)
-
-[node name="TouchConsole" type="Node3D" parent="Desk"]
-position = Vector3(0, 0.98, -0.52)
-rotation_degrees = Vector3(-76, 0, 0)
-
-[node name="ConsoleHousing" type="MeshInstance3D" parent="Desk/TouchConsole"]
 mesh = SubResource("b_ConsoleHousing")
-material_override = ExtResource("m_dark_metal")
-position = Vector3(0, 0, 0)
 
-[node name="ConsoleGlass" type="MeshInstance3D" parent="Desk/TouchConsole"]
+[node name="ConsoleGlass" type="MeshInstance3D" parent="Desk/TouchConsole" unique_id=1179683348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.055)
+material_override = ExtResource("m_screen")
 mesh = SubResource("b_ConsoleGlass")
-material_override = ExtResource("m_screen")
-position = Vector3(0, 0, 0.055)
 
-[node name="TouchTitle" type="Label3D" parent="Desk/TouchConsole"]
-position = Vector3(0, 0.07, 0.060)
-text = "DENGE"
+[node name="TouchTitle" type="Label3D" parent="Desk/TouchConsole" unique_id=646914455]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0.06)
 pixel_size = 0.0018
-font_size = 38
 modulate = Color(0.81, 0.94, 0.95, 1)
-horizontal_alignment = 1
+text = "DENGE"
+font_size = 38
 
-[node name="TouchBody" type="Label3D" parent="Desk/TouchConsole"]
-position = Vector3(0, -0.08, 0.060)
-text = "0 - 100"
+[node name="TouchBody" type="Label3D" parent="Desk/TouchConsole" unique_id=1255923686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, 0.06)
 pixel_size = 0.002
-font_size = 38
 modulate = Color(0.81, 0.94, 0.95, 1)
-horizontal_alignment = 1
+text = "0 - 100"
+font_size = 38
 
-[node name="ResultDisplay" type="Node3D" parent="."]
-position = Vector3(0, 0, -2.30)
+[node name="ResultDisplay" type="Node3D" parent="." unique_id=971122121]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3)
 
-[node name="FloorBase" type="MeshInstance3D" parent="ResultDisplay"]
+[node name="FloorBase" type="MeshInstance3D" parent="ResultDisplay" unique_id=1197788275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09, 0)
+material_override = ExtResource("m_dark_metal")
 mesh = SubResource("b_ResultBase")
-material_override = ExtResource("m_dark_metal")
-position = Vector3(0, 0.09, 0)
 
-[node name="FloorColumn" type="MeshInstance3D" parent="ResultDisplay"]
-mesh = SubResource("b_ResultColumn")
+[node name="FloorColumn" type="MeshInstance3D" parent="ResultDisplay" unique_id=1218396416]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.58, 0)
 material_override = ExtResource("m_metal")
-position = Vector3(0, 0.58, 0)
+mesh = SubResource("b_ResultColumn")
 
-[node name="ResultMonitor" type="Node3D" parent="ResultDisplay"]
-position = Vector3(0, 1.23, 0)
-rotation_degrees = Vector3(-20, 0, 0)
+[node name="ResultMonitor" type="Node3D" parent="ResultDisplay" unique_id=1235211843]
+transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 1.23, 0)
 
-[node name="MonitorBezel" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
-mesh = SubResource("b_MonitorBezel")
+[node name="MonitorBezel" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor" unique_id=401473221]
 material_override = ExtResource("m_dark_metal")
-position = Vector3(0, 0, 0)
+mesh = SubResource("b_MonitorBezel")
 
-[node name="MonitorGlass" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
-mesh = SubResource("b_MonitorGlass")
+[node name="MonitorGlass" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor" unique_id=2128162766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.044)
 material_override = ExtResource("m_screen")
-position = Vector3(0, 0, 0.044)
+mesh = SubResource("b_MonitorGlass")
 
-[node name="ResultTitle" type="Label3D" parent="ResultDisplay/ResultMonitor"]
-position = Vector3(0, 0.07, 0.06)
-text = "DENGE"
+[node name="ResultTitle" type="Label3D" parent="ResultDisplay/ResultMonitor" unique_id=1341817703]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0.06)
 pixel_size = 0.0018
-font_size = 34
 modulate = Color(0.88, 0.93, 0.95, 1)
+text = "DENGE"
+font_size = 34
 
-[node name="ResultBody" type="Label3D" parent="ResultDisplay/ResultMonitor"]
-position = Vector3(0, -0.07, 0.06)
-text = "BEKLENIYOR"
+[node name="ResultBody" type="Label3D" parent="ResultDisplay/ResultMonitor" unique_id=1644202936]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07, 0.06)
 pixel_size = 0.0017
-font_size = 34
 modulate = Color(0.88, 0.93, 0.95, 1)
+text = "BEKLENIYOR"
+font_size = 34

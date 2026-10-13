@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" uid="uid://beds1j4krgrlr" path="res://scripts/game_room.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/room_shell.tscn" id="2_shell"]
-[ext_resource type="PackedScene" path="res://scenes/center_platform.tscn" id="3_platform"]
-[ext_resource type="PackedScene" path="res://scenes/props/player_station.tscn" id="4_station"]
-[ext_resource type="PackedScene" path="res://scenes/props/judge_bench.tscn" id="6_judge"]
+[ext_resource type="PackedScene" uid="uid://ilbrc3b3vapx" path="res://scenes/center_platform.tscn" id="3_platform"]
+[ext_resource type="PackedScene" uid="uid://c2764vuxhopfy" path="res://scenes/props/player_station.tscn" id="4_station"]
 [ext_resource type="PackedScene" path="res://scenes/ui/number_terminal_ui.tscn" id="7_ui"]
 
 [sub_resource type="Environment" id="RoomEnvironment"]
@@ -25,7 +24,7 @@ script = ExtResource("1_script")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
 [node name="PlayerStation_1" parent="Arena" unique_id=880450430 instance=ExtResource("4_station")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.086974144, 4.25)
 
 [node name="PlayerStation_2" parent="Arena" unique_id=1932574071 instance=ExtResource("4_station")]
 transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, 4.04199, 0, 1.31332)
@@ -42,9 +41,6 @@ player_number = 4
 [node name="PlayerStation_5" parent="Arena" unique_id=251548474 instance=ExtResource("4_station")]
 transform = Transform3D(0.30901712, 0, -0.9510565, 0, 1, 0, 0.9510565, 0, 0.30901712, -4.04199, 0, 1.31332)
 player_number = 5
-
-[node name="JudgeBench" parent="." unique_id=824213944 instance=ExtResource("6_judge")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -9)
 
 [node name="Lighting" type="Node3D" parent="." unique_id=908139546]
 

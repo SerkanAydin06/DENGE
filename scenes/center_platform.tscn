@@ -1,41 +1,39 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3 uid="uid://ilbrc3b3vapx"]
 
 [ext_resource type="Material" path="res://assets/materials/concrete.tres" id="1_concrete"]
 [ext_resource type="Material" path="res://assets/materials/dark_concrete.tres" id="2_dark"]
-[ext_resource type="Material" path="res://assets/materials/metal.tres" id="3_metal"]
 
 [sub_resource type="CylinderMesh" id="BaseMesh"]
-top_radius = 5.65
-bottom_radius = 5.65
+top_radius = 9.287598
+bottom_radius = 9.287598
 height = 0.25
 radial_segments = 8
 
 [sub_resource type="CylinderMesh" id="TopStepMesh"]
-top_radius = 5.1
-bottom_radius = 5.1
+top_radius = 8.2890625
+bottom_radius = 8.2890625
 height = 0.35
 radial_segments = 8
 
 [sub_resource type="CylinderMesh" id="SurfaceMesh"]
-top_radius = 4.95
-bottom_radius = 4.95
+top_radius = 7.005371
+bottom_radius = 7.005371
 height = 0.06
 radial_segments = 8
 
-[node name="CenterPlatform" type="Node3D"]
+[node name="CenterPlatform" type="Node3D" unique_id=309557848]
 
-[node name="LowerOctagon" type="MeshInstance3D" parent="."]
-mesh = SubResource("BaseMesh")
+[node name="LowerOctagon" type="MeshInstance3D" parent="." unique_id=1293542548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
 material_override = ExtResource("2_dark")
-position = Vector3(0, 0.125, 0)
+mesh = SubResource("BaseMesh")
 
-[node name="UpperOctagon" type="MeshInstance3D" parent="."]
+[node name="UpperOctagon" type="MeshInstance3D" parent="." unique_id=993773964]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+material_override = ExtResource("1_concrete")
 mesh = SubResource("TopStepMesh")
-material_override = ExtResource("1_concrete")
-position = Vector3(0, 0.375, 0)
 
-[node name="PlatformTop" type="MeshInstance3D" parent="."]
+[node name="PlatformTop" type="MeshInstance3D" parent="." unique_id=889206772]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57, 0)
+material_override = ExtResource("1_concrete")
 mesh = SubResource("SurfaceMesh")
-material_override = ExtResource("1_concrete")
-position = Vector3(0, 0.57, 0)
-
