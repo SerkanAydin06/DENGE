@@ -21,7 +21,7 @@ func _material(color: Color, metallic: float = 0.0, roughness: float = 0.75) -> 
 	return material
 
 
-func _box(name_: String, position_: Vector3, size_: Vector3, material: Material, parent: Node3D = self) -> MeshInstance3D:
+func _box(name_: String, position_: Vector3, size_: Vector3, material: Material, parent: Node3D = null) -> MeshInstance3D:
 	var node := MeshInstance3D.new()
 	node.name = name_
 	var mesh := BoxMesh.new()
@@ -29,11 +29,11 @@ func _box(name_: String, position_: Vector3, size_: Vector3, material: Material,
 	node.mesh = mesh
 	node.material_override = material
 	node.position = position_
-	parent.add_child(node)
+	(parent if parent != null else self).add_child(node)
 	return node
 
 
-func _cylinder(name_: String, position_: Vector3, radius: float, height: float, material: Material, parent: Node3D = self) -> MeshInstance3D:
+func _cylinder(name_: String, position_: Vector3, radius: float, height: float, material: Material, parent: Node3D = null) -> MeshInstance3D:
 	var node := MeshInstance3D.new()
 	node.name = name_
 	var mesh := CylinderMesh.new()
@@ -43,7 +43,7 @@ func _cylinder(name_: String, position_: Vector3, radius: float, height: float, 
 	node.mesh = mesh
 	node.material_override = material
 	node.position = position_
-	parent.add_child(node)
+	(parent if parent != null else self).add_child(node)
 	return node
 
 
