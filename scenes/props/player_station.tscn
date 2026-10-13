@@ -1,6 +1,7 @@
-[gd_scene load_steps=30 format=3]
+[gd_scene load_steps=31 format=3]
 
 [ext_resource type="Script" path="res://scripts/player_station.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/props/balance_scale.tscn" id="rear_balance_scale"]
 [ext_resource type="Mesh" path="res://assets/models/angled_desk_top.obj" id="mesh_top"]
 [ext_resource type="Mesh" path="res://assets/models/angled_desk_body.obj" id="mesh_body"]
 [ext_resource type="Material" path="res://assets/materials/concrete.tres" id="m_concrete"]
@@ -63,6 +64,14 @@ script = ExtResource("1_script")
 
 [node name="SeatEye" type="Marker3D" parent="."]
 position = Vector3(0, 1.15, 0.15)
+
+[node name="SpillTarget" type="Marker3D" parent="."]
+position = Vector3(0, 1.5, 0.15)
+
+[node name="RearBalanceScale" parent="." instance=ExtResource("rear_balance_scale")]
+position = Vector3(0, -0.6, 1.66)
+rotation_degrees = Vector3(0, 90, 0)
+scale = Vector3(1, 0.72, 1)
 
 [node name="Chair" type="Node3D" parent="."]
 
