@@ -34,7 +34,7 @@ size = Vector3(1.15, 2.35, 0.2)
 [sub_resource type="BoxMesh" id="b_Monolith"]
 size = Vector3(1.48, 5.8, 0.65)
 
-[node name="JudgeBench" type="Node3D" parent="."]
+[node name="JudgeBench" type="Node3D"]
 
 [node name="DaisLower" type="MeshInstance3D" parent="."]
 mesh = SubResource("b_DaisLower")
