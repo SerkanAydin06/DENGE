@@ -101,9 +101,9 @@ light_energy = 0.85
 omni_range = 9.0
 
 [node name="PlayerCamera" type="Camera3D" parent="."]
-position = Vector3(0, 1.83, 4.25)
+position = Vector3(0, 1.75, 4.40)
 current = true
-fov = 77.0
+fov = 75.0
 
 [node name="NumberTerminalUI" parent="." instance=ExtResource("7_ui")]
 
