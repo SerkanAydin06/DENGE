@@ -6,8 +6,8 @@ class_name DengePlayerStation
 @onready var touch_target: Node3D = $Desk/TouchConsole
 @onready var touch_title: Label3D = $Desk/TouchConsole/TouchTitle
 @onready var touch_body: Label3D = $Desk/TouchConsole/TouchBody
-@onready var result_title: Label3D = $Desk/ResultMonitor/ResultTitle
-@onready var result_body: Label3D = $Desk/ResultMonitor/ResultBody
+@onready var result_title: Label3D = $ResultDisplay/ResultMonitor/ResultTitle
+@onready var result_body: Label3D = $ResultDisplay/ResultMonitor/ResultBody
 @onready var seat_eye: Marker3D = $SeatEye
 
 func eye_position() -> Vector3:
