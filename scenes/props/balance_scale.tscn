@@ -68,7 +68,7 @@ radial_segments = 32
 [node name="BalanceScale" type="Node3D"]
 script = ExtResource("1_script")
 
-[node name="Pedestal" type="MeshInstance3D" parent=""]
+[node name="Pedestal" type="MeshInstance3D" parent="."]
 mesh = SubResource("b_Pedestal")
 material_override = ExtResource("m_dark_concrete")
 position = Vector3(0, 1.1, 0)
