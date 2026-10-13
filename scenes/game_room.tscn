@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ilbrc3b3vapx" path="res://scenes/center_platform.tscn" id="3_platform"]
 [ext_resource type="PackedScene" uid="uid://c2764vuxhopfy" path="res://scenes/props/player_station.tscn" id="4_station"]
 [ext_resource type="PackedScene" path="res://scenes/ui/number_terminal_ui.tscn" id="7_ui"]
+[ext_resource type="PackedScene" path="res://scenes/props/entrance_door.tscn" id="8_door"]
 
 [sub_resource type="Environment" id="RoomEnvironment"]
 background_mode = 1
@@ -17,6 +18,11 @@ ambient_light_energy = 0.35
 script = ExtResource("1_script")
 
 [node name="RoomShell" parent="." unique_id=2019316433 instance=ExtResource("2_shell")]
+scale = Vector3(1.16, 1.06, 1.16)
+
+[node name="EntranceDoor" parent="." instance=ExtResource("8_door")]
+position = Vector3(0, 0, -20.184)
+scale = Vector3(1.16, 1.06, 1.16)
 
 [node name="CenterPlatform" parent="." unique_id=2019031299 instance=ExtResource("3_platform")]
 
@@ -24,7 +30,7 @@ script = ExtResource("1_script")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
 [node name="PlayerStation_1" parent="Arena" unique_id=880450430 instance=ExtResource("4_station")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.086974144, 4.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.25)
 
 [node name="PlayerStation_2" parent="Arena" unique_id=1932574071 instance=ExtResource("4_station")]
 transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, 4.04199, 0, 1.31332)
@@ -48,11 +54,11 @@ player_number = 5
 environment = SubResource("RoomEnvironment")
 
 [node name="DomeSpot" type="SpotLight3D" parent="Lighting" unique_id=744012247]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 13.9, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.5, 0)
 light_color = Color(0.78, 0.91, 0.99, 1)
 light_energy = 3.0
 shadow_enabled = true
-spot_range = 19.0
+spot_range = 22.0
 spot_angle = 43.0
 
 [node name="WarmScaleFocus" type="OmniLight3D" parent="Lighting" unique_id=1785794833]
