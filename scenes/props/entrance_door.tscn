@@ -1,0 +1,116 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Material" path="res://assets/materials/concrete.tres" id="1_concrete"]
+[ext_resource type="Material" path="res://assets/materials/dark_concrete.tres" id="2_stone"]
+[ext_resource type="Material" path="res://assets/materials/dark_metal.tres" id="3_steel"]
+[ext_resource type="Material" path="res://assets/materials/metal.tres" id="4_trim"]
+[ext_resource type="Material" path="res://assets/materials/polished_floor.tres" id="5_floor"]
+
+[sub_resource type="BoxMesh" id="SideWall"]
+size = Vector3(2.55, 9.7, 0.55)
+
+[sub_resource type="BoxMesh" id="UpperWall"]
+size = Vector3(4.5, 5.20, 0.62)
+
+[sub_resource type="BoxMesh" id="DoorJamb"]
+size = Vector3(0.25, 4.45, 0.58)
+
+[sub_resource type="BoxMesh" id="DoorLeaf"]
+size = Vector3(2.10, 4.13, 0.18)
+
+[sub_resource type="BoxMesh" id="DoorHandle"]
+size = Vector3(0.08, 0.48, 0.10)
+
+[sub_resource type="BoxMesh" id="DoorSill"]
+size = Vector3(4.28, 0.09, 0.8)
+
+[sub_resource type="BoxMesh" id="EntryAisle"]
+size = Vector3(3.75, 0.035, 6.10)
+
+[sub_resource type="BoxMesh" id="DoorHead"]
+size = Vector3(4.60, 0.20, 0.65)
+
+[node name="EntranceDoor" type="Node3D"]
+
+[node name="Architecture" type="Node3D" parent="."]
+
+[node name="LeftWallInfill" type="MeshInstance3D" parent="Architecture"]
+mesh = SubResource("SideWall")
+material_override = ExtResource("1_concrete")
+position = Vector3(-3.50, 4.85, 0)
+
+[node name="RightWallInfill" type="MeshInstance3D" parent="Architecture"]
+mesh = SubResource("SideWall")
+material_override = ExtResource("1_concrete")
+position = Vector3(3.50, 4.85, 0)
+
+[node name="OverDoorWall" type="MeshInstance3D" parent="Architecture"]
+mesh = SubResource("UpperWall")
+material_override = ExtResource("1_concrete")
+position = Vector3(0, 7.10, 0)
+
+[node name="LeftJamb" type="MeshInstance3D" parent="Architecture"]
+mesh = SubResource("DoorJamb")
+material_override = ExtResource("4_trim")
+position = Vector3(-2.18, 2.20, 0.07)
+
+[node name="RightJamb" type="MeshInstance3D" parent="Architecture"]
+mesh = SubResource("DoorJamb")
+material_override = ExtResource("4_trim")
+position = Vector3(2.18, 2.20, 0.07)
+
+[node name="Lintel" type="MeshInstance3D" parent="Architecture"]
+mesh = SubResource("DoorHead")
+material_override = ExtResource("3_steel")
+position = Vector3(0, 4.36, 0.07)
+
+[node name="Threshold" type="MeshInstance3D" parent="Architecture"]
+mesh = SubResource("DoorSill")
+material_override = ExtResource("4_trim")
+position = Vector3(0, 0.045, 0.10)
+
+[node name="EntranceAisle" type="MeshInstance3D" parent="Architecture"]
+mesh = SubResource("EntryAisle")
+material_override = ExtResource("2_stone")
+position = Vector3(0, 0.025, 3.05)
+
+[node name="DoorLeaves" type="Node3D" parent="."]
+
+[node name="LeftHinge" type="Node3D" parent="DoorLeaves"]
+position = Vector3(-2.11, 0, 0.12)
+
+[node name="LeftDoor" type="MeshInstance3D" parent="DoorLeaves/LeftHinge"]
+mesh = SubResource("DoorLeaf")
+material_override = ExtResource("3_steel")
+position = Vector3(1.055, 2.16, 0)
+
+[node name="LeftHandle" type="MeshInstance3D" parent="DoorLeaves/LeftHinge"]
+mesh = SubResource("DoorHandle")
+material_override = ExtResource("4_trim")
+position = Vector3(1.90, 1.96, 0.15)
+
+[node name="RightHinge" type="Node3D" parent="DoorLeaves"]
+position = Vector3(2.11, 0, 0.12)
+
+[node name="RightDoor" type="MeshInstance3D" parent="DoorLeaves/RightHinge"]
+mesh = SubResource("DoorLeaf")
+material_override = ExtResource("3_steel")
+position = Vector3(-1.055, 2.16, 0)
+
+[node name="RightHandle" type="MeshInstance3D" parent="DoorLeaves/RightHinge"]
+mesh = SubResource("DoorHandle")
+material_override = ExtResource("4_trim")
+position = Vector3(-1.90, 1.96, 0.15)
+
+[node name="EntranceSign" type="Label3D" parent="."]
+position = Vector3(0, 4.74, 0.42)
+text = "GIRIS / CIKIS"
+font_size = 92
+pixel_size = 0.003
+modulate = Color(0.75, 0.9, 0.92, 1)
+
+[node name="EntryLight" type="OmniLight3D" parent="."]
+position = Vector3(0, 5.2, 1.2)
+light_color = Color(0.69, 0.84, 0.92, 1)
+light_energy = 1.35
+omni_range = 8.0
