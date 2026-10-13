@@ -137,6 +137,9 @@ mesh = SubResource("b_RightC")
 material_override = ExtResource("m_metal")
 position = Vector3(0, -0.55, 0.28)
 
+[node name="SpillOutlet" type="Marker3D" parent="BeamPivot/RightSuspension"]
+position = Vector3(-0.18, -1.10, 0)
+
 [node name="RightPan" type="MeshInstance3D" parent="BeamPivot/RightSuspension"]
 mesh = SubResource("c_RightPan")
 material_override = ExtResource("m_metal")
