@@ -12,6 +12,7 @@ const TERMINAL_SCRIPT = preload("res://scripts/number_terminal_ui.gd")
 var terminal_ui: CanvasLayer
 var prompt_label: Label
 var player_camera: Camera3D
+var player_console: Node3D
 var view_yaw := 0.0
 var view_pitch := 0.0
 
@@ -59,9 +60,8 @@ func cylinder(name_: String, at: Vector3, radius: float, height_: float, mat: Ma
 	return n
 
 func _process(_delta: float) -> void:
-	if is_instance_valid(prompt_label) and is_instance_valid(player_camera) and not terminal_ui.visible:
-		var target := Vector3(0.0, 1.86, SEAT_RADIUS - 1.58)
-		var aim := (target - player_camera.global_position).normalized()
+	if is_instance_valid(prompt_label) and is_instance_valid(player_camera) and is_instance_valid(player_console) and not terminal_ui.visible:
+		var aim := (player_console.global_position - player_camera.global_position).normalized()
 		var facing := -player_camera.global_transform.basis.z
 		prompt_label.visible = facing.dot(aim) > 0.82
 
@@ -158,9 +158,12 @@ func _build_seats() -> void:
 		# Referanstaki gibi masaya gomulu, oyuncuya dogru yatirilmis ekran.
 		var console := Node3D.new()
 		console.name = "AngledTouchConsole"
-		console.position = Vector3(0, 1.28, -0.76)
-		console.rotation_degrees.x = -24.0
+		console.position = Vector3(0, 1.42, -0.76)
+		# Pozitif X donusu ekran yuzunu oyuncuya (+Z) cevirir.
+		console.rotation_degrees.x = 24.0
 		root.add_child(console)
+		if i == 0:
+			player_console = console
 		box_part("TouchHousing", Vector3.ZERO, Vector3(1.75, 0.07, 1.13), metal, console)
 		box_part("TouchScreen", Vector3(0, 0.048, 0), Vector3(1.58, 0.02, 0.96), screen, console)
 		box_part("TouchEdge", Vector3(0, 0.07, 0.55), Vector3(1.7, 0.08, 0.05), black, console)
@@ -203,6 +206,8 @@ func _build_camera() -> void:
 	cam.position = eye
 	add_child(cam)
 	cam.look_at(Vector3(0.0, 2.1, 0.0), Vector3.UP)
+	view_pitch = cam.rotation.x
+	view_yaw = cam.rotation.y
 	cam.fov = 75.0
 	cam.current = true
 	player_camera = cam
