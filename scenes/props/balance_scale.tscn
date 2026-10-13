@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3]
+[gd_scene load_steps=27 format=3]
 
 [ext_resource type="Script" path="res://scripts/balance_scale.gd" id="1_script"]
 [ext_resource type="Material" path="res://assets/materials/concrete.tres" id="m_concrete"]
