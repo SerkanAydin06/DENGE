@@ -88,9 +88,9 @@ func _build_center() -> void:
 	cylinder("BalanceFoot", Vector3(0, 1.08, 0), 0.78, 0.58, metal)
 	cylinder("BalanceStem", Vector3(0, 2.46, 0), 0.12, 2.25, metal)
 	box_part("BalanceBeam", Vector3(0, 3.55, 0), Vector3(3.55, 0.14, 0.18), metal)
-	for side in [-1.0, 1.0]:
-		var x := side * 1.55
-		for offset in [-0.38, 0.38]:
+	for side: float in [-1.0, 1.0]:
+		var x: float = side * 1.55
+		for offset: float in [-0.38, 0.38]:
 			box_part("Chain_%s_%s" % [str(side), str(offset)], Vector3(x + offset, 2.96, 0), Vector3(0.032, 1.10, 0.032), metal)
 		cylinder("Pan_%s" % str(side), Vector3(x, 2.42, 0), 0.65, 0.08, metal)
 
