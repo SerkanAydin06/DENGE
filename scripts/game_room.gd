@@ -8,6 +8,9 @@ const MOUSE_SENSITIVITY := 0.0025
 const MAX_YAW := 95.0
 const MAX_PITCH := 55.0
 
+const TERMINAL_SCRIPT = preload("res://scripts/number_terminal_ui.gd")
+var terminal_ui: CanvasLayer
+var prompt_label: Label
 var player_camera: Camera3D
 var view_yaw := 0.0
 var view_pitch := 0.0
@@ -55,7 +58,25 @@ func cylinder(name_: String, at: Vector3, radius: float, height_: float, mat: Ma
 	(parent if parent != null else self).add_child(n)
 	return n
 
+func _process(_delta: float) -> void:
+	if is_instance_valid(prompt_label) and is_instance_valid(player_camera) and not terminal_ui.visible:
+		var target := Vector3(0.0, 1.86, SEAT_RADIUS - 1.58)
+		var aim := (target - player_camera.global_position).normalized()
+		var facing := -player_camera.global_transform.basis.z
+		prompt_label.visible = facing.dot(aim) > 0.82
+
 func _unhandled_input(event: InputEvent) -> void:
+	if terminal_ui.visible:
+		if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+			terminal_ui.call("close")
+			get_viewport().set_input_as_handled()
+		return
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_E:
+		if prompt_label.visible:
+			terminal_ui.call("open")
+			prompt_label.visible = false
+			get_viewport().set_input_as_handled()
+		return
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		get_viewport().set_input_as_handled()
@@ -80,6 +101,7 @@ func _ready() -> void:
 	_build_seats()
 	_build_lighting()
 	_build_camera()
+	_build_terminal_ui()
 
 func _build_room() -> void:
 	cylinder("ConcreteFloor", Vector3(0, -0.17, 0), ROOM_RADIUS, 0.34, concrete)
@@ -180,3 +202,22 @@ func _build_camera() -> void:
 	cam.current = true
 	player_camera = cam
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _build_terminal_ui() -> void:
+	terminal_ui = TERMINAL_SCRIPT.new()
+	terminal_ui.name = "NumberTerminalUI"
+	add_child(terminal_ui)
+	var hints := CanvasLayer.new()
+	hints.name = "InteractionHints"
+	add_child(hints)
+	prompt_label = Label.new()
+	prompt_label.text = "[E] SAYI TERMINALINI AC"
+	prompt_label.add_theme_font_size_override("font_size", 30)
+	prompt_label.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	prompt_label.position = Vector2(765, 910)
+	prompt_label.visible = false
+	hints.add_child(prompt_label)
+	terminal_ui.connect("selection_locked", _on_selection_locked)
+
+func _on_selection_locked(value: int) -> void:
+	print("DENGE: Selected number locked: ", value)
