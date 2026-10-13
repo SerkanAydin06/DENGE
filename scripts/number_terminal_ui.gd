@@ -12,7 +12,7 @@ func _ready() -> void:
 	panel = PanelContainer.new()
 	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	panel.custom_minimum_size = Vector2(650, 410)
-	panel.position = Vector2(635, 335)
+	panel.position = Vector2(-325, -205)
 	add_child(panel)
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 18)
