@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" path="res://scenes/room_shell.tscn" id="2_shell"]
 [ext_resource type="PackedScene" path="res://scenes/center_platform.tscn" id="3_platform"]
 [ext_resource type="PackedScene" path="res://scenes/props/player_station.tscn" id="4_station"]
-[ext_resource type="PackedScene" path="res://scenes/props/balance_scale.tscn" id="5_scale"]
 [ext_resource type="PackedScene" path="res://scenes/props/judge_bench.tscn" id="6_judge"]
 [ext_resource type="PackedScene" path="res://scenes/ui/number_terminal_ui.tscn" id="7_ui"]
 
@@ -46,20 +45,6 @@ player_number = 5
 
 [node name="JudgeBench" parent="." unique_id=824213944 instance=ExtResource("6_judge")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -9)
-
-[node name="BalanceStatues" type="Node3D" parent="." unique_id=2019653709]
-
-[node name="LeftScale" parent="BalanceStatues" unique_id=1529573129 instance=ExtResource("5_scale")]
-transform = Transform3D(1.0712496, 0, 0.38990295, 0, 1.14, 0, -0.38990295, 0, 1.0712496, -7.3, 0, -1.8)
-
-[node name="RightScale" parent="BalanceStatues" unique_id=613906605 instance=ExtResource("5_scale")]
-transform = Transform3D(1.0712496, 0, -0.38990295, 0, 1.14, 0, 0.38990295, 0, 1.0712496, 7.3, 0, -1.8)
-
-[node name="RearLeftScale" parent="BalanceStatues" unique_id=2093059439 instance=ExtResource("5_scale")]
-transform = Transform3D(0.88, 0, 0, 0, 0.88, 0, 0, 0, 0.88, -8.2, 0, 4)
-
-[node name="RearRightScale" parent="BalanceStatues" unique_id=1089836845 instance=ExtResource("5_scale")]
-transform = Transform3D(0.8217024, 0, -0.31496826, 0, 0.8799999, 0, 0.31496826, 0, 0.8217024, 7.074014, 0, 1.9178128)
 
 [node name="Lighting" type="Node3D" parent="." unique_id=908139546]
 
