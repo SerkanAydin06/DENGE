@@ -133,11 +133,10 @@ func _build_seats() -> void:
 		box_part("PedestalBase", Vector3(0, 0.10, -1.4), Vector3(0.85, 0.13, 0.76), metal, root)
 		box_part("PedestalStem", Vector3(0, 0.65, -1.4), Vector3(0.20, 1.12, 0.19), metal, root)
 		box_part("RectangularTable", Vector3(0, 1.24, -1.4), Vector3(1.7, 0.15, 1.05), black, root)
-		# Masanin ustunde yatik sayi tableti.
-		var tablet := box_part("NumberTablet", Vector3(0, 1.38, -1.4), Vector3(1.05, 0.08, 0.68), black, root)
-		tablet.rotation.x = deg_to_rad(-14)
-		var display := box_part("TabletScreen", Vector3(0, 1.44, -1.4), Vector3(0.88, 0.02, 0.52), screen, root)
-		display.rotation.x = deg_to_rad(-14)
+		# Oyuncuya bakan dik PC monitoru.
+		box_part("MonitorStand", Vector3(0, 1.40, -1.58), Vector3(0.12, 0.24, 0.12), metal, root)
+		box_part("MonitorBody", Vector3(0, 1.86, -1.58), Vector3(1.30, 0.77, 0.10), black, root)
+		box_part("MonitorScreen", Vector3(0, 1.86, -1.516), Vector3(1.15, 0.62, 0.018), screen, root)
 
 func _build_lighting() -> void:
 	var world := WorldEnvironment.new()
