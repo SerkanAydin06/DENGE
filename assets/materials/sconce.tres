@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "sconce"
+albedo_color = Color(0.89020, 0.72941, 0.51373, 1)
+metallic = 0
+roughness = 0.38
+emission_enabled = true
+emission = Color(0.89020, 0.72941, 0.51373, 1)
+emission_energy_multiplier = 1.7
