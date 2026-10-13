@@ -4,6 +4,13 @@ extends Node3D
 const ROOM_RADIUS := 18.0
 const SEAT_RADIUS := 8.5
 const PLAYERS := 5
+const MOUSE_SENSITIVITY := 0.0025
+const MAX_YAW := 95.0
+const MAX_PITCH := 55.0
+
+var player_camera: Camera3D
+var view_yaw := 0.0
+var view_pitch := 0.0
 
 var concrete: StandardMaterial3D
 var dark_concrete: StandardMaterial3D
@@ -47,6 +54,19 @@ func cylinder(name_: String, at: Vector3, radius: float, height_: float, mat: Ma
 	n.position = at
 	(parent if parent != null else self).add_child(n)
 	return n
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		get_viewport().set_input_as_handled()
+	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		get_viewport().set_input_as_handled()
+	elif event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		view_yaw = clampf(view_yaw - event.relative.x * MOUSE_SENSITIVITY, deg_to_rad(-MAX_YAW), deg_to_rad(MAX_YAW))
+		view_pitch = clampf(view_pitch - event.relative.y * MOUSE_SENSITIVITY, deg_to_rad(-MAX_PITCH), deg_to_rad(MAX_PITCH))
+		if is_instance_valid(player_camera):
+			player_camera.rotation = Vector3(view_pitch, view_yaw, 0.0)
 
 func _ready() -> void:
 	concrete = material(Color("#464b51"))
@@ -159,3 +179,5 @@ func _build_camera() -> void:
 	cam.look_at(Vector3(0.0, 2.1, 0.0), Vector3.UP)
 	cam.fov = 75.0
 	cam.current = true
+	player_camera = cam
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
