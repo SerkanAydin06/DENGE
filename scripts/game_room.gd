@@ -151,14 +151,19 @@ func _build_seats() -> void:
 		for side in [-1.0, 1.0]:
 			box_part("Armrest_%s" % str(side), Vector3(side * 0.75, 1.02, 0.7), Vector3(0.17, 0.15, 1.05), leather, root)
 			box_part("ChairLeg_%s" % str(side), Vector3(side * 0.52, 0.34, 0.72), Vector3(0.14, 0.68, 0.14), metal, root)
-		# Ayri, kosesi belirgin sehpa.
-		box_part("PedestalBase", Vector3(0, 0.10, -1.4), Vector3(0.85, 0.13, 0.76), metal, root)
-		box_part("PedestalStem", Vector3(0, 0.65, -1.4), Vector3(0.20, 1.12, 0.19), metal, root)
-		box_part("RectangularTable", Vector3(0, 1.24, -1.4), Vector3(1.7, 0.15, 1.05), black, root)
-		# Oyuncuya bakan dik PC monitoru.
-		box_part("MonitorStand", Vector3(0, 1.40, -1.58), Vector3(0.12, 0.24, 0.12), metal, root)
-		box_part("MonitorBody", Vector3(0, 1.86, -1.58), Vector3(1.30, 0.77, 0.10), black, root)
-		box_part("MonitorScreen", Vector3(0, 1.86, -1.516), Vector3(1.15, 0.62, 0.018), screen, root)
+		# Oyuncunun hemen onundeki genis, kose hatli kontrol masasi.
+		box_part("DeskSupportLeft", Vector3(-0.83, 0.57, -0.75), Vector3(0.12, 1.12, 0.85), metal, root)
+		box_part("DeskSupportRight", Vector3(0.83, 0.57, -0.75), Vector3(0.12, 1.12, 0.85), metal, root)
+		box_part("DeskTop", Vector3(0, 1.12, -0.75), Vector3(2.15, 0.13, 1.65), black, root)
+		# Referanstaki gibi masaya gomulu, oyuncuya dogru yatirilmis ekran.
+		var console := Node3D.new()
+		console.name = "AngledTouchConsole"
+		console.position = Vector3(0, 1.28, -0.76)
+		console.rotation_degrees.x = -24.0
+		root.add_child(console)
+		box_part("TouchHousing", Vector3.ZERO, Vector3(1.75, 0.07, 1.13), metal, console)
+		box_part("TouchScreen", Vector3(0, 0.048, 0), Vector3(1.58, 0.02, 0.96), screen, console)
+		box_part("TouchEdge", Vector3(0, 0.07, 0.55), Vector3(1.7, 0.08, 0.05), black, console)
 
 func _build_lighting() -> void:
 	var world := WorldEnvironment.new()
