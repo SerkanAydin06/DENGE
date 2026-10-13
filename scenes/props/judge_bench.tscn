@@ -1,0 +1,72 @@
+[gd_scene load_steps=20 format=3]
+
+[ext_resource type="Material" path="res://assets/materials/concrete.tres" id="m_concrete"]
+[ext_resource type="Material" path="res://assets/materials/dark_concrete.tres" id="m_dark_concrete"]
+[ext_resource type="Material" path="res://assets/materials/polished_floor.tres" id="m_polished_floor"]
+[ext_resource type="Material" path="res://assets/materials/dark_metal.tres" id="m_dark_metal"]
+[ext_resource type="Material" path="res://assets/materials/metal.tres" id="m_metal"]
+[ext_resource type="Material" path="res://assets/materials/desk.tres" id="m_desk"]
+[ext_resource type="Material" path="res://assets/materials/leather.tres" id="m_leather"]
+[ext_resource type="Material" path="res://assets/materials/wood.tres" id="m_wood"]
+[ext_resource type="Material" path="res://assets/materials/screen.tres" id="m_screen"]
+[ext_resource type="Material" path="res://assets/materials/dome.tres" id="m_dome"]
+[ext_resource type="Material" path="res://assets/materials/dome_light.tres" id="m_dome_light"]
+[ext_resource type="Material" path="res://assets/materials/sconce.tres" id="m_sconce"]
+
+[sub_resource type="BoxMesh" id="b_DaisLower"]
+size = Vector3(4.4, 0.4, 2.7)
+
+[sub_resource type="BoxMesh" id="b_DaisUpper"]
+size = Vector3(3.8, 0.18, 2.25)
+
+[sub_resource type="BoxMesh" id="b_BenchFront"]
+size = Vector3(2.9, 0.98, 0.35)
+
+[sub_resource type="BoxMesh" id="b_BenchTop"]
+size = Vector3(3.1, 0.1, 0.7)
+
+[sub_resource type="BoxMesh" id="b_Seat"]
+size = Vector3(0.84, 0.17, 0.71)
+
+[sub_resource type="BoxMesh" id="b_TallBack"]
+size = Vector3(1.15, 2.35, 0.2)
+
+[sub_resource type="BoxMesh" id="b_Monolith"]
+size = Vector3(1.48, 5.8, 0.65)
+
+[node name="JudgeBench" type="Node3D" parent=""]
+
+[node name="DaisLower" type="MeshInstance3D" parent="."]
+mesh = SubResource("b_DaisLower")
+material_override = ExtResource("m_dark_concrete")
+position = Vector3(0, 0.2, 0.4)
+
+[node name="DaisUpper" type="MeshInstance3D" parent="."]
+mesh = SubResource("b_DaisUpper")
+material_override = ExtResource("m_concrete")
+position = Vector3(0, 0.48, 0.55)
+
+[node name="BenchFront" type="MeshInstance3D" parent="."]
+mesh = SubResource("b_BenchFront")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(0, 1.03, -0.25)
+
+[node name="BenchTop" type="MeshInstance3D" parent="."]
+mesh = SubResource("b_BenchTop")
+material_override = ExtResource("m_desk")
+position = Vector3(0, 1.53, -0.23)
+
+[node name="Seat" type="MeshInstance3D" parent="."]
+mesh = SubResource("b_Seat")
+material_override = ExtResource("m_leather")
+position = Vector3(0, 1.02, 0.52)
+
+[node name="TallBack" type="MeshInstance3D" parent="."]
+mesh = SubResource("b_TallBack")
+material_override = ExtResource("m_leather")
+position = Vector3(0, 2.3, 0.93)
+
+[node name="Monolith" type="MeshInstance3D" parent="."]
+mesh = SubResource("b_Monolith")
+material_override = ExtResource("m_concrete")
+position = Vector3(0, 3.8, 1.82)
