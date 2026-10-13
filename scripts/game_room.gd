@@ -151,9 +151,11 @@ func _build_lighting() -> void:
 
 func _build_camera() -> void:
 	var cam := Camera3D.new()
-	cam.name = "OverviewCamera"
-	cam.position = Vector3(0, 12.8, 21.5)
+	cam.name = "PlayerCamera"
+	# Seat 1 is positioned on +Z; the camera sits at seated eye height.
+	var eye := Vector3(0.0, 1.75, SEAT_RADIUS + 0.65)
+	cam.position = eye
 	add_child(cam)
-	cam.look_at(Vector3(0, 1.2, 0))
-	cam.fov = 65.0
+	cam.look_at(Vector3(0.0, 2.1, 0.0), Vector3.UP)
+	cam.fov = 75.0
 	cam.current = true
