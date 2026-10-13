@@ -15,7 +15,7 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 - Repository: SerkanAydin06/DENGE (default branch main).
 - Engine: Godot 4, GDScript; initial target: Windows, 1920×1080, GL Compatibility.
 - Game: original psychological number-selection strategy game inspired by a dramatic balance-game setting. Avoid copying trademarked art or branding.
-- Design locked (reference: wide courtroom-style round hall): dark concrete block walls, stepped dome with ring light strips, warm wall sconces, wooden gallery balustrade with arched seats around the hall; **stepped octagonal central platform** with **five angled desks forming a pentagon ring**, office chairs facing center; each desk has a **sloped touch screen for number entry** and an **upright result monitor visible only to that player**; host/judge bench with tall monolith opposite player 1; **exactly five balance scales, one directly behind each chair**, with one pan over the seated player's head (ready for tilt/pour animation). **No balance at the center or freestanding extra scales.**
+- Design locked (reference: wide courtroom-style round hall): dark concrete block walls, stepped dome with ring light strips, warm wall sconces, wooden gallery balustrade with arched seats around the hall; **stepped octagonal central platform** with **five angled desks forming a pentagon ring**, office chairs facing center; each desk has a **sloped touch screen for number entry** and an **upright result monitor visible only to that player**; **exactly five balance scales, one directly behind each chair**, with one pan over the seated player's head (ready for tilt/pour animation). **No balance at the center or freestanding extra scales; no judge bench.** A centered, scene-editable double entrance/exit door is cut through the rear wall and gallery; five player stations must remain equally spaced and at the same height. The room shell is enlarged separately from the player ring.
 - Camera: player 1's seated eye-level view toward center/host.
 - Core files: scenes/game_room.tscn, scenes/room_shell.tscn, scenes/center_platform.tscn, scenes/props/*.tscn, scenes/ui/number_terminal_ui.tscn, scripts/game_room.gd.
 - All architecture, furniture, individual screens, materials, camera and lighting must be **serialized and editable in Godot scenes**, not created procedurally from _ready(). Use packed scene instances and Inspector-friendly @export controls.
@@ -34,3 +34,7 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 - Node3D faces local -Z. All player stations must face center.
 - Generated room geometry should remain lightweight and work without external assets.
 - Avoid pretending procedural meshes are production-quality; first prioritize layout and correct camera.
+
+## Entrance and symmetry
+- Door scene: `scenes/props/entrance_door.tscn` (two hinged leaves, frame, centered aisle). Wall and gallery gap must remain open in `scenes/room_shell.tscn`.
+- Preserve the user's recent editor-authored transforms and UID metadata; change only what the request requires.
