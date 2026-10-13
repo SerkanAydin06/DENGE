@@ -2,17 +2,22 @@
 
 Godot 4 ile geliştirilen 3D psikolojik strateji oyunu.
 
-## Açılış
-1. Godot 4.3 veya üzerini açın.
-2. Bu depoyu indirin/klonlayın ve `project.godot` dosyasını içe aktarın.
-3. F6 veya F5 ile `GameRoom` sahnesini çalıştırın.
+## Godot'ta düzenlenebilir salon
 
-## Mevcut sürüm
-- Mahkeme salonu tarzında geniş dairesel salon: kubbe, galeri, hakim kürsüsü, terazi heykelleri
-- Beşgen düzende 5 açılı masa; her oyuncuya sayı girişi ekranı ve kendine özel sonuç monitörü
-- Oyuncu 1 bakış açısı, fare ile bakma, [E] ile sayı terminali
+Ana sahne: `scenes/game_room.tscn`
 
-## Grafik geliştirme
-Prosedürel parçalar yer tutucudur. `assets/models/<slot>.tscn` eklenince ilgili parça otomatik değişir
-(slotlar: player_chair, player_desk, touch_console, result_monitor, host_bench, gallery_section).
-`assets/materials/<ad>.tres` ile malzemeler değiştirilebilir (adlar: `scripts/room_materials.gd`).
+Tüm salon artık Godot sahnelerinde kaydedilmiş gerçek düğümlerden oluşur; çalışma anında dekor üretimi **yoktur**.
+
+- `scenes/room_shell.tscn` — geniş salon, beton döşemeler, 44 duvar paneli, galeri, kubbe, ışık halkaları ve aplikler
+- `scenes/center_platform.tscn` — yükseltilmiş basamaklı platform ve ortadaki terazi
+- `scenes/props/player_station.tscn` — deri koltuk, açılı masa, yatık dokunmatik ekran, sonuç monitörü
+- `scenes/props/balance_scale.tscn` — büyük terazi heykeli (eğim ayarı Inspector'dan)
+- `scenes/props/judge_bench.tscn` — hâkim kürsüsü
+- `scenes/ui/number_terminal_ui.tscn` — 0–100 sayı düğmeleri ve kilitleme
+- `assets/materials/*.tres` — bütün malzemeler, renkler ve parlaklıklar
+
+**Düzenleme:** Godot'ta ana sahneyi açın. İç içe PackedScene örneklerinin parçalarını düzenlemek için ilgili `.tscn` dosyasını açın veya *Editable Children* kullanın. Koltukların yerini ana sahnede değiştirin, duvar/kubbe parçalarını RoomShell sahnesinde, malzemeleri .tres dosyalarında ayarlayın.
+
+**Kontrol:** Fare ile bak; `E` ile koltuğun önündeki sayı terminalini aç; 0–100 arasında sayı seçip kilitle; `Esc` ile kapat.
+
+**Durum:** Bu sahneler yerleşim ve ışıklandırma açısından düzenlenebilir bir 3D prototiptir; filmin hazır 3D varlıklarının birebir kopyası değildir. Terminal seçimi hâlen 2D katman olarak açılır; fiziksel 3D ekran üzerinden doğrudan tıklama sonraki aşamadır.
