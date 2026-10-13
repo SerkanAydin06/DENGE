@@ -7,10 +7,12 @@ Godot 4 ile geliştirilen 3D psikolojik strateji oyunu.
 2. Bu depoyu indirin/klonlayın ve `project.godot` dosyasını içe aktarın.
 3. F6 veya F5 ile `GameRoom` sahnesini çalıştırın.
 
-## İlk sürüm
-- Beş oyuncu koltuğu ve sayı terminalleri
-- Karanlık dairesel salon, sütunlar, merkezde terazi
-- Ortam ışığı ve sabit kamera
-- Harici model gerektirmeyen temel 3D prototip
+## Mevcut sürüm
+- Mahkeme salonu tarzında geniş dairesel salon: kubbe, galeri, hakim kürsüsü, terazi heykelleri
+- Beşgen düzende 5 açılı masa; her oyuncuya sayı girişi ekranı ve kendine özel sonuç monitörü
+- Oyuncu 1 bakış açısı, fare ile bakma, [E] ile sayı terminali
 
-Sonraki adım: Salonun görsel tasarımını değerlendirmek ve detaylandırmak.
+## Grafik geliştirme
+Prosedürel parçalar yer tutucudur. `assets/models/<slot>.tscn` eklenince ilgili parça otomatik değişir
+(slotlar: player_chair, player_desk, touch_console, result_monitor, host_bench, gallery_section).
+`assets/materials/<ad>.tres` ile malzemeler değiştirilebilir (adlar: `scripts/room_materials.gd`).
