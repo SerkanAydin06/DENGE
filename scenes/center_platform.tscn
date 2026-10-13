@@ -37,9 +37,9 @@ position = Vector3(0, 0.375, 0)
 
 [node name="PlatformTop" type="MeshInstance3D" parent="."]
 mesh = SubResource("SurfaceMesh")
-material_override = ExtResource("3_metal")
+material_override = ExtResource("1_concrete")
 position = Vector3(0, 0.57, 0)
 
 [node name="CenterScale" parent="." instance=ExtResource("4_scale")]
 position = Vector3(0, 0.61, 0)
-scale = Vector3(0.45, 0.45, 0.45)
+scale = Vector3(0.78, 0.78, 0.78)
