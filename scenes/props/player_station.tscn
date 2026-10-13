@@ -1,6 +1,8 @@
-[gd_scene load_steps=26 format=3]
+[gd_scene load_steps=28 format=3]
 
 [ext_resource type="Script" path="res://scripts/player_station.gd" id="1_script"]
+[ext_resource type="Mesh" path="res://assets/models/angled_desk_top.obj" id="mesh_top"]
+[ext_resource type="Mesh" path="res://assets/models/angled_desk_body.obj" id="mesh_body"]
 [ext_resource type="Material" path="res://assets/materials/concrete.tres" id="m_concrete"]
 [ext_resource type="Material" path="res://assets/materials/dark_concrete.tres" id="m_dark_concrete"]
 [ext_resource type="Material" path="res://assets/materials/polished_floor.tres" id="m_polished_floor"]
@@ -100,21 +102,15 @@ position = Vector3(0.29, 0.05, 0.14)
 
 [node name="Desk" type="Node3D" parent="."]
 
-[node name="DeskTop" type="CSGPolygon3D" parent="Desk"]
-position = Vector3(0, 0.87, -0.89)
-rotation_degrees = Vector3(90, 0, 0)
-mode = 1
-depth = 0.1
-polygon = PackedVector2Array(-1.05, -0.64, 1.05, -0.64, 0.75, 0.66, -0.75, 0.66)
-material = ExtResource("m_desk")
+[node name="DeskTop" type="MeshInstance3D" parent="Desk"]
+mesh = ExtResource("mesh_top")
+material_override = ExtResource("m_desk")
+position = Vector3(0, 0.84, -0.86)
 
-[node name="DeskBody" type="CSGPolygon3D" parent="Desk"]
-position = Vector3(0, 0.76, -0.88)
-rotation_degrees = Vector3(90, 0, 0)
-mode = 1
-depth = 0.64
-polygon = PackedVector2Array(-0.82, -0.51, 0.82, -0.51, 0.58, 0.52, -0.58, 0.52)
-material = ExtResource("m_dark_metal")
+[node name="DeskBody" type="MeshInstance3D" parent="Desk"]
+mesh = ExtResource("mesh_body")
+material_override = ExtResource("m_dark_metal")
+position = Vector3(0, 0.78, -0.86)
 
 [node name="TouchConsole" type="Node3D" parent="Desk"]
 position = Vector3(0, 1.02, -0.63)
