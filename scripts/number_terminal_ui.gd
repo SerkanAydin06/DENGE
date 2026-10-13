@@ -63,7 +63,7 @@ func _choose(number: int) -> void:
 	lock_button.text = "%d SAYISINI KILITLE" % chosen
 	for i in range(number_buttons.size()):
 		number_buttons[i].button_pressed = false
-	number_buttons[i].modulate = Color("#9ad8e3") if i == number else Color.WHITE
+		number_buttons[i].modulate = Color("#9ad8e3") if i == number else Color.WHITE
 
 func _lock() -> void:
 	if locked or chosen < 0:
