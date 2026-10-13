@@ -26,27 +26,27 @@ script = ExtResource("1_script")
 position = Vector3(0, 0.6, 0)
 
 [node name="PlayerStation_1" parent="Arena" instance=ExtResource("4_station")]
-position = Vector3(0, 0, 2.95)
+position = Vector3(0, 0, 4.25)
 rotation_degrees = Vector3(0, 0, 0)
 player_number = 1
 
 [node name="PlayerStation_2" parent="Arena" instance=ExtResource("4_station")]
-position = Vector3(2.80562, 0, 0.9116)
+position = Vector3(4.04199, 0, 1.31332)
 rotation_degrees = Vector3(0, 72, 0)
 player_number = 2
 
 [node name="PlayerStation_3" parent="Arena" instance=ExtResource("4_station")]
-position = Vector3(1.73397, 0, -2.3866)
+position = Vector3(2.49809, 0, -3.43832)
 rotation_degrees = Vector3(0, 144, 0)
 player_number = 3
 
 [node name="PlayerStation_4" parent="Arena" instance=ExtResource("4_station")]
-position = Vector3(-1.73397, 0, -2.3866)
+position = Vector3(-2.49809, 0, -3.43832)
 rotation_degrees = Vector3(0, 216, 0)
 player_number = 4
 
 [node name="PlayerStation_5" parent="Arena" instance=ExtResource("4_station")]
-position = Vector3(-2.80562, 0, 0.9116)
+position = Vector3(-4.04199, 0, 1.31332)
 rotation_degrees = Vector3(0, 288, 0)
 player_number = 5
 
@@ -101,7 +101,7 @@ light_energy = 0.85
 omni_range = 9.0
 
 [node name="PlayerCamera" type="Camera3D" parent="."]
-position = Vector3(0, 1.83, 2.95)
+position = Vector3(0, 1.83, 4.25)
 current = true
 fov = 77.0
 
