@@ -8,6 +8,9 @@
 [ext_resource type="Material" path="res://assets/materials/leather.tres" id="m_leather"]
 [ext_resource type="Material" path="res://assets/materials/metal.tres" id="m_metal"]
 [ext_resource type="Material" path="res://assets/materials/screen.tres" id="m_screen"]
+[ext_resource type="Material" path="res://assets/materials/monitor_glass.tres" id="m_monitor_glass"]
+[ext_resource type="Material" path="res://assets/materials/monitor_cyan.tres" id="m_monitor_cyan"]
+[ext_resource type="Material" path="res://assets/materials/tablet_selection.tres" id="m_tablet_select"]
 [ext_resource type="PackedScene" uid="uid://bha7yuu3layx0" path="res://scenes/props/balance_scale.tscn" id="rear_balance_scale"]
 
 [sub_resource type="BoxMesh" id="b_Seat"]
@@ -35,25 +38,37 @@ size = Vector3(0.58, 0.06, 0.1)
 size = Vector3(0.58, 0.06, 0.1)
 
 [sub_resource type="BoxMesh" id="b_ConsoleHousing"]
-size = Vector3(0.84, 0.44, 0.07)
+size = Vector3(1.68, 1.02, 0.07)
 
 [sub_resource type="BoxMesh" id="b_ConsoleGlass"]
-size = Vector3(0.74, 0.36, 0.018)
+size = Vector3(1.59, 0.94, 0.018)
 
 [sub_resource type="BoxMesh" id="b_ResultBase"]
-size = Vector3(0.8, 0.16, 0.65)
+size = Vector3(0.92, 0.13, 0.75)
 
 [sub_resource type="BoxMesh" id="b_ResultColumn"]
-size = Vector3(0.14, 1.12, 0.15)
+size = Vector3(0.18, 1.45, 0.17)
+
+[sub_resource type="BoxMesh" id="b_TabletHighlight"]
+size = Vector3(0.119, 0.048, 0.007)
+
+[sub_resource type="BoxMesh" id="b_MonitorTopAccent"]
+size = Vector3(2.34, 0.017, 0.014)
+
+[sub_resource type="BoxMesh" id="b_MonitorSideAccent"]
+size = Vector3(0.017, 1.23, 0.014)
+
+[sub_resource type="BoxMesh" id="b_MonitorDivider"]
+size = Vector3(2.17, 0.009, 0.014)
 
 [sub_resource type="BoxMesh" id="b_MonitorBezel"]
-size = Vector3(1.2, 0.66, 0.08)
+size = Vector3(2.55, 1.49, 0.10)
 
 [sub_resource type="BoxMesh" id="b_MonitorSweep"]
-size = Vector3(1.05, 0.012, 0.012)
+size = Vector3(2.3, 0.015, 0.012)
 
 [sub_resource type="BoxMesh" id="b_MonitorGlass"]
-size = Vector3(1.08, 0.54, 0.012)
+size = Vector3(2.40, 1.33, 0.015)
 
 [node name="PlayerStation" type="Node3D" unique_id=676832732]
 script = ExtResource("1_script")
@@ -122,7 +137,7 @@ material_override = ExtResource("m_dark_metal")
 mesh = ExtResource("mesh_body")
 
 [node name="TouchConsole" type="Node3D" parent="Desk" unique_id=905380867]
-transform = Transform3D(1, 0, 0, 0, 0.2419219, 0.9702957, 0, -0.9702957, 0.2419219, 0, 0.98, -0.52)
+transform = Transform3D(1, 0, 0, 0, 0.2419219, 0.9702957, 0, -0.9702957, 0.2419219, 0, 1.14, -0.8)
 
 [node name="ConsoleHousing" type="MeshInstance3D" parent="Desk/TouchConsole" unique_id=1554543729]
 material_override = ExtResource("m_dark_metal")
@@ -134,108 +149,751 @@ material_override = ExtResource("m_screen")
 mesh = SubResource("b_ConsoleGlass")
 
 [node name="TouchTitle" type="Label3D" parent="Desk/TouchConsole" unique_id=646914455]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185, 0.075)
-pixel_size = 0.0018
+position = Vector3(0, 0.415, 0.094)
+pixel_size = 0.00135
 modulate = Color(0.81, 0.94, 0.95, 1)
 text = "DENGE"
 font_size = 38
 
 [node name="TouchBody" type="Label3D" parent="Desk/TouchConsole" unique_id=1255923686]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.119, 0.075)
-pixel_size = 0.002
+position = Vector3(0, 0.333, 0.094)
+pixel_size = 0.0014
 modulate = Color(0.81, 0.94, 0.95, 1)
 text = "0 - 100"
 font_size = 38
 
 
-[node name="Keys" type="Node3D" parent="Desk/TouchConsole"]
+[node name="NumberGrid" type="Node3D" parent="Desk/TouchConsole"]
 
-[node name="Key_00" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(-0.255, 0.045, 0.079)
-text = "1"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
-
-[node name="Key_01" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(0, 0.045, 0.079)
-text = "2"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
-
-[node name="Key_02" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(0.255, 0.045, 0.079)
-text = "3"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
-
-[node name="Key_03" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(-0.255, -0.025, 0.079)
-text = "4"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
-
-[node name="Key_04" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(0, -0.025, 0.079)
-text = "5"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
-
-[node name="Key_05" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(0.255, -0.025, 0.079)
-text = "6"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
-
-[node name="Key_06" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(-0.255, -0.095, 0.079)
-text = "7"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
-
-[node name="Key_07" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(0, -0.095, 0.079)
-text = "8"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
-
-[node name="Key_08" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(0.255, -0.095, 0.079)
-text = "9"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
-
-[node name="Key_09" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(-0.255, -0.165, 0.079)
-text = "SIL"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
-
-[node name="Key_10" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(0, -0.165, 0.079)
+[node name="Number_000" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.63, 0.22, 0.094)
 text = "0"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
 
-[node name="Key_11" type="Label3D" parent="Desk/TouchConsole/Keys"]
-position = Vector3(0.255, -0.165, 0.079)
-text = "OK"
-font_size = 44
-pixel_size = 0.0016
-modulate = Color(0.74, 0.94, 1, 1)
+[node name="Number_001" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.49, 0.22, 0.094)
+text = "1"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_002" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.35, 0.22, 0.094)
+text = "2"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_003" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.21, 0.22, 0.094)
+text = "3"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_004" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.07, 0.22, 0.094)
+text = "4"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_005" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.07, 0.22, 0.094)
+text = "5"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_006" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.21, 0.22, 0.094)
+text = "6"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_007" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.35, 0.22, 0.094)
+text = "7"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_008" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.49, 0.22, 0.094)
+text = "8"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_009" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.63, 0.22, 0.094)
+text = "9"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_010" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.63, 0.164, 0.094)
+text = "10"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_011" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.49, 0.164, 0.094)
+text = "11"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_012" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.35, 0.164, 0.094)
+text = "12"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_013" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.21, 0.164, 0.094)
+text = "13"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_014" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.07, 0.164, 0.094)
+text = "14"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_015" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.07, 0.164, 0.094)
+text = "15"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_016" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.21, 0.164, 0.094)
+text = "16"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_017" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.35, 0.164, 0.094)
+text = "17"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_018" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.49, 0.164, 0.094)
+text = "18"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_019" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.63, 0.164, 0.094)
+text = "19"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_020" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.63, 0.108, 0.094)
+text = "20"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_021" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.49, 0.108, 0.094)
+text = "21"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_022" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.35, 0.108, 0.094)
+text = "22"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_023" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.21, 0.108, 0.094)
+text = "23"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_024" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.07, 0.108, 0.094)
+text = "24"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_025" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.07, 0.108, 0.094)
+text = "25"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_026" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.21, 0.108, 0.094)
+text = "26"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_027" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.35, 0.108, 0.094)
+text = "27"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_028" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.49, 0.108, 0.094)
+text = "28"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_029" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.63, 0.108, 0.094)
+text = "29"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_030" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.63, 0.052, 0.094)
+text = "30"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_031" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.49, 0.052, 0.094)
+text = "31"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_032" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.35, 0.052, 0.094)
+text = "32"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_033" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.21, 0.052, 0.094)
+text = "33"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_034" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.07, 0.052, 0.094)
+text = "34"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_035" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.07, 0.052, 0.094)
+text = "35"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_036" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.21, 0.052, 0.094)
+text = "36"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_037" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.35, 0.052, 0.094)
+text = "37"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_038" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.49, 0.052, 0.094)
+text = "38"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_039" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.63, 0.052, 0.094)
+text = "39"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_040" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.63, -0.004, 0.094)
+text = "40"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_041" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.49, -0.004, 0.094)
+text = "41"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_042" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.35, -0.004, 0.094)
+text = "42"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_043" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.21, -0.004, 0.094)
+text = "43"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_044" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.07, -0.004, 0.094)
+text = "44"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_045" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.07, -0.004, 0.094)
+text = "45"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_046" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.21, -0.004, 0.094)
+text = "46"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_047" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.35, -0.004, 0.094)
+text = "47"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_048" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.49, -0.004, 0.094)
+text = "48"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_049" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.63, -0.004, 0.094)
+text = "49"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_050" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.63, -0.06, 0.094)
+text = "50"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_051" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.49, -0.06, 0.094)
+text = "51"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_052" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.35, -0.06, 0.094)
+text = "52"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_053" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.21, -0.06, 0.094)
+text = "53"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_054" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.07, -0.06, 0.094)
+text = "54"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_055" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.07, -0.06, 0.094)
+text = "55"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_056" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.21, -0.06, 0.094)
+text = "56"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_057" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.35, -0.06, 0.094)
+text = "57"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_058" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.49, -0.06, 0.094)
+text = "58"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_059" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.63, -0.06, 0.094)
+text = "59"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_060" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.63, -0.116, 0.094)
+text = "60"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_061" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.49, -0.116, 0.094)
+text = "61"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_062" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.35, -0.116, 0.094)
+text = "62"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_063" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.21, -0.116, 0.094)
+text = "63"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_064" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.07, -0.116, 0.094)
+text = "64"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_065" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.07, -0.116, 0.094)
+text = "65"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_066" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.21, -0.116, 0.094)
+text = "66"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_067" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.35, -0.116, 0.094)
+text = "67"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_068" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.49, -0.116, 0.094)
+text = "68"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_069" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.63, -0.116, 0.094)
+text = "69"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_070" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.63, -0.172, 0.094)
+text = "70"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_071" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.49, -0.172, 0.094)
+text = "71"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_072" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.35, -0.172, 0.094)
+text = "72"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_073" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.21, -0.172, 0.094)
+text = "73"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_074" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.07, -0.172, 0.094)
+text = "74"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_075" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.07, -0.172, 0.094)
+text = "75"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_076" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.21, -0.172, 0.094)
+text = "76"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_077" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.35, -0.172, 0.094)
+text = "77"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_078" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.49, -0.172, 0.094)
+text = "78"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_079" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.63, -0.172, 0.094)
+text = "79"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_080" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.63, -0.228, 0.094)
+text = "80"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_081" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.49, -0.228, 0.094)
+text = "81"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_082" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.35, -0.228, 0.094)
+text = "82"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_083" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.21, -0.228, 0.094)
+text = "83"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_084" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.07, -0.228, 0.094)
+text = "84"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_085" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.07, -0.228, 0.094)
+text = "85"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_086" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.21, -0.228, 0.094)
+text = "86"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_087" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.35, -0.228, 0.094)
+text = "87"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_088" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.49, -0.228, 0.094)
+text = "88"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_089" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.63, -0.228, 0.094)
+text = "89"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_090" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.63, -0.284, 0.094)
+text = "90"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_091" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.49, -0.284, 0.094)
+text = "91"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_092" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.35, -0.284, 0.094)
+text = "92"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_093" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.21, -0.284, 0.094)
+text = "93"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_094" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(-0.07, -0.284, 0.094)
+text = "94"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_095" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.07, -0.284, 0.094)
+text = "95"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_096" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.21, -0.284, 0.094)
+text = "96"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_097" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.35, -0.284, 0.094)
+text = "97"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_098" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.49, -0.284, 0.094)
+text = "98"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_099" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0.63, -0.284, 0.094)
+text = "99"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="Number_100" type="Label3D" parent="Desk/TouchConsole/NumberGrid"]
+position = Vector3(0, -0.34, 0.094)
+text = "100"
+font_size = 33
+pixel_size = 0.00120
+modulate = Color(0.72, 0.91, 0.99, 1)
+
+[node name="ChoiceHighlight" type="MeshInstance3D" parent="Desk/TouchConsole"]
+visible = false
+position = Vector3(0, 0, 0.077)
+mesh = SubResource("b_TabletHighlight")
+material_override = ExtResource("m_tablet_select")
+
+[node name="ClearChoice" type="Label3D" parent="Desk/TouchConsole"]
+position = Vector3(-0.56, -0.435, 0.094)
+text = "TEMIZLE"
+font_size = 36
+pixel_size = 0.00125
+modulate = Color(0.94, 0.76, 0.69, 1)
+
+[node name="ConfirmChoice" type="Label3D" parent="Desk/TouchConsole"]
+position = Vector3(0.56, -0.435, 0.094)
+text = "ONAY"
+font_size = 40
+pixel_size = 0.0013
+modulate = Color(0.43, 1, 0.9, 1)
 
 [node name="ResultDisplay" type="Node3D" parent="." unique_id=971122121]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.9)
 
 [node name="FloorBase" type="MeshInstance3D" parent="ResultDisplay" unique_id=1197788275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09, 0)
@@ -243,12 +901,12 @@ material_override = ExtResource("m_dark_metal")
 mesh = SubResource("b_ResultBase")
 
 [node name="FloorColumn" type="MeshInstance3D" parent="ResultDisplay" unique_id=1218396416]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.58, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 material_override = ExtResource("m_metal")
 mesh = SubResource("b_ResultColumn")
 
 [node name="ResultMonitor" type="Node3D" parent="ResultDisplay" unique_id=1235211843]
-transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 1.23, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 1.58, 0)
 
 [node name="MonitorBezel" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor" unique_id=401473221]
 material_override = ExtResource("m_dark_metal")
@@ -256,39 +914,67 @@ mesh = SubResource("b_MonitorBezel")
 
 [node name="MonitorGlass" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor" unique_id=2128162766]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.044)
-material_override = ExtResource("m_screen")
+material_override = ExtResource("m_monitor_glass")
 mesh = SubResource("b_MonitorGlass")
 
+[node name="FrameTopLight" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
+position = Vector3(0, 0.667, 0.068)
+mesh = SubResource("b_MonitorTopAccent")
+material_override = ExtResource("m_monitor_cyan")
+
+[node name="FrameBottomLight" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
+position = Vector3(0, -0.667, 0.068)
+mesh = SubResource("b_MonitorTopAccent")
+material_override = ExtResource("m_monitor_cyan")
+
+[node name="FrameLeftLight" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
+position = Vector3(-1.182, 0, 0.068)
+mesh = SubResource("b_MonitorSideAccent")
+material_override = ExtResource("m_monitor_cyan")
+
+[node name="FrameRightLight" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
+position = Vector3(1.182, 0, 0.068)
+mesh = SubResource("b_MonitorSideAccent")
+material_override = ExtResource("m_monitor_cyan")
+
+[node name="HeadingDivider" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
+position = Vector3(0, 0.37, 0.070)
+mesh = SubResource("b_MonitorDivider")
+material_override = ExtResource("m_monitor_cyan")
+
+[node name="FooterDivider" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
+position = Vector3(0, -0.49, 0.070)
+mesh = SubResource("b_MonitorDivider")
+material_override = ExtResource("m_monitor_cyan")
+
 [node name="ResultTitle" type="Label3D" parent="ResultDisplay/ResultMonitor" unique_id=1341817703]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.245, 0.068)
-pixel_size = 0.0018
-modulate = Color(0.88, 0.93, 0.95, 1)
-text = "DENGE"
-font_size = 34
+position = Vector3(0, 0.52, 0.082)
+pixel_size = 0.00225
+font_size = 70
+modulate = Color(0.55, 0.90, 1, 1)
 
 [node name="ResultBody" type="Label3D" parent="ResultDisplay/ResultMonitor" unique_id=1644202936]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138, 0.068)
-pixel_size = 0.0017
-modulate = Color(0.88, 0.93, 0.95, 1)
-text = "BEKLENIYOR"
-font_size = 34
+position = Vector3(0, 0.225, 0.082)
+pixel_size = 0.00265
+font_size = 110
+modulate = Color(0.95, 0.98, 1, 1)
 
 [node name="ResultDetails" type="Label3D" parent="ResultDisplay/ResultMonitor"]
-position = Vector3(0, -0.026, 0.068)
+position = Vector3(0, -0.13, 0.082)
 text = "HEDEF = ORTALAMA x 0.8"
-font_size = 28
-pixel_size = 0.00145
-line_spacing = 1.3
-modulate = Color(0.8, 0.92, 1, 1)
+font_size = 56
+pixel_size = 0.00185
+line_spacing = 1.4
+modulate = Color(0.76, 0.9, 1, 1)
 
 [node name="ResultFooter" type="Label3D" parent="ResultDisplay/ResultMonitor"]
-position = Vector3(0, -0.25, 0.068)
+position = Vector3(0, -0.605, 0.082)
 text = "E: TABLETI AC"
-font_size = 26
-pixel_size = 0.00155
-modulate = Color(0.6, 0.95, 0.96, 1)
+font_size = 48
+pixel_size = 0.00175
+modulate = Color(0.39, 0.94, 0.98, 1)
 
 [node name="MonitorSweep" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
-position = Vector3(0, 0.25, 0.062)
+position = Vector3(0, 0.60, 0.073)
 mesh = SubResource("b_MonitorSweep")
-material_override = ExtResource("m_metal")
+material_override = ExtResource("m_monitor_cyan")
