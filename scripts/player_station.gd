@@ -154,6 +154,16 @@ func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [],
 		if phase == "STANDBY":
 			standby_title.text = "DENGE"
 			standby_title.modulate.a = 1.0
+		# Clear the previous round's calculation, target and portrait state.
+		average_frame.visible = false
+		calculation_panel.visible = false
+		target_panel.visible = false
+		for i in range(player_readouts.size()):
+			var portrait: Node3D = blueprint.get_node("Players/Portrait_%d" % (i + 1)) as Node3D
+			for child_name in ["PortraitPanel", "Head", "Torso"]:
+				(portrait.get_node(child_name) as Node3D).visible = false
+			for child_name in ["WinnerBorder_%d", "WinLabel_%d", "Score_%d", "PointsOverlay_%d"]:
+				(portrait.get_node(child_name % (i + 1)) as Node3D).visible = false
 		return
 	## REVEAL -> AVERAGE -> MULTIPLY -> CALCULATED -> PHOTO -> WIN -> SCORE.
 	var calculation_visible: bool = phase == "AVERAGE" or phase == "MULTIPLY" or phase == "CALCULATED"
