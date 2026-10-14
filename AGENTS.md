@@ -15,11 +15,11 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 - Repository: SerkanAydin06/DENGE (default branch main).
 - Engine: Godot 4, GDScript; initial target: Windows, 1920×1080, GL Compatibility.
 - Game: original psychological number-selection strategy game inspired by a dramatic balance-game setting. Avoid copying trademarked art or branding.
-- Design locked (reference: wide courtroom-style round hall): dark concrete block walls, stepped dome with ring light strips, warm wall sconces, wooden gallery balustrade with arched seats around the hall; **three-tier regular pentagonal central platform** (five segments per tier, aligned to the five 72-degree-spaced inward-facing player stations) with **five angled desks forming a pentagon ring**, office chairs facing center; each desk has a **sloped touch screen for number entry** and an **upright result monitor visible only to that player**; **exactly five balance scales, one directly behind each chair**, with one pan over the seated player's head (ready for tilt/pour animation). **No balance at the center or freestanding extra scales; no judge bench.** A centered, scene-editable double entrance/exit door is cut through the rear wall and gallery; five player stations must remain equally spaced and at the same height. The room shell is enlarged separately from the player ring.
+- Design locked (reference: wide courtroom-style round hall): dark concrete block walls, stepped dome with ring light strips, warm wall sconces, wooden gallery balustrade with arched seats around the hall; **three-tier regular pentagonal central platform** (five segments per tier, aligned to the five 72-degree-spaced inward-facing player stations) with **five angled desks forming a pentagon ring**, office chairs facing center; each desk has an **in-world ray-clickable number-only tablet (12 physical keys)** and a separate **animated 3D results monitor** (reveal, calculations, winners and scores, all five synced); **exactly five balance scales, one directly behind each chair**, with one pan over the seated player's head (ready for tilt/pour animation). **No balance at the center or freestanding extra scales; no judge bench.** A centered, scene-editable double entrance/exit door is cut through the rear wall and gallery; five player stations must remain equally spaced and at the same height. The room shell is enlarged separately from the player ring.
 - Camera: player 1's seated eye-level view toward center/host.
 - Core files: scenes/game_room.tscn, scenes/room_shell.tscn, scenes/center_platform.tscn, scenes/props/*.tscn, scenes/ui/number_terminal_ui.tscn, scripts/game_room.gd.
 - All architecture, furniture, individual screens, materials, camera and lighting must be **serialized and editable in Godot scenes**, not created procedurally from _ready(). Use packed scene instances and Inspector-friendly @export controls.
-- Current priority: refine/test the 3D room. Do not add gameplay, networking, menus or new dependencies without request.
+- Current priority: in-world cinematic display polish and 3D room QA. Do not add networking, menus or new dependencies without request.
 
 ## Workflow
 1. Check relevant existing source and Git status; identify smallest correct change.
@@ -38,3 +38,9 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 ## Entrance and symmetry
 - Door scene: `scenes/props/entrance_door.tscn` (two hinged leaves, frame, centered aisle). Wall and gallery gap must remain open in `scenes/room_shell.tscn`.
 - Preserve the user's recent editor-authored transforms and UID metadata; change only what the request requires.
+
+## Screen architecture (user-locked)
+- No fullscreen number selection UI or fullscreen results UI in `scenes/game_room.tscn`; do not reconnect the legacy `number_terminal_ui.tscn` or `round_results_ui.tscn` overlay scenes.
+- `scripts/player_station.gd` manages scene-authored 3D keypad (`Keys/Key_00..11`) and 3D monitor labels/sweep. `scripts/game_room.gd` maps camera rays to the physical tablet and drives phased monitor reveals.
+- All instructions, calculations, results and game animations are displayed **on the freestanding 3D monitor, never on the tablet or an overlaid popup**. Tablet is exclusively for 0–100 entry and lock indication.
+- E starts tablet interaction when looking at it, mouse clicks or keyboard digits enter numbers, Enter/OK locks, Esc leaves. After results finish, E proceeds to next round.
