@@ -439,6 +439,12 @@ position = Vector3(0, -0.071, 0.088)
 mesh = SubResource("SilhouetteTorso")
 material_override = SubResource("PortraitFace")
 
+[node name="PortraitImage" type="Sprite3D" parent="Players/Portrait_1"]
+visible = false
+position = Vector3(0, 0, 0.116)
+pixel_size = 0.000615
+shaded = false
+
 [node name="NumberTile" type="MeshInstance3D" parent="Players/Portrait_1"]
 position = Vector3(0, -0.33, 0.077)
 mesh = SubResource("NumberMesh")
@@ -466,6 +472,14 @@ outline_modulate = Color(0.25, 0.03, 0.03, 1)
 
 [node name="WinnerBorder_1" type="Node3D" parent="Players/Portrait_1"]
 visible = false
+
+[node name="FrameImage" type="Sprite3D" parent="Players/Portrait_1/WinnerBorder_1"]
+visible = false
+position = Vector3(0, -0.131, 0.134)
+pixel_size = 0.00099
+scale = Vector3(0.95, 1.15, 1)
+shaded = false
+
 
 [node name="Top" type="MeshInstance3D" parent="Players/Portrait_1/WinnerBorder_1"]
 position = Vector3(0, 0.155, 0.105)
@@ -510,6 +524,12 @@ position = Vector3(0, -0.071, 0.088)
 mesh = SubResource("SilhouetteTorso")
 material_override = SubResource("PortraitFace")
 
+[node name="PortraitImage" type="Sprite3D" parent="Players/Portrait_2"]
+visible = false
+position = Vector3(0, 0, 0.116)
+pixel_size = 0.000615
+shaded = false
+
 [node name="NumberTile" type="MeshInstance3D" parent="Players/Portrait_2"]
 position = Vector3(0, -0.33, 0.077)
 mesh = SubResource("NumberMesh")
@@ -537,6 +557,14 @@ outline_modulate = Color(0.25, 0.03, 0.03, 1)
 
 [node name="WinnerBorder_2" type="Node3D" parent="Players/Portrait_2"]
 visible = false
+
+[node name="FrameImage" type="Sprite3D" parent="Players/Portrait_2/WinnerBorder_2"]
+visible = false
+position = Vector3(0, -0.131, 0.134)
+pixel_size = 0.00099
+scale = Vector3(0.95, 1.15, 1)
+shaded = false
+
 
 [node name="Top" type="MeshInstance3D" parent="Players/Portrait_2/WinnerBorder_2"]
 position = Vector3(0, 0.155, 0.105)
@@ -581,6 +609,12 @@ position = Vector3(0, -0.071, 0.088)
 mesh = SubResource("SilhouetteTorso")
 material_override = SubResource("PortraitFace")
 
+[node name="PortraitImage" type="Sprite3D" parent="Players/Portrait_3"]
+visible = false
+position = Vector3(0, 0, 0.116)
+pixel_size = 0.000615
+shaded = false
+
 [node name="NumberTile" type="MeshInstance3D" parent="Players/Portrait_3"]
 position = Vector3(0, -0.33, 0.077)
 mesh = SubResource("NumberMesh")
@@ -608,6 +642,14 @@ outline_modulate = Color(0.25, 0.03, 0.03, 1)
 
 [node name="WinnerBorder_3" type="Node3D" parent="Players/Portrait_3"]
 visible = false
+
+[node name="FrameImage" type="Sprite3D" parent="Players/Portrait_3/WinnerBorder_3"]
+visible = false
+position = Vector3(0, -0.131, 0.134)
+pixel_size = 0.00099
+scale = Vector3(0.95, 1.15, 1)
+shaded = false
+
 
 [node name="Top" type="MeshInstance3D" parent="Players/Portrait_3/WinnerBorder_3"]
 position = Vector3(0, 0.155, 0.105)
@@ -652,6 +694,12 @@ position = Vector3(0, -0.071, 0.088)
 mesh = SubResource("SilhouetteTorso")
 material_override = SubResource("PortraitFace")
 
+[node name="PortraitImage" type="Sprite3D" parent="Players/Portrait_4"]
+visible = false
+position = Vector3(0, 0, 0.116)
+pixel_size = 0.000615
+shaded = false
+
 [node name="NumberTile" type="MeshInstance3D" parent="Players/Portrait_4"]
 position = Vector3(0, -0.33, 0.077)
 mesh = SubResource("NumberMesh")
@@ -679,6 +727,14 @@ outline_modulate = Color(0.25, 0.03, 0.03, 1)
 
 [node name="WinnerBorder_4" type="Node3D" parent="Players/Portrait_4"]
 visible = false
+
+[node name="FrameImage" type="Sprite3D" parent="Players/Portrait_4/WinnerBorder_4"]
+visible = false
+position = Vector3(0, -0.131, 0.134)
+pixel_size = 0.00099
+scale = Vector3(0.95, 1.15, 1)
+shaded = false
+
 
 [node name="Top" type="MeshInstance3D" parent="Players/Portrait_4/WinnerBorder_4"]
 position = Vector3(0, 0.155, 0.105)
@@ -723,6 +779,12 @@ position = Vector3(0, -0.071, 0.088)
 mesh = SubResource("SilhouetteTorso")
 material_override = SubResource("PortraitFace")
 
+[node name="PortraitImage" type="Sprite3D" parent="Players/Portrait_5"]
+visible = false
+position = Vector3(0, 0, 0.116)
+pixel_size = 0.000615
+shaded = false
+
 [node name="NumberTile" type="MeshInstance3D" parent="Players/Portrait_5"]
 position = Vector3(0, -0.33, 0.077)
 mesh = SubResource("NumberMesh")
@@ -750,6 +812,14 @@ outline_modulate = Color(0.25, 0.03, 0.03, 1)
 
 [node name="WinnerBorder_5" type="Node3D" parent="Players/Portrait_5"]
 visible = false
+
+[node name="FrameImage" type="Sprite3D" parent="Players/Portrait_5/WinnerBorder_5"]
+visible = false
+position = Vector3(0, -0.131, 0.134)
+pixel_size = 0.00099
+scale = Vector3(0.95, 1.15, 1)
+shaded = false
+
 
 [node name="Top" type="MeshInstance3D" parent="Players/Portrait_5/WinnerBorder_5"]
 position = Vector3(0, 0.155, 0.105)
