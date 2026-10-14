@@ -1,0 +1,753 @@
+[gd_scene load_steps=16 format=3]
+
+[sub_resource type="StandardMaterial3D" id="GridFine"]
+resource_name = "Blueprint Thin Lines"
+shading_mode = 0
+albedo_color = Color(0.12, 0.24, 0.43, 0.42)
+transparency = 1
+cull_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="GridStrong"]
+resource_name = "Blueprint Major Lines"
+shading_mode = 0
+albedo_color = Color(0.27, 0.44, 0.62, 0.60)
+transparency = 1
+cull_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="BalanceInk"]
+resource_name = "Faded Scale Blueprint"
+shading_mode = 0
+albedo_color = Color(0.53, 0.68, 0.85, 0.30)
+transparency = 1
+cull_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="PortraitFace"]
+resource_name = "Original Player Silhouette"
+shading_mode = 0
+albedo_color = Color(0.022, 0.052, 0.10, 1)
+cull_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="PortraitCard"]
+resource_name = "Portrait Pale Card"
+shading_mode = 0
+albedo_color = Color(0.56, 0.74, 0.85, 1)
+cull_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="NumberCard"]
+resource_name = "White Number Window"
+shading_mode = 0
+albedo_color = Color(0.87, 0.96, 0.99, 1)
+cull_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="FrameInk"]
+resource_name = "Card Border"
+shading_mode = 0
+albedo_color = Color(0.29, 0.55, 0.75, 1)
+cull_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="RedInk"]
+resource_name = "Calculation Red Highlight"
+shading_mode = 0
+albedo_color = Color(1, 0.17, 0.20, 1)
+emission_enabled = true
+emission = Color(0.85, 0.055, 0.06, 1)
+emission_energy_multiplier = 0.7
+cull_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="WinnerInk"]
+resource_name = "Winner Gold Highlight"
+shading_mode = 0
+albedo_color = Color(0.99, 0.77, 0.33, 1)
+emission_enabled = true
+emission = Color(0.92, 0.52, 0.09, 1)
+emission_energy_multiplier = 0.4
+cull_mode = 2
+
+[sub_resource type="BoxMesh" id="TinyVertical"]
+size = Vector3(0.0024, 1.27, 0.002)
+
+[sub_resource type="BoxMesh" id="TinyHorizontal"]
+size = Vector3(2.31, 0.0024, 0.002)
+
+[sub_resource type="BoxMesh" id="PortraitMesh"]
+size = Vector3(0.315, 0.265, 0.006)
+
+[sub_resource type="BoxMesh" id="NumberMesh"]
+size = Vector3(0.333, 0.155, 0.006)
+
+[sub_resource type="BoxMesh" id="ScaleSegment"]
+size = Vector3(1.0, 0.005, 0.003)
+
+[node name="MonitorBlueprint" type="Node3D"]
+
+[node name="Grid" type="Node3D" parent="."]
+
+[node name="GridV_00" type="MeshInstance3D" parent="Grid"]
+position = Vector3(-1.15, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridStrong")
+
+
+[node name="GridV_01" type="MeshInstance3D" parent="Grid"]
+position = Vector3(-1.035, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_02" type="MeshInstance3D" parent="Grid"]
+position = Vector3(-0.92, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_03" type="MeshInstance3D" parent="Grid"]
+position = Vector3(-0.805, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_04" type="MeshInstance3D" parent="Grid"]
+position = Vector3(-0.69, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_05" type="MeshInstance3D" parent="Grid"]
+position = Vector3(-0.575, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridStrong")
+
+
+[node name="GridV_06" type="MeshInstance3D" parent="Grid"]
+position = Vector3(-0.46, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_07" type="MeshInstance3D" parent="Grid"]
+position = Vector3(-0.345, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_08" type="MeshInstance3D" parent="Grid"]
+position = Vector3(-0.23, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_09" type="MeshInstance3D" parent="Grid"]
+position = Vector3(-0.115, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_10" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridStrong")
+
+
+[node name="GridV_11" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0.115, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_12" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0.23, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_13" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0.345, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_14" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0.46, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_15" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0.575, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridStrong")
+
+
+[node name="GridV_16" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0.69, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_17" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0.805, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_18" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0.92, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_19" type="MeshInstance3D" parent="Grid"]
+position = Vector3(1.035, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridFine")
+
+
+[node name="GridV_20" type="MeshInstance3D" parent="Grid"]
+position = Vector3(1.15, 0, 0.056)
+mesh = SubResource("TinyVertical")
+material_override = SubResource("GridStrong")
+
+
+[node name="GridH_00" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, -0.61, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridStrong")
+
+
+[node name="GridH_01" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, -0.50833, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridFine")
+
+
+[node name="GridH_02" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, -0.40666, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridFine")
+
+
+[node name="GridH_03" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, -0.30499, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridStrong")
+
+
+[node name="GridH_04" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, -0.20332, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridFine")
+
+
+[node name="GridH_05" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, -0.10165, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridFine")
+
+
+[node name="GridH_06" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, 0.00002, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridStrong")
+
+
+[node name="GridH_07" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, 0.10169, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridFine")
+
+
+[node name="GridH_08" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, 0.20336, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridFine")
+
+
+[node name="GridH_09" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, 0.30503, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridStrong")
+
+
+[node name="GridH_10" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, 0.4067, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridFine")
+
+
+[node name="GridH_11" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, 0.50837, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridFine")
+
+
+[node name="GridH_12" type="MeshInstance3D" parent="Grid"]
+position = Vector3(0, 0.61004, 0.056)
+mesh = SubResource("TinyHorizontal")
+material_override = SubResource("GridStrong")
+
+
+[node name="BalanceMotif" type="Node3D" parent="."]
+
+[node name="Pillar" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(0, -0.25, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 0)
+scale = Vector3(0.68, 1, 1)
+
+[node name="Foot" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(0, -0.59, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 0)
+scale = Vector3(0.45, 1, 1)
+
+[node name="Crown" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(0, 0.44, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 0)
+scale = Vector3(0.12, 1, 1)
+
+[node name="Beam" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(0, 0.305, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 0)
+scale = Vector3(1.58, 1, 1)
+
+[node name="LeftChain1" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(-0.71, 0.13, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 90)
+scale = Vector3(0.35, 1, 1)
+
+[node name="LeftChain2" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(-0.47, 0.13, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 90)
+scale = Vector3(0.35, 1, 1)
+
+[node name="RightChain1" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(0.47, 0.13, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 90)
+scale = Vector3(0.35, 1, 1)
+
+[node name="RightChain2" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(0.71, 0.13, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 90)
+scale = Vector3(0.35, 1, 1)
+
+[node name="LeftPan" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(-0.59, -0.072, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 0)
+scale = Vector3(0.43, 1, 1)
+
+[node name="RightPan" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(0.59, -0.072, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 0)
+scale = Vector3(0.43, 1, 1)
+
+[node name="LHandleA" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(-0.605, 0.115, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, -22)
+scale = Vector3(0.39, 1, 1)
+
+[node name="LHandleB" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(-0.585, 0.115, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 22)
+scale = Vector3(0.39, 1, 1)
+
+[node name="RHandleA" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(0.585, 0.115, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, -22)
+scale = Vector3(0.39, 1, 1)
+
+[node name="RHandleB" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(0.605, 0.115, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 22)
+scale = Vector3(0.39, 1, 1)
+
+[node name="LLeft" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(-0.78, 0.293, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 0)
+scale = Vector3(0.12, 1, 1)
+
+[node name="RRight" type="MeshInstance3D" parent="BalanceMotif"]
+position = Vector3(0.78, 0.293, 0.062)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("BalanceInk")
+rotation_degrees = Vector3(0, 0, 0)
+scale = Vector3(0.12, 1, 1)
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="Portrait_1" type="Node3D" parent="Players"]
+position = Vector3(-0.92, 0.16, 0)
+
+[node name="PortraitPanel" type="MeshInstance3D" parent="Players/Portrait_1"]
+position = Vector3(0, 0, 0.073)
+mesh = SubResource("PortraitMesh")
+material_override = SubResource("PortraitCard")
+
+
+[node name="Head" type="MeshInstance3D" parent="Players/Portrait_1"]
+position = Vector3(0, 0.035, 0.089)
+mesh = SubResource("SilhouetteHead")
+material_override = SubResource("PortraitFace")
+
+[node name="Torso" type="MeshInstance3D" parent="Players/Portrait_1"]
+position = Vector3(0, -0.071, 0.088)
+mesh = SubResource("SilhouetteTorso")
+material_override = SubResource("PortraitFace")
+
+[node name="NumberTile" type="MeshInstance3D" parent="Players/Portrait_1"]
+position = Vector3(0, -0.33, 0.077)
+mesh = SubResource("NumberMesh")
+material_override = SubResource("NumberCard")
+
+[node name="Score_1" type="Label3D" parent="Players/Portrait_1"]
+visible = false
+position = Vector3(0, -0.462, 0.109)
+text = "0"
+pixel_size = 0.00135
+font_size = 41
+modulate = Color(0.79, 0.88, 0.95, 1)
+
+[node name="WinnerBorder_1" type="Node3D" parent="Players/Portrait_1"]
+visible = false
+
+[node name="Top" type="MeshInstance3D" parent="Players/Portrait_1/WinnerBorder_1"]
+position = Vector3(0, -0.242, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.352, 2, 1)
+
+[node name="Bottom" type="MeshInstance3D" parent="Players/Portrait_1/WinnerBorder_1"]
+position = Vector3(0, -0.417, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.352, 2, 1)
+
+[node name="Left" type="MeshInstance3D" parent="Players/Portrait_1/WinnerBorder_1"]
+position = Vector3(-0.175, -0.33, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.01, 37, 1)
+
+[node name="Right" type="MeshInstance3D" parent="Players/Portrait_1/WinnerBorder_1"]
+position = Vector3(0.175, -0.33, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.01, 37, 1)
+
+[node name="Portrait_2" type="Node3D" parent="Players"]
+position = Vector3(-0.46, 0.16, 0)
+
+[node name="PortraitPanel" type="MeshInstance3D" parent="Players/Portrait_2"]
+position = Vector3(0, 0, 0.073)
+mesh = SubResource("PortraitMesh")
+material_override = SubResource("PortraitCard")
+
+
+[node name="Head" type="MeshInstance3D" parent="Players/Portrait_2"]
+position = Vector3(0, 0.035, 0.089)
+mesh = SubResource("SilhouetteHead")
+material_override = SubResource("PortraitFace")
+
+[node name="Torso" type="MeshInstance3D" parent="Players/Portrait_2"]
+position = Vector3(0, -0.071, 0.088)
+mesh = SubResource("SilhouetteTorso")
+material_override = SubResource("PortraitFace")
+
+[node name="NumberTile" type="MeshInstance3D" parent="Players/Portrait_2"]
+position = Vector3(0, -0.33, 0.077)
+mesh = SubResource("NumberMesh")
+material_override = SubResource("NumberCard")
+
+[node name="Score_2" type="Label3D" parent="Players/Portrait_2"]
+visible = false
+position = Vector3(0, -0.462, 0.109)
+text = "0"
+pixel_size = 0.00135
+font_size = 41
+modulate = Color(0.79, 0.88, 0.95, 1)
+
+[node name="WinnerBorder_2" type="Node3D" parent="Players/Portrait_2"]
+visible = false
+
+[node name="Top" type="MeshInstance3D" parent="Players/Portrait_2/WinnerBorder_2"]
+position = Vector3(0, -0.242, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.352, 2, 1)
+
+[node name="Bottom" type="MeshInstance3D" parent="Players/Portrait_2/WinnerBorder_2"]
+position = Vector3(0, -0.417, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.352, 2, 1)
+
+[node name="Left" type="MeshInstance3D" parent="Players/Portrait_2/WinnerBorder_2"]
+position = Vector3(-0.175, -0.33, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.01, 37, 1)
+
+[node name="Right" type="MeshInstance3D" parent="Players/Portrait_2/WinnerBorder_2"]
+position = Vector3(0.175, -0.33, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.01, 37, 1)
+
+[node name="Portrait_3" type="Node3D" parent="Players"]
+position = Vector3(0, 0.16, 0)
+
+[node name="PortraitPanel" type="MeshInstance3D" parent="Players/Portrait_3"]
+position = Vector3(0, 0, 0.073)
+mesh = SubResource("PortraitMesh")
+material_override = SubResource("PortraitCard")
+
+
+[node name="Head" type="MeshInstance3D" parent="Players/Portrait_3"]
+position = Vector3(0, 0.035, 0.089)
+mesh = SubResource("SilhouetteHead")
+material_override = SubResource("PortraitFace")
+
+[node name="Torso" type="MeshInstance3D" parent="Players/Portrait_3"]
+position = Vector3(0, -0.071, 0.088)
+mesh = SubResource("SilhouetteTorso")
+material_override = SubResource("PortraitFace")
+
+[node name="NumberTile" type="MeshInstance3D" parent="Players/Portrait_3"]
+position = Vector3(0, -0.33, 0.077)
+mesh = SubResource("NumberMesh")
+material_override = SubResource("NumberCard")
+
+[node name="Score_3" type="Label3D" parent="Players/Portrait_3"]
+visible = false
+position = Vector3(0, -0.462, 0.109)
+text = "0"
+pixel_size = 0.00135
+font_size = 41
+modulate = Color(0.79, 0.88, 0.95, 1)
+
+[node name="WinnerBorder_3" type="Node3D" parent="Players/Portrait_3"]
+visible = false
+
+[node name="Top" type="MeshInstance3D" parent="Players/Portrait_3/WinnerBorder_3"]
+position = Vector3(0, -0.242, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.352, 2, 1)
+
+[node name="Bottom" type="MeshInstance3D" parent="Players/Portrait_3/WinnerBorder_3"]
+position = Vector3(0, -0.417, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.352, 2, 1)
+
+[node name="Left" type="MeshInstance3D" parent="Players/Portrait_3/WinnerBorder_3"]
+position = Vector3(-0.175, -0.33, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.01, 37, 1)
+
+[node name="Right" type="MeshInstance3D" parent="Players/Portrait_3/WinnerBorder_3"]
+position = Vector3(0.175, -0.33, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.01, 37, 1)
+
+[node name="Portrait_4" type="Node3D" parent="Players"]
+position = Vector3(0.46, 0.16, 0)
+
+[node name="PortraitPanel" type="MeshInstance3D" parent="Players/Portrait_4"]
+position = Vector3(0, 0, 0.073)
+mesh = SubResource("PortraitMesh")
+material_override = SubResource("PortraitCard")
+
+
+[node name="Head" type="MeshInstance3D" parent="Players/Portrait_4"]
+position = Vector3(0, 0.035, 0.089)
+mesh = SubResource("SilhouetteHead")
+material_override = SubResource("PortraitFace")
+
+[node name="Torso" type="MeshInstance3D" parent="Players/Portrait_4"]
+position = Vector3(0, -0.071, 0.088)
+mesh = SubResource("SilhouetteTorso")
+material_override = SubResource("PortraitFace")
+
+[node name="NumberTile" type="MeshInstance3D" parent="Players/Portrait_4"]
+position = Vector3(0, -0.33, 0.077)
+mesh = SubResource("NumberMesh")
+material_override = SubResource("NumberCard")
+
+[node name="Score_4" type="Label3D" parent="Players/Portrait_4"]
+visible = false
+position = Vector3(0, -0.462, 0.109)
+text = "0"
+pixel_size = 0.00135
+font_size = 41
+modulate = Color(0.79, 0.88, 0.95, 1)
+
+[node name="WinnerBorder_4" type="Node3D" parent="Players/Portrait_4"]
+visible = false
+
+[node name="Top" type="MeshInstance3D" parent="Players/Portrait_4/WinnerBorder_4"]
+position = Vector3(0, -0.242, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.352, 2, 1)
+
+[node name="Bottom" type="MeshInstance3D" parent="Players/Portrait_4/WinnerBorder_4"]
+position = Vector3(0, -0.417, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.352, 2, 1)
+
+[node name="Left" type="MeshInstance3D" parent="Players/Portrait_4/WinnerBorder_4"]
+position = Vector3(-0.175, -0.33, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.01, 37, 1)
+
+[node name="Right" type="MeshInstance3D" parent="Players/Portrait_4/WinnerBorder_4"]
+position = Vector3(0.175, -0.33, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.01, 37, 1)
+
+[node name="Portrait_5" type="Node3D" parent="Players"]
+position = Vector3(0.92, 0.16, 0)
+
+[node name="PortraitPanel" type="MeshInstance3D" parent="Players/Portrait_5"]
+position = Vector3(0, 0, 0.073)
+mesh = SubResource("PortraitMesh")
+material_override = SubResource("PortraitCard")
+
+
+[node name="Head" type="MeshInstance3D" parent="Players/Portrait_5"]
+position = Vector3(0, 0.035, 0.089)
+mesh = SubResource("SilhouetteHead")
+material_override = SubResource("PortraitFace")
+
+[node name="Torso" type="MeshInstance3D" parent="Players/Portrait_5"]
+position = Vector3(0, -0.071, 0.088)
+mesh = SubResource("SilhouetteTorso")
+material_override = SubResource("PortraitFace")
+
+[node name="NumberTile" type="MeshInstance3D" parent="Players/Portrait_5"]
+position = Vector3(0, -0.33, 0.077)
+mesh = SubResource("NumberMesh")
+material_override = SubResource("NumberCard")
+
+[node name="Score_5" type="Label3D" parent="Players/Portrait_5"]
+visible = false
+position = Vector3(0, -0.462, 0.109)
+text = "0"
+pixel_size = 0.00135
+font_size = 41
+modulate = Color(0.79, 0.88, 0.95, 1)
+
+[node name="WinnerBorder_5" type="Node3D" parent="Players/Portrait_5"]
+visible = false
+
+[node name="Top" type="MeshInstance3D" parent="Players/Portrait_5/WinnerBorder_5"]
+position = Vector3(0, -0.242, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.352, 2, 1)
+
+[node name="Bottom" type="MeshInstance3D" parent="Players/Portrait_5/WinnerBorder_5"]
+position = Vector3(0, -0.417, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.352, 2, 1)
+
+[node name="Left" type="MeshInstance3D" parent="Players/Portrait_5/WinnerBorder_5"]
+position = Vector3(-0.175, -0.33, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.01, 37, 1)
+
+[node name="Right" type="MeshInstance3D" parent="Players/Portrait_5/WinnerBorder_5"]
+position = Vector3(0.175, -0.33, 0.099)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("WinnerInk")
+scale = Vector3(0.01, 37, 1)
+
+[node name="AverageFrame" type="Node3D" parent="."]
+visible = false
+
+[node name="Top" type="MeshInstance3D" parent="AverageFrame"]
+position = Vector3(0, -0.085, 0.103)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("RedInk")
+scale = Vector3(2.3, 1.6, 1)
+
+[node name="Bottom" type="MeshInstance3D" parent="AverageFrame"]
+position = Vector3(0, -0.255, 0.103)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("RedInk")
+scale = Vector3(2.3, 1.6, 1)
+
+[node name="Left" type="MeshInstance3D" parent="AverageFrame"]
+position = Vector3(-1.155, -0.17, 0.103)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("RedInk")
+scale = Vector3(0.008, 36, 1)
+
+[node name="Right" type="MeshInstance3D" parent="AverageFrame"]
+position = Vector3(1.155, -0.17, 0.103)
+mesh = SubResource("ScaleSegment")
+material_override = SubResource("RedInk")
+scale = Vector3(0.008, 36, 1)
+
+[node name="TargetPanel" type="Node3D" parent="."]
+visible = false
+
+[node name="Background" type="MeshInstance3D" parent="TargetPanel"]
+position = Vector3(0, -0.435, 0.076)
+mesh = SubResource("NumberMesh")
+material_override = SubResource("NumberCard")
+scale = Vector3(2.1, 1.0, 1.0)
+
+[node name="TargetValue" type="Label3D" parent="TargetPanel"]
+position = Vector3(0, -0.43, 0.11)
+text = "0.00"
+font_size = 74
+pixel_size = 0.00185
+modulate = Color(0.045, 0.095, 0.20, 1)
+
+[sub_resource type="SphereMesh" id="SilhouetteHead"]
+radius = 0.048
+height = 0.096
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="SilhouetteTorso"]
+radius = 0.096
+height = 0.135
+radial_segments = 16
+rings = 8
