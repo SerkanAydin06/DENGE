@@ -121,12 +121,15 @@ func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [],
 	var showing_average: bool = phase == "AVERAGE"
 	var showing_target: bool = phase == "TARGET" or phase == "RESULT"
 	average_frame.visible = showing_average
+	if showing_average:
+		average_frame.scale = Vector3(0.98, 0.75, 1.0)
+		var average_tween: Tween = create_tween()
+		average_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		average_tween.tween_property(average_frame, "scale", Vector3.ONE, 0.36)
 	target_panel.visible = showing_target
 	result_details.visible = not showing_target
 	if showing_target:
 		target_value.text = "%.2f" % target
-		if target_panel.scale != Vector3.ONE:
-			target_panel.scale = Vector3.ONE
 		target_panel.scale = Vector3(0.80, 0.80, 1.0)
 		var target_tween: Tween = create_tween()
 		target_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
