@@ -23,9 +23,9 @@ func _initialize() -> void:
 	var monitor: Node3D = station.get_node("ResultDisplay/ResultMonitor") as Node3D
 	var bezel: MeshInstance3D = monitor.get_node("MonitorBezel") as MeshInstance3D
 	var bezel_mesh: BoxMesh = bezel.mesh as BoxMesh
-	assert(is_equal_approx(monitor.scale.x, 0.88), "Monitor width must be scaled to 88 percent")
-	assert(is_equal_approx(monitor.scale.y, 0.88), "Monitor height must be scaled to 88 percent")
-	assert(bezel_mesh.size.x * monitor.scale.x < 2.3, "Physical monitor should be smaller than before")
+	assert(is_equal_approx(monitor.scale.x, 0.80), "Monitor width must be scaled to 80 percent")
+	assert(is_equal_approx(monitor.scale.y, 0.80), "Monitor height must be scaled to 80 percent")
+	assert(bezel_mesh.size.x * monitor.scale.x <= 2.05, "Physical monitor should be about 2.04 meters wide")
 
 	station.reset_tablet(1)
 	station.choose_number(100)
