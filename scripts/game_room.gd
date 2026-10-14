@@ -220,68 +220,92 @@ func _player_name(index: int) -> String:
 	return "SEN (OYUNCU 1)" if index == 0 else "OYUNCU %d" % (index + 1)
 
 func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
-	# An original in-world adaptation of the provided blue schematic display.
-	# Five portrait/silhouette cards always remain on the monitor.
-	_set_all_monitor_phases("LOCKED")
-	_broadcast("DENGE  |  TUR %02d" % round_number, "SECIMLER KILITLENDI", "BES OYUNCUNUN SAYISI ACIKLANACAK", "BIRAZDAN...")
+	# Exactly the staged order requested for the in-world blueprint monitor.
+	# Only the freestanding 3D monitor displays calculations and results.
+	_set_all_monitor_phases("REVEAL")
+	_broadcast("DENGE  |  TUR %02d" % round_number, "SAYILAR ACIKLANIYOR", "", "SECIMLER TEK TEK GOSTERILIYOR")
 	await get_tree().create_timer(reveal_delay).timeout
 
 	var shown: Array[String] = ["--", "--", "--", "--", "--"]
-	_set_all_monitor_phases("REVEAL")
 	for i in range(selections.size()):
-		shown[i] = "%d" % selections[i] if selections[i] >= 0 else "X"
+		shown[i] = str(selections[i]) if selections[i] >= 0 else "X"
 		for station in stations:
 			station.set_monitor_numbers(shown)
 		_broadcast(
-			"DENGE  |  SECIMLER",
+			"DENGE  |  SAYILAR",
 			"%s: %s" % [_player_name(i), shown[i]],
-			"SAYILAR SIRAYLA ACIKLANIYOR",
-			"OYUNCU %d / 5" % (i + 1)
+			"",
+			"OYUNCU %d / %d" % [i + 1, selections.size()]
 		)
 		await get_tree().create_timer(reveal_delay).timeout
 
-	# Red outline highlights the same five number boxes while calculating the mean.
-	_set_all_monitor_phases("AVERAGE")
+	# 1: Average appears by itself in the white bottom card.
+	_set_all_monitor_phases("AVERAGE", -1.0, [], [], float(result["average"]))
 	_broadcast(
 		"DENGE  |  ORTALAMA",
-		"ORTALAMA: %.2f" % result["average"],
-		"BES SAYININ ORTALAMASI" if result["survivors"].size() == 5 else "AKTIF SAYILARIN ORTALAMASI",
-		"SONRAKI: HEDEF = ORTALAMA x 0.8"
+		"SECILEN SAYILARIN ORTALAMASI",
+		"",
+		""
+	)
+	await get_tree().create_timer(reveal_delay * 1.4).timeout
+
+	# 2: Show the multiplication operation, keeping the answer hidden.
+	_set_all_monitor_phases("MULTIPLY", -1.0, [], [], float(result["average"]))
+	_broadcast(
+		"DENGE  |  HESAPLAMA",
+		"ORTALAMA x 0.8",
+		"",
+		""
+	)
+	await get_tree().create_timer(reveal_delay * 1.3).timeout
+
+	# 3: Reveal the numerical result at the end of the equation.
+	_set_all_monitor_phases("CALCULATED", float(result["target"]), [], [], float(result["average"]))
+	_broadcast(
+		"DENGE  |  HEDEF SAYI",
+		"SONUC HESAPLANDI",
+		"",
+		""
 	)
 	await get_tree().create_timer(reveal_delay * 1.5).timeout
 
-	# Target appears in the separate lower white tile, not a popup.
-	_set_all_monitor_phases("TARGET", float(result["target"]))
+	# 4: Switch from the equation to portraits over the same five number cards.
+	_set_all_monitor_phases("PHOTO", float(result["target"]))
 	_broadcast(
-		"DENGE  |  HEDEF",
-		"%.2f x 0.8 = %.2f" % [result["average"], result["target"]],
+		"DENGE  |  OYUNCULAR",
+		"OYUNCULAR VE SECIMLERI",
 		"",
-		"HEDEFE EN YAKIN SAYI KAZANIR"
+		"HEDEF SAYI ALTTA"
 	)
-	await get_tree().create_timer(reveal_delay * 1.8).timeout
+	await get_tree().create_timer(reveal_delay * 1.5).timeout
 
-	var previous_scores: Array[int] = scores.duplicate()
-	scores = result["scores"]
 	var winners: Array = result["winners"]
-	var score_lines: Array[String] = []
-	for i in range(selections.size()):
-		if selections[i] < 0:
-			score_lines.append("ELENDI")
-		elif scores[i] <= DengeRoundRules.ELIMINATION_SCORE:
-			score_lines.append("ELENDI\nPUAN 0 (%+d)" % (scores[i] - previous_scores[i]))
-		else:
-			score_lines.append("FARK %.2f\nPUAN %d (%+d)" % [absf(float(selections[i]) - float(result["target"])), scores[i], scores[i] - previous_scores[i]])
-	var survivor_ids: Array = result["survivors"]
-	var names: PackedStringArray = []
+	var winner_numbers: PackedStringArray = []
 	for index in winners:
-		names.append("%s = %d" % [_player_name(index), selections[index]])
-	var who: String = ", ".join(names)
+		winner_numbers.append(str(int(index) + 1))
+	var winner_title: String = "KAZANAN: OYUNCU %s" % ", ".join(winner_numbers)
+	if winners.size() > 1:
+		winner_title = "BERABERE: %s" % ", ".join(winner_numbers)
+
+	# 5: Winner frame spans the portrait and chosen-number card.
+	_set_all_monitor_phases("WIN", float(result["target"]), winners)
+	_broadcast(
+		"DENGE  |  KAZANAN",
+		winner_title,
+		"",
+		"PUANLAR ACIKLANACAK"
+	)
+	await get_tree().create_timer(reveal_delay * 1.7).timeout
+
+	# 6: After the winning moment, overlay remaining points ON each portrait.
+	scores = result["scores"]
+	var survivor_ids: Array = result["survivors"]
 	game_finished = scores[0] <= DengeRoundRules.ELIMINATION_SCORE or survivor_ids.size() <= 1
 	var footer: String = "E: YENIDEN BASLAT" if game_finished else "E: SONRAKI TUR"
-	_set_all_monitor_phases("RESULT", float(result["target"]), winners, score_lines)
+	_set_all_monitor_phases("SCORE", float(result["target"]), winners, scores)
 	_broadcast(
-		"DENGE  |  TUR %02d SONUCU" % round_number,
-		("KAZANAN: %s" if winners.size() == 1 else "BERABERE: %s") % who,
+		"DENGE  |  TUR %02d PUANLARI" % round_number,
+		"KALAN PUANLAR",
 		"",
 		footer
 	)
@@ -289,9 +313,9 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 	round_result_ready = true
 
 
-func _set_all_monitor_phases(phase: String, target: float = -1.0, winners: Array = [], score_lines: Array = []) -> void:
+func _set_all_monitor_phases(phase: String, target: float = -1.0, winners: Array = [], point_totals: Array = [], average: float = -1.0) -> void:
 	for station in stations:
-		station.set_monitor_phase(phase, target, winners, score_lines)
+		station.set_monitor_phase(phase, target, winners, point_totals, average)
 
 
 func _next_round() -> void:
