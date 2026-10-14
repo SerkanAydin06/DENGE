@@ -18,6 +18,13 @@ func _initialize() -> void:
 	assert(number_grid.has_node("Number_100"))
 	assert(station.has_node("Desk/TouchConsole/ConfirmChoice"))
 	assert(station.has_node("Desk/TouchConsole/ClearChoice"))
+	assert(station.has_node("TabletInteractionHint"))
+	assert(not station.get_node("TabletInteractionHint").visible, "Only show E when looking at desk tablet")
+	assert(station.has_node("ResultDisplay/CeilingMount/LeftCable"))
+	assert(station.has_node("ResultDisplay/CeilingMount/RightCable"))
+	assert(station.has_node("ResultDisplay/CeilingMount/LeftRoofAnchor"))
+	assert(station.has_node("ResultDisplay/CeilingMount/RightRoofAnchor"))
+	assert(not station.has_node("ResultDisplay/FloorBase"), "Monitor no longer stands on the floor")
 	assert(not station.has_node("ResultDisplay/ResultMonitor/MonitorSweep"), "Refresh stripe must not return")
 	assert(station.has_node("ResultDisplay/ResultMonitor/PlayerReadouts/Player_5"))
 	var monitor: Node3D = station.get_node("ResultDisplay/ResultMonitor") as Node3D
@@ -55,9 +62,21 @@ func _initialize() -> void:
 	assert(blueprint.has_node("CalculationPanel/FactorValue"))
 	assert(blueprint.has_node("CalculationPanel/AnswerValue"))
 	assert(blueprint.has_node("Players/Portrait_5/PointsOverlay_5/PointsValue"))
+	assert(station.has_node("ResultDisplay/ResultMonitor/StandbyScreen/BlackFace"))
+	assert(station.standby_screen.visible, "Black DENGE standby must be visible at launch")
+	assert(station.standby_title.text == "DENGE")
+	assert(not station.blueprint.visible, "Grid should not appear until all numbers locked")
+
+	station.set_monitor_phase("ROUND_TITLE")
+	station.set_monitor_intro_title(1)
+	assert(station.standby_screen.visible)
+	assert(not station.blueprint.visible)
+	assert(station.standby_title.text == "1. TUR")
 
 	# 1) Numbers reveal without images.
 	station.set_monitor_phase("REVEAL")
+	assert(not station.standby_screen.visible)
+	assert(station.blueprint.visible)
 	assert(not blueprint.get_node("Players/Portrait_1/PortraitPanel").visible)
 	assert(not station.calculation_panel.visible)
 	assert(not station.target_panel.visible)
@@ -107,7 +126,9 @@ func _initialize() -> void:
 	assert(blueprint.get_node("Players/Portrait_1/PointsOverlay_1/PointsValue").text == "9 PUAN")
 
 	# New round hides the scores and portraits again.
-	station.set_monitor_phase("RULES")
+	station.set_monitor_phase("STANDBY")
+	assert(station.standby_screen.visible)
+	assert(station.standby_title.text == "DENGE")
 	assert(not station.target_panel.visible)
 	assert(not station.average_frame.visible)
 	assert(not station.calculation_panel.visible)
