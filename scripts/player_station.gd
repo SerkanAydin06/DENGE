@@ -21,6 +21,13 @@ const GRID_TOP: float = 0.22
 @onready var result_body: Label3D = $ResultDisplay/ResultMonitor/ResultBody
 @onready var result_details: Label3D = $ResultDisplay/ResultMonitor/ResultDetails
 @onready var result_footer: Label3D = $ResultDisplay/ResultMonitor/ResultFooter
+@onready var player_readouts: Array[Label3D] = [
+	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_1,
+	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_2,
+	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_3,
+	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_4,
+	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_5
+]
 @onready var sweep: MeshInstance3D = $ResultDisplay/ResultMonitor/MonitorSweep
 @onready var seat_eye: Marker3D = $SeatEye
 
@@ -88,6 +95,13 @@ func choose_number(number: int) -> void:
 	entered_digits = str(number)
 	_show_number()
 	_refresh_number_colors()
+
+func set_monitor_numbers(shown: Array[String]) -> void:
+	if shown.size() != player_readouts.size():
+		return
+	for i in range(player_readouts.size()):
+		player_readouts[i].text = "%02d / %s" % [i + 1, shown[i]]
+		player_readouts[i].modulate = Color(0.47, 0.9, 1.0, 1.0) if shown[i] == "--" else Color(0.98, 0.97, 0.79, 1.0)
 
 func append_digit(digit: int) -> void:
 	## Optional keyboard input; on the screen all 101 entries remain individually selectable.
