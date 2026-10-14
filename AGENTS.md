@@ -41,13 +41,13 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 
 ## Screen architecture (user-locked)
 - No fullscreen number selection UI or fullscreen results UI in `scenes/game_room.tscn`; do not reconnect the legacy `number_terminal_ui.tscn` or `round_results_ui.tscn` overlay scenes.
-- `scripts/player_station.gd` manages scene-authored 101-number touchscreen (`NumberGrid/Number_000..100`) and 3D monitor labels/sweep. `scripts/game_room.gd` maps camera rays to the physical tablet and drives phased monitor reveals.
+- `scripts/player_station.gd` manages scene-authored 101-number touchscreen (`NumberGrid/Number_000..100`) and 3D monitor labels and subtle alpha transitions. `scripts/game_room.gd` maps camera rays to the physical tablet and drives phased monitor reveals.
 - All instructions, calculations, results and game animations are displayed **on the freestanding 3D monitor, never on the tablet or an overlaid popup**. Tablet is exclusively for 0–100 entry and lock indication.
 - E picks up the compact physical tablet **from anywhere while seated**; clicks select individual numbers 0-100; TEMIZLE clears, ONAY locks; keyboard digits and Enter are optional; Esc sets it back on its desk. After results finish, E proceeds to next round.
 
 ## Large game monitor (design locked)
-- Every station owns a **2.55m × 1.49m** freestanding blue-and-cyan monitor: `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. It remains a floor-mounted display, not attached to desks.
-- Scene-authored glowing frame, scan sweep and five player-number readout labels (no HUD/popup). Separate emission materials in `assets/materials/monitor_glass.tres`, `monitor_cyan.tres` and `tablet_selection.tres`.
+- Every station owns a **approximately 2.24m × 1.31m** visible freestanding blue-and-cyan monitor: `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. It remains a floor-mounted display, not attached to desks.
+- Scene-authored glowing frame, subtle text fades (no moving scanline) and five player-number readout labels (no HUD/popup). Separate emission materials in `assets/materials/monitor_glass.tres`, `monitor_cyan.tres` and `tablet_selection.tres`.
 - The physical desk tablet visibly lists **all 101 values (0..100 individually)** in ten columns and eleven rows, plus TEMIZLE and ONAY. Do not regress to digit keypad, screenspace number picker or modal result screen.
 
 ## Tablet pickup / handheld view (user-locked)
@@ -61,3 +61,8 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 - Authored graphic scene: `scenes/props/monitor_blueprint.tscn`. Instanced per-player under `ResultDisplay/ResultMonitor/MonitorBlueprint`. The artwork's 3D shapes and text elements are serialized Godot scene nodes and editable in Inspector.
 - `scripts/game_room.gd` uses phases RULES → WAITING (other players lock one by one, HAZIR n/5) → LOCKED → REVEAL each player's white box ("OYUNCU n: value") → AVERAGE red frame → TARGET bottom HEDEF box with explicit `avg x 0.8 = target` → RESULT: winner outline + `KAZANDI` label (`WinLabel_n`), and under every number `FARK d` (distance to target) and `PUAN s (+/-change)` (`Score_n`). Step interval: `reveal_delay` export (default 1.2 s). `scripts/player_station.gd` only changes existing scene nodes' text/visibility/animation; it must NOT create full-screen HUD panels or spawn display geometry at runtime.
 - Each player sees identical monitor content; the separate 101-number small handheld tablet remains entry-only. Headless checks live in `tests/test_inworld_screens.gd`.
+
+## Monitor size / refresh polish (2026-10-14)
+- The complete monitor visual is uniformly 0.88-scaled through `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. This keeps the proportions and alignment of blueprint grid, portraits, five number tiles, frame and labels. The floor stand stays at original scale. Physical visible face ~2.24 × 1.31 m.
+- **No moving blue refresh bar:** `MonitorSweep` mesh/subresource and associated tween were removed intentionally. `set_monitor_page()` only fades the title and headline. Do not reintroduce scan sweeps.
+- `tests/test_inworld_screens.gd` guards the smaller transform and absence of scanline, and existing monitor phase results.
