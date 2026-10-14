@@ -6,6 +6,8 @@ class_name DengePlayerStation
 signal number_locked(value: int)
 
 @export_range(1, 5, 1) var player_number: int = 1
+## Koltuktaki karakter (Meshy vb.). Bos ise basit yer tutucu figur kullanilir.
+@export var character_scene: PackedScene
 
 const GRID_COLUMNS: int = 10
 const GRID_STEP_X: float = 0.14
@@ -57,10 +59,22 @@ var hide_first_person_figure: bool = false
 var current_points: int = DengeRoundRules.STARTING_SCORE
 
 func _ready() -> void:
+	_install_character()
 	for number in range(DengeRoundRules.MAX_NUMBER + 1):
 		number_labels.append(touch_target.get_node("NumberGrid/Number_%03d" % number) as Label3D)
 	reset_tablet(1)
 	set_monitor_phase("STANDBY")
+
+func _install_character() -> void:
+	if character_scene == null:
+		return
+	for part in ["Torso", "Head", "LeftArm", "RightArm"]:
+		var placeholder: Node3D = player_figure.get_node_or_null(part) as Node3D
+		if placeholder:
+			placeholder.visible = false
+	var character: Node3D = character_scene.instantiate() as Node3D
+	character.name = "Character"
+	player_figure.add_child(character)
 
 func eye_position() -> Vector3:
 	return seat_eye.global_position
