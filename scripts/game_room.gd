@@ -7,6 +7,8 @@ extends Node3D
 @export_range(20.0, 89.0, 1.0) var max_pitch_degrees: float = 55.0
 @export_range(0.4, 0.99, 0.01) var terminal_look_threshold: float = 0.72
 @export_range(0.1, 3.0, 0.1) var reveal_delay: float = 0.75
+@export_range(0.2, 0.8, 0.01) var tablet_pickup_seconds: float = 0.38
+@export_range(0.16, 0.35, 0.01) var tablet_hold_distance: float = 0.21
 
 @onready var player_camera: Camera3D = $PlayerCamera
 @onready var stations: Array[DengePlayerStation] = [
@@ -23,6 +25,12 @@ var round_number: int = 1
 var scores: Array[int] = [0, 0, 0, 0, 0]
 var game_finished: bool = false
 var tablet_mode: bool = false
+var tablet_transition: bool = false
+var tablet_motion: Tween
+var tablet_desk_parent: Node3D
+var tablet_rest_position: Vector3
+var tablet_rest_rotation: Vector3
+var tablet_rest_scale: Vector3
 var revealing: bool = false
 var round_result_ready: bool = false
 
@@ -34,6 +42,11 @@ func _ready() -> void:
 	view_pitch = player_camera.rotation.x
 	player_camera.current = true
 	stations[0].number_locked.connect(_on_selection_locked)
+	# The same real 3D tablet is moved into the camera's hands and returned to its desk.
+	tablet_desk_parent = player_console.get_parent() as Node3D
+	tablet_rest_position = player_console.position
+	tablet_rest_rotation = player_console.rotation
+	tablet_rest_scale = player_console.scale
 	rng.randomize()
 	_prepare_round()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -57,7 +70,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		if tablet_mode:
-			if _handle_tablet_keyboard(event):
+			if not tablet_transition and _handle_tablet_keyboard(event):
 				get_viewport().set_input_as_handled()
 			return
 
@@ -69,6 +82,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if tablet_mode:
+			if tablet_transition:
+				get_viewport().set_input_as_handled()
+				return
 			var ray_origin: Vector3 = player_camera.project_ray_origin(event.position)
 			var ray_direction: Vector3 = player_camera.project_ray_normal(event.position)
 			stations[0].touch_world_ray(ray_origin, ray_direction)
@@ -101,10 +117,41 @@ func _looking_at_tablet() -> bool:
 	return look.dot(towards) >= terminal_look_threshold
 
 func _set_tablet_mode(enabled: bool) -> void:
+	if enabled == tablet_mode or tablet_transition:
+		return
 	tablet_mode = enabled
+	tablet_transition = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if enabled else Input.MOUSE_MODE_CAPTURED
+
+	if tablet_motion and tablet_motion.is_running():
+		tablet_motion.kill()
+
 	if enabled:
-		_broadcast("DENGE  |  TUR %02d" % round_number, "SAYINI SEC", "TABLETTE 0 - 100 SAYILARINI DOKUN\nTEMIZLE / ONAY VEYA KLAVYE 0-9", "ESC: BAKISA DON")
+		# Pickup: keep the world's small tablet size; bring it close to the eyes
+		# so it appears large without using a separate screen-space popup.
+		player_console.reparent(player_camera, true)
+		tablet_motion = create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		tablet_motion.tween_property(player_console, "position", Vector3(0, -0.015, -tablet_hold_distance), tablet_pickup_seconds)
+		tablet_motion.tween_property(player_console, "rotation", Vector3.ZERO, tablet_pickup_seconds)
+		tablet_motion.tween_property(player_console, "scale", tablet_rest_scale, tablet_pickup_seconds)
+		_broadcast("DENGE  |  TUR %02d" % round_number, "SAYINI SEC", "TABLETTE 0 - 100 SAYILARINI DOKUN\nTEMIZLE / ONAY VEYA KLAVYE 0-9", "ESC: TABLETI BIRAK")
+	else:
+		# Put the physical tablet back exactly where the Godot scene places it.
+		player_console.reparent(tablet_desk_parent, true)
+		tablet_motion = create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+		tablet_motion.tween_property(player_console, "position", tablet_rest_position, tablet_pickup_seconds)
+		tablet_motion.tween_property(player_console, "rotation", tablet_rest_rotation, tablet_pickup_seconds)
+		tablet_motion.tween_property(player_console, "scale", tablet_rest_scale, tablet_pickup_seconds)
+
+	tablet_motion.finished.connect(_on_tablet_motion_finished)
+
+
+func _on_tablet_motion_finished() -> void:
+	tablet_transition = false
+	if not tablet_mode:
+		player_console.position = tablet_rest_position
+		player_console.rotation = tablet_rest_rotation
+		player_console.scale = tablet_rest_scale
 
 func _broadcast(title: String, headline: String, details: String, footer: String) -> void:
 	for station in stations:
@@ -131,8 +178,8 @@ func _prepare_round() -> void:
 func _on_selection_locked(value: int) -> void:
 	if game_finished or revealing or round_result_ready:
 		return
-	tablet_mode = false
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if tablet_mode:
+		_set_tablet_mode(false)
 	revealing = true
 
 	var selections: Array[int] = []
