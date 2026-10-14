@@ -46,4 +46,13 @@ Test: `godot --headless --path . --script res://tests/test_round_rules.gd` (Godo
 - **Görüntü:** Her istasyonda `ResultTitle`, `ResultBody`, `PlayerReadouts/Player_1..5`, `ResultDetails`, `ResultFooter`, `MonitorSweep` ve çerçeve ışıkları Godot editöründe düzenlenebilir.
 - Bilgisayar rakipleri şimdilik rastgele sayılar üretir. Görsel dil dramatik, özgün ve uyarlama sahnenin birebir kopyası değildir.
 
-**Tablet seçimi:** `E` ile tablette fare imlecini aç; 0–100 arasından istediğin sayıya tıkla, `ONAY` ile kilitle. `TEMIZLE` seçimi siler. Klavyeden rakam/Enter alternatif olarak kullanılabilir. Bütün oyun açıklamaları ve sonuç animasyonları sadece büyük 3D monitöre gider.
+**Tablet seçimi:** `E` ile standart boyutlu tableti eline al ve büyük yakın görünümde fare imlecini aç; 0–100 arasından istediğin sayıya tıkla, `ONAY` ile kilitle. `TEMIZLE` seçimi siler. Klavyeden rakam/Enter alternatif olarak kullanılabilir. Bütün oyun açıklamaları ve sonuç animasyonları sadece büyük 3D monitöre gider.
+
+## Küçük tablet / ele alma görünümü
+
+- Masada tablet **standart yaklaşık 34 × 20 cm boyutundadır**, masanın üzerine yatık durur.
+- Oyuncu **E**'ye bastığında aynı 3D tablet yumuşak bir hareketle kameranın önüne gelir; ekranda büyük görünür, fiziksel boyutu değişmez.
+- Tablet yakındayken 0–100 sayılarına dokunulabilir. `TEMIZLE` ve `ONAY` çalışır. **Esc** tableti masaya geri bırakır; seçim onaylanınca da otomatik geri döner.
+- Ayrı 2D pencere yoktur. Oyun açıklamaları ve sonuçlar zemine bağlı büyük oyun monitöründe kalır.
+
+Test: `godot --headless --path . --script res://tests/test_tablet_pickup.gd`.
