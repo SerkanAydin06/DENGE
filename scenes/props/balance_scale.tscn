@@ -55,6 +55,22 @@ bottom_radius = 0.56
 height = 0.1
 radial_segments = 32
 
+[sub_resource type="StandardMaterial3D" id="m_PanFluid"]
+resource_name = "DENGE Glowing Pan Liquid"
+shading_mode = 0
+albedo_color = Color(0.24, 0.9, 0.96, 0.82)
+transparency = 1
+emission_enabled = true
+emission = Color(0.08, 0.75, 0.94, 1)
+emission_energy_multiplier = 0.85
+cull_mode = 2
+
+[sub_resource type="CylinderMesh" id="c_PanFluid"]
+top_radius = 0.50
+bottom_radius = 0.50
+height = 0.38
+radial_segments = 40
+
 [node name="BalanceScale" type="Node3D" unique_id=2013197483]
 script = ExtResource("1_script")
 
@@ -133,3 +149,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, -1.1, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17, 0)
 material_override = ExtResource("m_metal")
 mesh = SubResource("c_RightPan")
+
+[node name="PanContents" type="MeshInstance3D" parent="BeamPivot/RightSuspension/RightPan"]
+visible = false
+position = Vector3(0, 0.06, 0)
+mesh = SubResource("c_PanFluid")
+material_override = SubResource("m_PanFluid")
+
+[node name="PourLip" type="Marker3D" parent="BeamPivot/RightSuspension/RightPan"]
+position = Vector3(0.49, 0.12, 0)
