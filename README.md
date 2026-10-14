@@ -41,7 +41,9 @@ Test: `godot --headless --path . --script res://tests/test_round_rules.gd` (Godo
 
 ## Fiziksel ekran akışı
 
-- **Tablet:** 1–9, 0, `SIL`, `OK` tuşları; sadece sayı girişi, kilitleme ve seçim durumu. Açılır 2D panel yok.
-- **Ayrı monitör:** Tur talimatları → beş sayının sırayla açıklanması → ortalama × 0,8 hedef animasyonu → kazanan/puanlar → `E` ile sonraki tur.
-- **Görüntü:** Her oyuncu istasyonundaki `ResultMonitor` `ResultTitle`, `ResultBody`, `ResultDetails`, `ResultFooter` ve hareketli `MonitorSweep` düğümlerinden oluşur; Godot editöründe ayrı ayrı düzenlenebilir.
+- **Tablet:** 0’dan 100’e kadar **101 sayı, her biri ayrı dokunulabilir seçenek**, seçili sayıyı vurgulama, `TEMIZLE` ve `ONAY`. Tam ekran panel yok.
+- **Ayrı monitör:** Yaklaşık **2,55 × 1,49 m**, koyu mavi ışıklı zemin, camgöbeği çerçeve, 5 oyuncunun ayrı sayı alanı, ortalama/hedef hesabı, kazanan/puanlar ve sırayla açıklama animasyonu.
+- **Görüntü:** Her istasyonda `ResultTitle`, `ResultBody`, `PlayerReadouts/Player_1..5`, `ResultDetails`, `ResultFooter`, `MonitorSweep` ve çerçeve ışıkları Godot editöründe düzenlenebilir.
 - Bilgisayar rakipleri şimdilik rastgele sayılar üretir. Görsel dil dramatik, özgün ve uyarlama sahnenin birebir kopyası değildir.
+
+**Tablet seçimi:** `E` ile tablette fare imlecini aç; 0–100 arasından istediğin sayıya tıkla, `ONAY` ile kilitle. `TEMIZLE` seçimi siler. Klavyeden rakam/Enter alternatif olarak kullanılabilir. Bütün oyun açıklamaları ve sonuç animasyonları sadece büyük 3D monitöre gider.
