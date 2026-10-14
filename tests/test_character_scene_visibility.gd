@@ -26,7 +26,9 @@ func _initialize() -> void:
 			if child is DengePlayerCharacter:
 				character_count += 1
 		assert(character_count == 1, "Duplicate model spawned at station %d" % i)
-		assert(figure.visible == (i != 1), "Only the local first-person figure should hide")
+		assert(figure.visible, "Every seated figure, including first-person, must be visible")
+		var actor: DengePlayerCharacter = figure.get_node("Character") as DengePlayerCharacter
+		assert(actor.first_person == (i == 1), "Only player 1 is the first-person body")
 	print("DENGE five editor-authored Meshy models, no runtime duplicates: passed.")
 	room.free()
 	quit(0)
