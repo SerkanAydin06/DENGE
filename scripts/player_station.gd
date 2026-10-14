@@ -9,6 +9,9 @@ signal number_locked(value: int)
 ## Koltuktaki karakter (Meshy vb.). Bos ise basit yer tutucu figur kullanilir.
 @export var character_scene: PackedScene
 
+## Asset pack: unzip DENGE_asset_pack.zip into the Godot project root.
+## Files are optional: old silhouettes, label title and mesh splash remain fallbacks.
+const GENERATED_ASSET_DIR: String = "res://assets/generated/"
 const GRID_COLUMNS: int = 10
 const GRID_STEP_X: float = 0.14
 const GRID_STEP_Y: float = 0.056
@@ -26,6 +29,7 @@ const GRID_TOP: float = 0.22
 @onready var blueprint: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint
 @onready var standby_screen: Node3D = $ResultDisplay/ResultMonitor/StandbyScreen
 @onready var standby_title: Label3D = $ResultDisplay/ResultMonitor/StandbyScreen/CenterTitle
+@onready var generated_logo: Sprite3D = $ResultDisplay/ResultMonitor/StandbyScreen/GeneratedLogo
 @onready var average_frame: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/AverageFrame
 @onready var target_panel: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/TargetPanel
 @onready var target_value: Label3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/TargetPanel/TargetValue
@@ -45,6 +49,7 @@ const GRID_TOP: float = 0.22
 @onready var player_figure: Node3D = $PlayerFigure
 @onready var death_stream: MeshInstance3D = $DeathSpillStream
 @onready var death_impact: MeshInstance3D = $DeathImpact
+@onready var generated_splash: Sprite3D = $DeathImpact/GeneratedSplash
 
 var entered_digits: String = ""
 var chosen_number: int = -1
@@ -59,11 +64,33 @@ var hide_first_person_figure: bool = false
 var current_points: int = DengeRoundRules.STARTING_SCORE
 
 func _ready() -> void:
+	_load_generated_art()
 	_install_character()
 	for number in range(DengeRoundRules.MAX_NUMBER + 1):
 		number_labels.append(touch_target.get_node("NumberGrid/Number_%03d" % number) as Label3D)
 	reset_tablet(1)
 	set_monitor_phase("STANDBY")
+
+## Load imported PNG textures only when installed, allowing clean GitHub-only play.
+## Sprite3D nodes themselves are authored and visible in the editor tree.
+func _load_generated_art() -> void:
+	generated_logo.texture = _optional_art("denge_logo.png")
+	var winner_texture: Texture2D = _optional_art("winner_frame.png")
+	for player_index in range(1, 6):
+		var portrait: Node3D = blueprint.get_node("Players/Portrait_%d" % player_index) as Node3D
+		var portrait_image: Sprite3D = portrait.get_node("PortraitImage") as Sprite3D
+		portrait_image.texture = _optional_art("portrait_%d.png" % player_index)
+		var win_frame: Node3D = portrait.get_node("WinnerBorder_%d" % player_index) as Node3D
+		(win_frame.get_node("FrameImage") as Sprite3D).texture = winner_texture
+	generated_splash.texture = _optional_art("elimination_splash.png")
+	if generated_splash.texture:
+		death_impact.mesh = null  # Sprite is the sole impact, not a duplicate sphere.
+
+
+func _optional_art(file_name: String) -> Texture2D:
+	var path: String = GENERATED_ASSET_DIR + file_name
+	return load(path) as Texture2D if ResourceLoader.exists(path, "Texture2D") else null
+
 
 func _install_character() -> void:
 	# Character is already authored under PlayerFigure in game_room.tscn.
@@ -168,6 +195,8 @@ func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [],
 	## Standby/round title are truly black and hide every blueprint/readout element.
 	var intro_visible: bool = phase == "STANDBY" or phase == "ROUND_TITLE"
 	standby_screen.visible = intro_visible
+	generated_logo.visible = phase == "STANDBY" and generated_logo.texture != null
+	standby_title.visible = intro_visible and not generated_logo.visible
 	blueprint.visible = not intro_visible
 	result_title.visible = not intro_visible
 	result_body.visible = not intro_visible
@@ -185,7 +214,7 @@ func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [],
 		target_panel.visible = false
 		for i in range(player_readouts.size()):
 			var portrait: Node3D = blueprint.get_node("Players/Portrait_%d" % (i + 1)) as Node3D
-			for child_name in ["PortraitPanel", "Head", "Torso"]:
+			for child_name in ["PortraitPanel", "Head", "Torso", "PortraitImage"]:
 				(portrait.get_node(child_name) as Node3D).visible = false
 			for child_name in ["WinnerBorder_%d", "WinLabel_%d", "Score_%d", "PointsOverlay_%d"]:
 				(portrait.get_node(child_name % (i + 1)) as Node3D).visible = false
@@ -230,10 +259,17 @@ func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [],
 
 	for i in range(player_readouts.size()):
 		var portrait: Node3D = blueprint.get_node("Players/Portrait_%d" % (i + 1)) as Node3D
+		var portrait_image: Sprite3D = portrait.get_node("PortraitImage") as Sprite3D
+		var has_generated_portrait: bool = portrait_image.texture != null
+		portrait_image.visible = portraits_visible and has_generated_portrait
 		for child_name in ["PortraitPanel", "Head", "Torso"]:
 			var art: Node3D = portrait.get_node(child_name) as Node3D
-			art.visible = portraits_visible
+			art.visible = portraits_visible and (child_name == "PortraitPanel" or not has_generated_portrait)
 		var winner_border: Node3D = portrait.get_node("WinnerBorder_%d" % (i + 1)) as Node3D
+		var frame_image: Sprite3D = winner_border.get_node("FrameImage") as Sprite3D
+		frame_image.visible = frame_image.texture != null
+		for edge_name in ["Top", "Bottom", "Left", "Right"]:
+			(winner_border.get_node(edge_name) as Node3D).visible = frame_image.texture == null
 		var win_label: Label3D = portrait.get_node("WinLabel_%d" % (i + 1)) as Label3D
 		var legacy_score: Label3D = portrait.get_node("Score_%d" % (i + 1)) as Label3D
 		var points_overlay: Node3D = portrait.get_node("PointsOverlay_%d" % (i + 1)) as Node3D
@@ -283,6 +319,8 @@ func reset_life(first_person: bool = false) -> void:
 	death_impact.visible = false
 	death_impact.transparency = 0.0
 	death_impact.scale = Vector3.ONE
+	generated_splash.visible = generated_splash.texture != null
+	generated_splash.modulate.a = 1.0
 	rear_scale.reset_scale()
 
 
@@ -307,11 +345,15 @@ func eliminate_player() -> void:
 	await elimination_tween.finished
 
 	death_impact.visible = true
+	generated_splash.visible = generated_splash.texture != null
+	generated_splash.modulate.a = 1.0
 	death_impact.transparency = 0.0
 	death_impact.scale = Vector3(0.18, 0.18, 0.18)
 	collapse_tween = create_tween().set_parallel(true)
 	collapse_tween.tween_property(death_impact, "scale", Vector3(1.6, 1.3, 1.6), 0.6)
 	collapse_tween.tween_property(death_impact, "transparency", 1.0, 0.75)
+	if generated_splash.texture != null:
+		collapse_tween.tween_property(generated_splash, "modulate:a", 0.0, 0.75)
 	# Birinci sahiste de govde yigilir; kamera goz noktasini izledigi icin birlikte duser.
 	collapse_tween.tween_property(player_figure, "rotation_degrees", Vector3(-62, 0, 12), 0.75)
 	collapse_tween.tween_property(player_figure, "position:y", -0.42, 0.75)
