@@ -38,7 +38,7 @@ class_name DengePlayerCharacter
 ## WATCH: monitore bakis icin bas ve govde egimi (negatif = yukari).
 @export var watch_head_pitch: float = -22.0
 @export var watch_spine_pitch: float = -4.0
-@export_range(0.5, 6.0, 0.1) var tap_speed: float = 3.2
+@export_range(0.5, 6.0, 0.1) var tap_speed: float = 2.4
 
 const MOODS: Array[String] = ["IDLE", "THINK", "LOCKED", "WATCH", "WIN", "LOSE"]
 const FINGER_NAMES: Array[String] = ["Index", "Middle", "Ring", "Pinky"]
@@ -80,6 +80,9 @@ func _ready() -> void:
 	_time = randf() * 100.0
 	_next_look = randf_range(0.5, look_interval)
 	_noise.seed = randi()
+	# Tek katmanli, yavas gurultu: fraktal katmanlar kare kare titreme uretiyordu.
+	_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	_noise.fractal_type = FastNoiseLite.FRACTAL_NONE
 	_noise.frequency = 0.35
 	_current = _mood_targets("IDLE")
 	apply_seated_pose()
@@ -184,7 +187,8 @@ func _mood_targets(state: String) -> Dictionary:
 				t["l_thumb"] = Vector3(20, 25, 10)
 				t["head"] = head_pitch + 4.0
 			# Sag el tablete ritmik dokunur.
-			var tap: float = maxf(0.0, sin(_mood_time * TAU * tap_speed))
+			# Yumusak dalga: keskin kose yok, el titremeden iner kalkar.
+			var tap: float = 0.5 - 0.5 * cos(_mood_time * TAU * tap_speed)
 			t["r_upper"] = Vector3(0.12, -0.7, 0.7)
 			t["r_fore"] = Vector3(-0.05, lerpf(-0.45, -0.1, tap), 1.0)
 			# Isaret parmagi acik, digerleri kivrik: tablete dokunur.
@@ -242,7 +246,10 @@ func _update_look(delta: float) -> void:
 func _build_pose(p: Dictionary) -> void:
 	skeleton.reset_bone_poses()
 	var breath: float = sin(_time * TAU * breath_speed) if idle_motion else 0.0
-	var sway: float = _noise.get_noise_1d(_time * 10.0) if idle_motion else 0.0
+	if first_person:
+		breath *= 0.4
+	# Birinci sahiste kamera govdeyi izledigi icin sallanma kapali.
+	var sway: float = _noise.get_noise_1d(_time) if idle_motion and not first_person else 0.0
 	var look: Vector2 = _look_current * float(p["look"]) if idle_motion else Vector2.ZERO
 
 	var body_yaw: float = _view_yaw_degrees * 0.35 if first_person else 0.0
@@ -346,7 +353,9 @@ func _curl_fingers(side: String, p: Dictionary, prefix: String) -> void:
 		var finger: String = FINGER_NAMES[finger_index]
 		var curl: Vector3 = p[prefix + ("index" if finger == "Index" else "fingers")]
 		# Beklerken parmaklarla masaya tiklatma dalgasi.
-		var wave: float = drum * maxf(0.0, sin(_time * TAU * 1.3 - float(finger_index) * 0.9)) * maxf(0.0, sin(_time * 0.7))
+		var finger_wave: float = 0.5 - 0.5 * cos(_time * TAU * 1.3 - float(finger_index) * 0.9)
+		var burst: float = clampf(sin(_time * 0.7), 0.0, 1.0)
+		var wave: float = drum * finger_wave * burst * burst
 		_curl_chain(side + "Hand" + finger, curl + Vector3(18.0, 10.0, 0.0) * wave, palm)
 	_curl_chain(side + "HandThumb", p[prefix + "thumb"], palm)
 
