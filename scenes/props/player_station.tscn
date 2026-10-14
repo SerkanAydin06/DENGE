@@ -47,12 +47,6 @@ size = Vector3(1.59, 0.94, 0.018)
 [sub_resource type="BoxMesh" id="b_TabletHighlight"]
 size = Vector3(0.119, 0.048, 0.007)
 
-[sub_resource type="BoxMesh" id="b_ResultBase"]
-size = Vector3(0.92, 0.13, 0.75)
-
-[sub_resource type="BoxMesh" id="b_ResultColumn"]
-size = Vector3(0.18, 1.45, 0.17)
-
 [sub_resource type="BoxMesh" id="b_MonitorBezel"]
 size = Vector3(2.55, 1.49, 0.1)
 
@@ -890,20 +884,10 @@ text = "ONAY"
 font_size = 40
 
 [node name="ResultDisplay" type="Node3D" parent="." unique_id=971122121]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2591057)
-
-[node name="FloorBase" type="MeshInstance3D" parent="ResultDisplay" unique_id=1197788275]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09, 0)
-material_override = ExtResource("m_dark_metal")
-mesh = SubResource("b_ResultBase")
-
-[node name="FloorColumn" type="MeshInstance3D" parent="ResultDisplay" unique_id=1218396416]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-material_override = ExtResource("m_metal")
-mesh = SubResource("b_ResultColumn")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1259656, -2.2591057)
 
 [node name="ResultMonitor" type="Node3D" parent="ResultDisplay" unique_id=1235211843]
-transform = Transform3D(0.8, 0, 0, 0, 0.7517541, 0.2736161, 0, -0.2736161, 0.7517541, 0, 1.58, 0)
+transform = Transform3D(0.8, 0, 0, 0, 0.7878462, -0.13891855, 0, 0.13891855, 0.7878462, 0, 1.58, 0)
 
 [node name="MonitorBezel" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor" unique_id=401473221]
 material_override = ExtResource("m_dark_metal")
