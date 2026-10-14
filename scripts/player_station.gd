@@ -66,15 +66,21 @@ func _ready() -> void:
 	set_monitor_phase("STANDBY")
 
 func _install_character() -> void:
-	if character_scene == null:
-		return
+	# Character is already authored under PlayerFigure in game_room.tscn.
+	# Keep the runtime PackedScene fallback for standalone test stations.
+	var character: Node3D = player_figure.get_node_or_null("Character") as Node3D
+	if character == null and character_scene != null:
+		character = character_scene.instantiate() as Node3D
+		if character == null:
+			push_warning("DENGE: karakter sahnesi Node3D olarak acilamadi.")
+			return
+		character.name = "Character"
+		player_figure.add_child(character)
+	var has_character: bool = character != null
 	for part in ["Torso", "Head", "LeftArm", "RightArm"]:
 		var placeholder: Node3D = player_figure.get_node_or_null(part) as Node3D
 		if placeholder:
-			placeholder.visible = false
-	var character: Node3D = character_scene.instantiate() as Node3D
-	character.name = "Character"
-	player_figure.add_child(character)
+			placeholder.visible = not has_character
 
 func eye_position() -> Vector3:
 	return seat_eye.global_position
