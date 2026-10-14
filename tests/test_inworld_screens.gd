@@ -18,11 +18,14 @@ func _initialize() -> void:
 	assert(number_grid.has_node("Number_100"))
 	assert(station.has_node("Desk/TouchConsole/ConfirmChoice"))
 	assert(station.has_node("Desk/TouchConsole/ClearChoice"))
-	assert(station.has_node("ResultDisplay/ResultMonitor/MonitorSweep"))
+	assert(not station.has_node("ResultDisplay/ResultMonitor/MonitorSweep"), "Refresh stripe must not return")
 	assert(station.has_node("ResultDisplay/ResultMonitor/PlayerReadouts/Player_5"))
-	var bezel: MeshInstance3D = station.get_node("ResultDisplay/ResultMonitor/MonitorBezel") as MeshInstance3D
+	var monitor: Node3D = station.get_node("ResultDisplay/ResultMonitor") as Node3D
+	var bezel: MeshInstance3D = monitor.get_node("MonitorBezel") as MeshInstance3D
 	var bezel_mesh: BoxMesh = bezel.mesh as BoxMesh
-	assert(bezel_mesh.size.x >= 2.5, "Large result display must be at least 2.5 units wide")
+	assert(is_equal_approx(monitor.scale.x, 0.88), "Monitor width must be scaled to 88 percent")
+	assert(is_equal_approx(monitor.scale.y, 0.88), "Monitor height must be scaled to 88 percent")
+	assert(bezel_mesh.size.x * monitor.scale.x < 2.3, "Physical monitor should be smaller than before")
 
 	station.reset_tablet(1)
 	station.choose_number(100)
