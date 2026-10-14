@@ -9,16 +9,16 @@ Ana sahne: `scenes/game_room.tscn`
 Tüm salon artık Godot sahnelerinde kaydedilmiş gerçek düğümlerden oluşur; çalışma anında dekor üretimi **yoktur**.
 
 - `scenes/room_shell.tscn` — geniş salon, beton döşemeler, 44 duvar paneli, galeri, kubbe, ışık halkaları ve aplikler
-- `scenes/center_platform.tscn` — yükseltilmiş basamaklı platform ve ortadaki terazi
+- `scenes/center_platform.tscn` — üç katlı simetrik beşgen platform (ortada terazi yok)
 - `scenes/props/player_station.tscn` — deri koltuk, açılı masa, yatık dokunmatik ekran, sonuç monitörü
 - `scenes/props/balance_scale.tscn` — büyük terazi heykeli (eğim ayarı Inspector'dan)
-- `scenes/props/judge_bench.tscn` — hâkim kürsüsü
+- `scenes/props/entrance_door.tscn` — çift kanatlı giriş/çıkış kapısı
 - `scenes/ui/number_terminal_ui.tscn` — 0–100 sayı düğmeleri ve kilitleme
 - `assets/materials/*.tres` — bütün malzemeler, renkler ve parlaklıklar
 
 **Düzenleme:** Godot'ta ana sahneyi açın. İç içe PackedScene örneklerinin parçalarını düzenlemek için ilgili `.tscn` dosyasını açın veya *Editable Children* kullanın. Koltukların yerini ana sahnede değiştirin, duvar/kubbe parçalarını RoomShell sahnesinde, malzemeleri .tres dosyalarında ayarlayın.
 
-**Kontrol:** Fare ile bak; `E` ile koltuğun önündeki sayı terminalini aç; 0–100 arasında sayı seçip kilitle; `Esc` ile kapat.
+**Kontrol:** Fare ile bak; `E` ile sayı terminalini aç; 0–100 arasında sayı seçip kilitle; `Esc` ile kapat. Seçimden sonra tur sonucu ve puanları gösterilir, **SONRAKİ TUR** ile terminal sıfırlanır.
 
 **Durum:** Bu sahneler yerleşim ve ışıklandırma açısından düzenlenebilir bir 3D prototiptir; filmin hazır 3D varlıklarının birebir kopyası değildir. Terminal seçimi hâlen 2D katman olarak açılır; fiziksel 3D ekran üzerinden doğrudan tıklama sonraki aşamadır.
 
@@ -26,3 +26,15 @@ Tüm salon artık Godot sahnelerinde kaydedilmiş gerçek düğümlerden oluşur
 - Salon kabuğu ana sahnede %16 genişletildi; salon yüksekliği %6 artırıldı.
 - `scenes/props/entrance_door.tscn`: eski kürsünün bulunduğu eksende çift kanatlı kapı, gerçek duvar boşluğu ve açık galeri geçidi. Kapı kanatları ayrı `LeftHinge` / `RightHinge` düğümlerinden döndürülebilir.
 - 5 oyuncu istasyonu eşit açılarla dizilir ve aynı yüksekliktedir. Her istasyonun arkasında kendi terazisi vardır. Ortada terazi ve hâkim kürsüsü yoktur.
+
+## İlk oynanabilir tur (yerel prototip)
+
+- Oyuncu 1 insan; diğer dört koltukta geçici olarak **0–100 arasında rastgele sayı seçen bilgisayar rakipleri** var. Bu aşama gerçek çok oyunculu veya gelişmiş yapay zekâ değildir.
+- Her tur hedef sayı: **aktif oyuncuların seçtiği sayıların ortalaması × 0,8**.
+- Hedefe en yakın sayı(lar) kazanır; kazanmayan aktif oyuncular **-1 puan** alır. Eşit uzaklıktakiler birlikte kazanır.
+- **-10 puan** elenme sınırı. Elenenler sonraki turların hesabına katılmaz.
+- Oyun bitince ya da insan oyuncu elenince sonuç ekranından **YENİDEN BAŞLAT** kullanılabilir.
+- 3D salon, dokunmatik terminaller ve sonuç ekranı ayrı, düzenlenebilir Godot sahneleridir.
+
+Sahne: `scenes/ui/round_results_ui.tscn` — tur özeti; hesaplama: `scripts/round_rules.gd`.
+Test: `godot --headless --path . --script res://tests/test_round_rules.gd` (Godot kurulu makinede).
