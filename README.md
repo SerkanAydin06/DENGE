@@ -29,10 +29,10 @@ Tüm salon artık Godot sahnelerinde kaydedilmiş gerçek düğümlerden oluşur
 
 ## İlk oynanabilir tur (yerel prototip)
 
-- Oyuncu 1 insan; diğer dört koltukta geçici olarak **0–100 arasında rastgele sayı seçen bilgisayar rakipleri** var. Bu aşama gerçek çok oyunculu veya gelişmiş yapay zekâ değildir.
+- Oyuncu 1 insan; diğer dört koltukta geçici olarak **0–100 arasında sayı seçen bilgisayar rakipleri** var. Bu aşama gerçek çok oyunculu veya gelişmiş yapay zekâ değildir.
 - Her tur hedef sayı: **aktif oyuncuların seçtiği sayıların ortalaması × 0,8**.
 - Hedefe en yakın sayı(lar) kazanır; kazanmayan aktif oyuncular **-1 puan** alır. Eşit uzaklıktakiler birlikte kazanır.
-- **-10 puan** elenme sınırı. Elenenler sonraki turların hesabına katılmaz.
+- Her oyuncu **10 puanla başlar**. Kaybedilen turlarda **1 puan düşer**. **0 puana düşen elenir** ve sonraki turların hesabına katılmaz.
 - Oyun bitince ya da insan oyuncu elenince sonuç ekranından **YENİDEN BAŞLAT** kullanılabilir.
 - 3D salon, dokunmatik terminaller ve sonuç ekranı ayrı, düzenlenebilir Godot sahneleridir.
 
@@ -42,7 +42,7 @@ Test: `godot --headless --path . --script res://tests/test_round_rules.gd` (Godo
 ## Fiziksel ekran akışı
 
 - **Tablet:** 0’dan 100’e kadar **101 sayı, her biri ayrı dokunulabilir seçenek**, seçili sayıyı vurgulama, `TEMIZLE` ve `ONAY`. Tam ekran panel yok.
-- **Ayrı monitör:** Yaklaşık **2,24 × 1,31 m**, koyu mavi ışıklı zemin, camgöbeği çerçeve, 5 oyuncunun ayrı sayı alanı, ortalama/hedef hesabı, kazanan/puanlar ve sırayla açıklama animasyonu.
+- **Ayrı monitör:** Yaklaşık **2,04 × 1,19 m**, koyu mavi ışıklı zemin, camgöbeği çerçeve, 5 oyuncunun ayrı sayı alanı, ortalama/hedef hesabı, kazanan/puanlar ve sırayla açıklama animasyonu.
 - **Görüntü:** Her istasyonda `ResultTitle`, `ResultBody`, `PlayerReadouts/Player_1..5`, `ResultDetails`, `ResultFooter` ve çerçeve ışıkları Godot editöründe düzenlenebilir.
 - Bilgisayar rakipleri şimdilik rastgele sayılar üretir. Görsel dil dramatik, özgün ve uyarlama sahnenin birebir kopyası değildir.
 
@@ -63,5 +63,9 @@ Monitörün **koyu lacivert teknik ızgaralı zemini**, arkadaki **soluk terazi 
 
 ## Ekran boyutu ve yenileme
 
-- Monitörün tamamı %12 küçültüldü (görünen genişlik yaklaşık 2,24 m); beş oyuncu kutusu ve çizimler orantılı kalır, ayak/stand etkilenmez.
+- Monitör toplamda %20 küçültüldü (görünen genişlik yaklaşık 2,04 m); beş oyuncu kutusu ve çizimler orantılı kalır, ayak/stand etkilenmez.
 - Yenileme sırasında akan mavi şerit (`MonitorSweep`) sahneden ve animasyon kodundan çıkarıldı; metinlerin yumuşak belirmesi korundu.
+
+## Başlangıç puanı ve elenme
+
+Tüm beş oyuncu **10 puanla** başlar. Turun kazanan(lar)ı puan kaybetmez; diğerleri 1 puan kaybeder. Puan **0'a ulaştığında** oyuncu elenir, sonraki turlarda seçim yapamaz ve ortalama hesabına katılmaz. Puan 0'ın altına düşmez. Oyun sıfırlanınca herkes yeniden 10 puana döner.
