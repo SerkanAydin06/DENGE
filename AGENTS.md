@@ -42,11 +42,11 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 ## Screen architecture (user-locked)
 - No fullscreen number selection UI or fullscreen results UI in `scenes/game_room.tscn`; do not reconnect the legacy `number_terminal_ui.tscn` or `round_results_ui.tscn` overlay scenes.
 - `scripts/player_station.gd` manages scene-authored 101-number touchscreen (`NumberGrid/Number_000..100`) and 3D monitor labels and subtle alpha transitions. `scripts/game_room.gd` maps camera rays to the physical tablet and drives phased monitor reveals.
-- All instructions, calculations, results and game animations are displayed **on the freestanding 3D monitor, never on the tablet or an overlaid popup**. Tablet is exclusively for 0–100 entry and lock indication.
-- E picks up the compact physical tablet **from anywhere while seated**; clicks select individual numbers 0-100; TEMIZLE clears, ONAY locks; keyboard digits and Enter are optional; Esc sets it back on its desk. After results finish, E proceeds to next round.
+- All instructions, calculations, results and game animations are displayed **on the suspended ceiling-mounted 3D monitor, never on the tablet or an overlaid popup**. Tablet is exclusively for 0–100 entry and lock indication.
+- E picks up the compact physical tablet **only when the seated player looks at it and the physical [E] interaction marker is visible**; clicks select individual numbers 0-100; TEMIZLE clears, ONAY locks; keyboard digits and Enter are optional; Esc sets it back on its desk. After results finish, look back at the desk tablet and press E to continue or restart; the monitor never shows an E instruction.
 
 ## Large game monitor (design locked)
-- Every station owns a **approximately 2.04m × 1.19m** visible freestanding blue-and-cyan monitor: `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. It remains a floor-mounted display, not attached to desks.
+- Every station owns a **approximately 2.04m × 1.19m** visible ceiling-suspended blue-and-cyan monitor: `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. The user moved the monitor higher; preserve that transform. Remove floor bases and attach two scene-authored suspension rods to the ceiling. It is not mounted on desks.
 - Scene-authored glowing frame, subtle text fades (no moving scanline) and five player-number readout labels (no HUD/popup). Separate emission materials in `assets/materials/monitor_glass.tres`, `monitor_cyan.tres` and `tablet_selection.tres`.
 - The physical desk tablet visibly lists **all 101 values (0..100 individually)** in ten columns and eleven rows, plus TEMIZLE and ONAY. Do not regress to digit keypad, screenspace number picker or modal result screen.
 
@@ -63,17 +63,23 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 - Each player sees identical monitor content; the separate 101-number small handheld tablet remains entry-only. Headless checks live in `tests/test_inworld_screens.gd`.
 
 ## Monitor size / refresh polish (2026-10-14)
-- The complete monitor visual is uniformly 0.80-scaled through `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. This keeps the proportions and alignment of blueprint grid, portraits, five number tiles, frame and labels. The floor stand stays at original scale. Physical visible face ~2.04 × 1.19 m.
+- The complete monitor visual is uniformly 0.80-scaled through `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. This keeps the proportions and alignment of blueprint grid, portraits, five number tiles, frame and labels. The floor stand has been removed and replaced with ceiling suspension. Physical visible face ~2.04 × 1.19 m.
 - **No moving blue refresh bar:** `MonitorSweep` mesh/subresource and associated tween were removed intentionally. `set_monitor_page()` only fades the title and headline. Do not reintroduce scan sweeps.
 - `tests/test_inworld_screens.gd` guards the smaller transform and absence of scanline, and existing monitor phase results.
 
 ## Starting points and zero elimination (user-locked)
 - All five players begin with **10 points** (`DengeRoundRules.STARTING_SCORE`). The player(s) closest to the 0.8× average target retain their current points; all other active players lose 1 point per round.
 - **At 0 points, a player is eliminated** (`DengeRoundRules.ELIMINATION_SCORE = 0`). Their choice is -1, excluded from future averages, and their score never becomes negative. The starting/reset scores in `scripts/game_room.gd` must be 10 for all five players.
-- The score/threshold are announced on the freestanding result monitor. New eliminations show ELENDI / PUAN 0. Headless rule checks in `tests/test_round_rules.gd` exercise threshold, ties and exclusions.
+- The score/threshold are announced on the suspended result monitor. New eliminations show ELENDI / PUAN 0. Headless rule checks in `tests/test_round_rules.gd` exercise threshold, ties and exclusions.
 - Result monitor is at 80% scale (physical face ~2.04 × 1.19 m). Do not alter the user's manually authored position and screen styling.
 
 ## Locked 2026-10-14 monitor choreography
 - The supplied three new screenshots clarify the exact display progression: number-only row revealed sequentially; highlighted number row and mean; equation mean × 0.8 then numeric answer; afterwards transition to full five-portrait/number composition with target at bottom; winner highlighted with red full-height portrait+number outline; finally **each portrait overlays the player's remaining points (0–10)**. Do not show portraits during earlier calculation phases and do not announce the next round before point overlays are visible.
 - Authored `CalculationPanel` and `Players/Portrait_n/PointsOverlay_n` are editable nodes in `scenes/props/monitor_blueprint.tscn`. `scripts/player_station.gd` controls phase visibility; `scripts/game_room.gd` controls the ordered timed sequence. The visual portraits currently use original abstract silhouettes; replace them with original character assets when available, not TV stills.
 - `tests/test_inworld_screens.gd` checks all display phase visibility and point readouts.
+
+## Black boot, round intro and ceiling suspension (2026-10-14, user-locked)
+- The monitor begins with a **fully black screen containing only the centered title DENGE**. Do not show “DENGE | TUR 01”, numeric instructions, tablet guidance, E interaction hints or blueprint elements during selection. `StandbyScreen/BlackFace` and `StandbyScreen/CenterTitle` are editable elements in `scenes/props/player_station.tscn`; `STANDBY` hides blueprint/readouts/other labels.
+- All active players choose numbers while the monitors remain black with DENGE. Only **after every player has locked in** does `ROUND_TITLE` show `1. TUR` (or N. TUR), then REVEAL→AVERAGE→MULTIPLY→CALCULATED→PHOTO→WIN→SCORE occurs. The title animation is a text fade, not a moving blue scanline.
+- The only E cue is `TabletInteractionHint`, a 3D billboard over player 1's **physical desk tablet**, visible when looking toward the tablet and interaction is available. On score results, looking at the tablet and pressing E proceeds/restarts, without prompt on the monitor. `tests/test_tablet_pickup.gd` covers gaze hint behavior.
+- Raised result screens are **ceiling-hung**, not floor-standing. Preserve the user's raised `ResultDisplay` transform, remove the old floor base and column, and use paired `ResultDisplay/CeilingMount/LeftCable`, `RightCable`, and roof anchors in `player_station.tscn`. Editable scene geometry only, no runtime geometry generation.
