@@ -38,6 +38,11 @@ const GRID_TOP: float = 0.22
 	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_5
 ]
 @onready var seat_eye: Marker3D = $SeatEye
+@onready var rear_scale: DengeBalanceScale = $RearBalanceScale
+@onready var spill_target: Marker3D = $SpillTarget
+@onready var player_figure: Node3D = $PlayerFigure
+@onready var death_stream: MeshInstance3D = $DeathSpillStream
+@onready var death_impact: MeshInstance3D = $DeathImpact
 
 var entered_digits: String = ""
 var chosen_number: int = -1
@@ -45,6 +50,11 @@ var tablet_locked: bool = false
 var tablet_enabled: bool = true
 var number_labels: Array[Label3D] = []
 var monitor_tween: Tween
+var elimination_tween: Tween
+var collapse_tween: Tween
+var is_eliminated: bool = false
+var hide_first_person_figure: bool = false
+var current_points: int = DengeRoundRules.STARTING_SCORE
 
 func _ready() -> void:
 	for number in range(DengeRoundRules.MAX_NUMBER + 1):
@@ -218,6 +228,72 @@ func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [],
 			var score_tween: Tween = create_tween()
 			score_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 			score_tween.tween_property(points_overlay, "scale", Vector3.ONE, 0.40)
+
+
+func reset_life(first_person: bool = false) -> void:
+	if elimination_tween and elimination_tween.is_running():
+		elimination_tween.kill()
+	if collapse_tween and collapse_tween.is_running():
+		collapse_tween.kill()
+	hide_first_person_figure = first_person
+	is_eliminated = false
+	current_points = DengeRoundRules.STARTING_SCORE
+	player_figure.rotation_degrees = Vector3.ZERO
+	player_figure.position = Vector3(0, 0, 0.14)
+	player_figure.visible = not first_person
+	death_stream.visible = false
+	death_impact.visible = false
+	death_impact.transparency = 0.0
+	death_impact.scale = Vector3.ONE
+	rear_scale.reset_scale()
+
+
+func update_life_points(points: int, seconds: float = 0.85) -> void:
+	if is_eliminated:
+		return
+	current_points = clampi(points, 0, DengeRoundRules.STARTING_SCORE)
+	rear_scale.apply_points(current_points, seconds)
+
+
+func eliminate_player() -> void:
+	if is_eliminated:
+		return
+	is_eliminated = true
+	current_points = 0
+	# The heavy near-player bowl tips; an authored liquid stream extends to the head.
+	rear_scale.spill()
+	await get_tree().create_timer(0.35).timeout
+	elimination_tween = create_tween()
+	elimination_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	elimination_tween.tween_method(_render_death_stream, 0.0, 1.0, 1.15)
+	await elimination_tween.finished
+
+	death_impact.visible = true
+	death_impact.transparency = 0.0
+	death_impact.scale = Vector3(0.18, 0.18, 0.18)
+	collapse_tween = create_tween().set_parallel(true)
+	collapse_tween.tween_property(death_impact, "scale", Vector3(1.6, 1.3, 1.6), 0.6)
+	collapse_tween.tween_property(death_impact, "transparency", 1.0, 0.75)
+	if not hide_first_person_figure:
+		collapse_tween.tween_property(player_figure, "rotation_degrees", Vector3(-62, 0, 12), 0.75)
+		collapse_tween.tween_property(player_figure, "position:y", -0.42, 0.75)
+	await collapse_tween.finished
+	player_figure.visible = false
+	death_stream.visible = false
+	death_impact.visible = false
+
+
+func _render_death_stream(progress: float) -> void:
+	var start_point: Vector3 = to_local(rear_scale.pouring_point.global_position)
+	var end_point: Vector3 = spill_target.position
+	var current_tip: Vector3 = start_point.lerp(end_point, progress)
+	var stream_vector: Vector3 = current_tip - start_point
+	var stream_length: float = stream_vector.length()
+	death_stream.visible = stream_length > 0.02
+	if death_stream.visible:
+		death_stream.position = (start_point + current_tip) * 0.5
+		death_stream.quaternion = Quaternion(Vector3.UP, stream_vector.normalized())
+		death_stream.scale = Vector3(1.0, stream_length, 1.0)
 
 
 func append_digit(digit: int) -> void:
