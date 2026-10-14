@@ -56,7 +56,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# This E hint belongs to the small physical tablet, never to the monitor.
 	tablet_interaction_hint.visible = (not tablet_mode and not tablet_transition
-		and not revealing and not round_result_ready and not stations[0].tablet_locked
+		and not revealing and (round_result_ready or not stations[0].tablet_locked)
 		and _looking_at_tablet())
 
 
@@ -82,7 +82,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		if round_result_ready and event.keycode == KEY_E:
-			_next_round()
+			if _looking_at_tablet():
+				_next_round()
 			get_viewport().set_input_as_handled()
 			return
 
@@ -308,13 +309,13 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 	scores = result["scores"]
 	var survivor_ids: Array = result["survivors"]
 	game_finished = scores[0] <= DengeRoundRules.ELIMINATION_SCORE or survivor_ids.size() <= 1
-	var footer: String = "E: YENIDEN BASLAT" if game_finished else "E: SONRAKI TUR"
+	# The E interaction prompt belongs to the real desk tablet only.
 	_set_all_monitor_phases("SCORE", float(result["target"]), winners, scores)
 	_broadcast(
 		"DENGE  |  TUR %02d PUANLARI" % round_number,
 		"KALAN PUANLAR",
 		"",
-		footer
+		""
 	)
 	revealing = false
 	round_result_ready = true
