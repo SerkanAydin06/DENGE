@@ -51,22 +51,68 @@ func _initialize() -> void:
 	assert(blueprint.has_node("BalanceMotif/Beam"))
 	assert(blueprint.has_node("Players/Portrait_5/Head"))
 	assert(blueprint.has_node("Players/Portrait_5/NumberTile"))
-	station.set_monitor_phase("AVERAGE")
-	assert(station.average_frame.visible)
+	assert(blueprint.has_node("CalculationPanel/AverageValue"))
+	assert(blueprint.has_node("CalculationPanel/FactorValue"))
+	assert(blueprint.has_node("CalculationPanel/AnswerValue"))
+	assert(blueprint.has_node("Players/Portrait_5/PointsOverlay_5/PointsValue"))
+
+	# 1) Numbers reveal without images.
+	station.set_monitor_phase("REVEAL")
+	assert(not blueprint.get_node("Players/Portrait_1/PortraitPanel").visible)
+	assert(not station.calculation_panel.visible)
 	assert(not station.target_panel.visible)
-	station.set_monitor_phase("TARGET", 24.0)
-	assert(not station.average_frame.visible)
+
+	# 2) Mean appears before the multiplier and before the final answer.
+	station.set_monitor_phase("AVERAGE", -1.0, [], [], 16.6)
+	assert(station.average_frame.visible)
+	assert(station.calculation_panel.visible)
+	assert(station.calculation_average.text == "16.60")
+	assert(not station.calculation_panel.get_node("FactorValue").visible)
+	assert(not station.calculation_panel.get_node("AnswerBox").visible)
+
+	# 3) Show 0.8 multiplication first, with answer still hidden.
+	station.set_monitor_phase("MULTIPLY", -1.0, [], [], 16.6)
+	assert(station.calculation_panel.get_node("FactorValue").visible)
+	assert(not station.calculation_panel.get_node("AnswerBox").visible)
+
+	# 4) Reveal the calculated target on the equation screen.
+	station.set_monitor_phase("CALCULATED", 13.28, [], [], 16.6)
+	assert(station.calculation_panel.get_node("AnswerBox").visible)
+	assert(station.calculation_answer.text == "13.28")
+	assert(not station.target_panel.visible)
+
+	# 5) Next, show portraits over chosen numbers with target below.
+	station.set_monitor_phase("PHOTO", 13.28)
+	assert(blueprint.get_node("Players/Portrait_1/PortraitPanel").visible)
+	assert(not station.calculation_panel.visible)
 	assert(station.target_panel.visible)
-	assert(station.target_value.text == "24.00")
-	station.set_monitor_phase("RESULT", 24.0, [2], ["FARK 6.00\nPUAN 9 (-1)", "B", "C", "D", "E"])
+	assert(station.target_value.text == "13.28")
+	assert(not blueprint.get_node("Players/Portrait_3/WinnerBorder_3").visible)
+
+	# 6) Reveal winner after photos and the target are already visible.
+	station.set_monitor_phase("WIN", 13.28, [2])
 	assert(blueprint.get_node("Players/Portrait_3/WinnerBorder_3").visible)
-	assert(blueprint.get_node("Players/Portrait_3/WinLabel_3").visible, "Winner needs a KAZANDI label")
+	assert(blueprint.get_node("Players/Portrait_3/WinLabel_3").visible)
 	assert(not blueprint.get_node("Players/Portrait_2/WinnerBorder_2").visible)
-	assert(not blueprint.get_node("Players/Portrait_2/WinLabel_2").visible)
-	assert(blueprint.get_node("Players/Portrait_1/Score_1").text == "FARK 6.00\nPUAN 9 (-1)")
+	assert(not blueprint.get_node("Players/Portrait_3/PointsOverlay_3").visible)
+
+	# 7) All five remaining scores are displayed on top of their portraits.
+	station.set_monitor_phase("SCORE", 13.28, [2], [9, 9, 10, 9, 9])
+	assert(blueprint.get_node("Players/Portrait_3/WinnerBorder_3").visible)
+	assert(not blueprint.get_node("Players/Portrait_3/WinLabel_3").visible)
+	for player_index in range(1, 6):
+		var overlay: Node3D = blueprint.get_node("Players/Portrait_%d/PointsOverlay_%d" % [player_index, player_index]) as Node3D
+		assert(overlay.visible)
+	assert(blueprint.get_node("Players/Portrait_3/PointsOverlay_3/PointsValue").text == "10 PUAN")
+	assert(blueprint.get_node("Players/Portrait_1/PointsOverlay_1/PointsValue").text == "9 PUAN")
+
+	# New round hides the scores and portraits again.
 	station.set_monitor_phase("RULES")
 	assert(not station.target_panel.visible)
 	assert(not station.average_frame.visible)
+	assert(not station.calculation_panel.visible)
+	assert(not blueprint.get_node("Players/Portrait_3/PointsOverlay_3").visible)
+	assert(not blueprint.get_node("Players/Portrait_1/PortraitPanel").visible)
 	station.set_monitor_page("TUR 2", "HEDEF 28.00", "ORTALAMA 35.00", "E: DEVAM")
 	assert(station.result_body.text == "HEDEF 28.00")
 	assert(station.result_footer.text == "E: DEVAM")
