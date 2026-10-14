@@ -22,7 +22,7 @@ extends Node3D
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var round_number: int = 1
-var scores: Array[int] = [0, 0, 0, 0, 0]
+var scores: Array[int] = [DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE]
 var game_finished: bool = false
 var tablet_mode: bool = false
 var tablet_transition: bool = false
@@ -169,7 +169,7 @@ func _prepare_round() -> void:
 	_broadcast(
 		"DENGE  |  TUR %02d" % round_number,
 		"EN YAKIN SAYI KAZANIR",
-		"HEDEF = ORTALAMA x 0.8",
+		"HEDEF = ORTALAMA x 0.8\nBASLANGIC: 10 PUAN | 0 PUANDA ELENIR",
 		"E: TABLETI AL"
 	)
 
@@ -267,6 +267,8 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 	for i in range(selections.size()):
 		if selections[i] < 0:
 			score_lines.append("ELENDI")
+		elif scores[i] <= DengeRoundRules.ELIMINATION_SCORE:
+			score_lines.append("ELENDI\nPUAN 0 (%+d)" % (scores[i] - previous_scores[i]))
 		else:
 			score_lines.append("FARK %.2f\nPUAN %d (%+d)" % [absf(float(selections[i]) - float(result["target"])), scores[i], scores[i] - previous_scores[i]])
 	var survivor_ids: Array = result["survivors"]
@@ -297,7 +299,7 @@ func _next_round() -> void:
 		return
 	if game_finished:
 		round_number = 1
-		scores = [0, 0, 0, 0, 0]
+		scores = [DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE]
 		game_finished = false
 	else:
 		round_number += 1
