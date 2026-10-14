@@ -82,7 +82,16 @@ environment = SubResource("RoomEnvironment")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.5, 0)
 light_color = Color(0.78, 0.91, 0.99, 1)
 light_energy = 3.0
+light_cull_mask = 4294967293
 shadow_enabled = true
+spot_range = 22.0
+spot_angle = 43.0
+
+[node name="DomeSpotCharacters" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.5, 0)
+light_color = Color(0.78, 0.91, 0.99, 1)
+light_energy = 3.0
+light_cull_mask = 2
 spot_range = 22.0
 spot_angle = 43.0
 
