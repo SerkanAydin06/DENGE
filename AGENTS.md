@@ -13,7 +13,7 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 
 ## Project facts
 - Repository: SerkanAydin06/DENGE (default branch main).
-- Engine: Godot 4, GDScript; initial target: Windows, 1920×1080, GL Compatibility.
+- Engine: Godot 4, GDScript; initial target: Windows, 1920×1080, Forward+ (Vulkan/D3D12).
 - Game: original psychological number-selection strategy game inspired by a dramatic balance-game setting. Avoid copying trademarked art or branding.
 - Design locked (reference: wide courtroom-style round hall): dark concrete block walls, stepped dome with ring light strips, warm wall sconces, wooden gallery balustrade with arched seats around the hall; **three-tier regular pentagonal central platform** (five segments per tier, aligned to the five 72-degree-spaced inward-facing player stations) with **five angled desks forming a pentagon ring**, office chairs facing center; each desk has an **in-world ray-clickable number-only tablet (101 distinct numbered labels, 0..100, plus TEMIZLE/ONAY)** and a separate **animated 3D results monitor** (reveal, calculations, winners and scores, all five synced); **exactly five balance scales, one directly behind each chair**, with one pan over the seated player's head (ready for tilt/pour animation). **No balance at the center or freestanding extra scales; no judge bench.** A centered, scene-editable double entrance/exit door is cut through the rear wall and gallery; five player stations must remain equally spaced and at the same height. The room shell is enlarged separately from the player ring.
 - Camera: player 1's seated eye-level view toward center/host.
@@ -100,5 +100,5 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 
 - Character visibility regression: `tests/test_character_scene_visibility.gd` checks all five rigged GLBs are in `game_room.tscn` **before** `_ready()` and are not duplicated at runtime. Open `scenes/game_room.tscn` (not the shared generic `player_station.tscn`) to inspect the five distinct Meshy assets. Preserve their scene-authored transforms and editable station nesting.
 - Character moods (`DengePlayerCharacter.set_mood`, via `DengePlayerStation.set_character_mood`): THINK at round start (right hand taps tablet, left hand to chin at intervals), LOCKED after a bot locks, WATCH (look up at monitor) from ROUND_TITLE, WIN/LOSE at the WIN phase. Arms rest on the desk by default.
-- Lighting: character meshes render on layer 2. `Lighting/DomeSpot` (shadowed) excludes layer 2; `Lighting/DomeSpotCharacters` is an unshadowed twin for layer 2 only. This avoids faceted/striped faces from shadowed-light passes on skinned meshes in the Compatibility renderer. Keep both lights' transform/color/energy in sync.
+- Renderer: Forward+ (switched from GL Compatibility for shadows, SSAO/SSIL, glow and volumetric fog). The old layer-2 twin-light workaround for faceted faces was removed; `character_layers` export remains for selective light cull masks.
 - The primitive capsule placeholder figure was removed from `player_station.tscn`; `PlayerFigure` only holds the authored `Character`.

@@ -19,9 +19,8 @@ class_name DengePlayerCharacter
 ## Farkli boydaki modeller bu noktaya hizalanir.
 @export var seat_hip_height: float = 0.615
 @export var seat_hip_forward: float = 0.0
-## Karakter modellerinin cizim katmani. Ana tavan spotu bu katmani golgeli aydinlatmaz;
-## Compatibility cizicide iskeletli yuzlerde olusan parcali golge artefaktini onler.
-@export_flags_3d_render var character_layers: int = 2
+## Karakter modellerinin cizim katmani (isiklarin cull mask'i ile secici aydinlatma icin).
+@export_flags_3d_render var character_layers: int = 1
 
 @export_group("Idle Motion")
 ## Oturan karakterin nefes alma, hafif sallanma ve etrafa bakinma hareketleri.
