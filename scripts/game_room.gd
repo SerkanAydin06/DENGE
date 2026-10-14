@@ -5,7 +5,8 @@ extends Node3D
 @export_range(0.0005, 0.01, 0.0005) var mouse_sensitivity: float = 0.0025
 @export_range(30.0, 160.0, 1.0) var max_yaw_degrees: float = 95.0
 @export_range(20.0, 89.0, 1.0) var max_pitch_degrees: float = 55.0
-@export_range(0.1, 3.0, 0.1) var reveal_delay: float = 0.75
+@export_range(0.1, 3.0, 0.1) var reveal_delay: float = 1.2
+@export_range(0.2, 4.0, 0.1) var bot_think_seconds: float = 1.0
 @export_range(0.2, 0.8, 0.01) var tablet_pickup_seconds: float = 0.38
 @export_range(0.16, 0.35, 0.01) var tablet_hold_distance: float = 0.19
 
@@ -180,19 +181,43 @@ func _on_selection_locked(value: int) -> void:
 	revealing = true
 
 	var selections: Array[int] = []
+	var ready_count: int = 0
+	var active_count: int = 0
+	for i in range(stations.size()):
+		if scores[i] > DengeRoundRules.ELIMINATION_SCORE:
+			active_count += 1
 	for i in range(stations.size()):
 		if scores[i] <= DengeRoundRules.ELIMINATION_SCORE:
 			selections.append(-1)
-		elif i == 0:
+			continue
+		if i == 0:
 			selections.append(value)
 		else:
-			selections.append(rng.randi_range(DengeRoundRules.MIN_NUMBER, DengeRoundRules.MAX_NUMBER))
+			# Diger oyuncular sirayla dusunup tabletlerinde kilitler.
+			_broadcast("DENGE  |  TUR %02d" % round_number, "SECIMLER BEKLENIYOR", "HAZIR: %d / %d" % [ready_count, active_count], "OYUNCU %d SECIYOR..." % (i + 1))
+			await get_tree().create_timer(bot_think_seconds * rng.randf_range(0.6, 1.4)).timeout
+			var bot_value: int = _bot_choice()
+			stations[i].choose_number(bot_value)
+			stations[i].confirm_number()
+			selections.append(bot_value)
+		ready_count += 1
+	_broadcast("DENGE  |  TUR %02d" % round_number, "HERKES SECTI", "HAZIR: %d / %d" % [ready_count, active_count], "SAYILAR ACIKLANIYOR...")
+	await get_tree().create_timer(reveal_delay).timeout
 
 	var result: Dictionary = DengeRoundRules.resolve_round(selections, scores)
 	if result.is_empty():
 		revealing = false
 		return
 	_play_monitor_sequence(selections, result)
+
+func _bot_choice() -> int:
+	# Basit dusunme seviyesi: 50 * 0.8^k etrafinda, gurultulu.
+	var depth: int = rng.randi_range(0, 4)
+	var guess: float = 50.0 * pow(DengeRoundRules.TARGET_MULTIPLIER, float(depth)) + rng.randf_range(-9.0, 9.0)
+	return clampi(roundi(guess), DengeRoundRules.MIN_NUMBER, DengeRoundRules.MAX_NUMBER)
+
+func _player_name(index: int) -> String:
+	return "SEN (OYUNCU 1)" if index == 0 else "OYUNCU %d" % (index + 1)
 
 func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 	# An original in-world adaptation of the provided blue schematic display.
@@ -209,7 +234,7 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 			station.set_monitor_numbers(shown)
 		_broadcast(
 			"DENGE  |  SECIMLER",
-			"OYUNCU %d SAYISINI SECTI" % (i + 1),
+			"%s: %s" % [_player_name(i), shown[i]],
 			"SAYILAR SIRAYLA ACIKLANIYOR",
 			"OYUNCU %d / 5" % (i + 1)
 		)
@@ -229,25 +254,32 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 	_set_all_monitor_phases("TARGET", float(result["target"]))
 	_broadcast(
 		"DENGE  |  HEDEF",
-		"ORTALAMA x 0.8",
+		"%.2f x 0.8 = %.2f" % [result["average"], result["target"]],
 		"",
 		"HEDEFE EN YAKIN SAYI KAZANIR"
 	)
 	await get_tree().create_timer(reveal_delay * 1.8).timeout
 
+	var previous_scores: Array[int] = scores.duplicate()
 	scores = result["scores"]
 	var winners: Array = result["winners"]
+	var score_lines: Array[String] = []
+	for i in range(selections.size()):
+		if selections[i] < 0:
+			score_lines.append("ELENDI")
+		else:
+			score_lines.append("FARK %.2f\nPUAN %d (%+d)" % [absf(float(selections[i]) - float(result["target"])), scores[i], scores[i] - previous_scores[i]])
 	var survivor_ids: Array = result["survivors"]
 	var names: PackedStringArray = []
 	for index in winners:
-		names.append(str(index + 1))
+		names.append("%s = %d" % [_player_name(index), selections[index]])
 	var who: String = ", ".join(names)
 	game_finished = scores[0] <= DengeRoundRules.ELIMINATION_SCORE or survivor_ids.size() <= 1
 	var footer: String = "E: YENIDEN BASLAT" if game_finished else "E: SONRAKI TUR"
-	_set_all_monitor_phases("RESULT", float(result["target"]), winners, scores)
+	_set_all_monitor_phases("RESULT", float(result["target"]), winners, score_lines)
 	_broadcast(
 		"DENGE  |  TUR %02d SONUCU" % round_number,
-		"KAZANAN: %s" % who,
+		("KAZANAN: %s" if winners.size() == 1 else "BERABERE: %s") % who,
 		"",
 		footer
 	)
@@ -255,9 +287,9 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 	round_result_ready = true
 
 
-func _set_all_monitor_phases(phase: String, target: float = -1.0, winners: Array = [], score_values: Array = []) -> void:
+func _set_all_monitor_phases(phase: String, target: float = -1.0, winners: Array = [], score_lines: Array = []) -> void:
 	for station in stations:
-		station.set_monitor_phase(phase, target, winners, score_values)
+		station.set_monitor_phase(phase, target, winners, score_lines)
 
 
 func _next_round() -> void:

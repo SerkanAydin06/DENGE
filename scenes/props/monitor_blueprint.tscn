@@ -440,11 +440,23 @@ material_override = SubResource("NumberCard")
 
 [node name="Score_1" type="Label3D" parent="Players/Portrait_1"]
 visible = false
-position = Vector3(0, -0.462, 0.109)
+position = Vector3(0, -0.458, 0.109)
 text = "0"
 pixel_size = 0.00135
-font_size = 41
+font_size = 29
+line_spacing = -4.0
+outline_size = 6
 modulate = Color(0.79, 0.88, 0.95, 1)
+
+[node name="WinLabel_1" type="Label3D" parent="Players/Portrait_1"]
+visible = false
+position = Vector3(0, 0.172, 0.109)
+text = "KAZANDI"
+pixel_size = 0.00135
+font_size = 52
+outline_size = 8
+modulate = Color(1, 0.8, 0.36, 1)
+outline_modulate = Color(0.25, 0.03, 0.03, 1)
 
 [node name="WinnerBorder_1" type="Node3D" parent="Players/Portrait_1"]
 visible = false
@@ -499,11 +511,23 @@ material_override = SubResource("NumberCard")
 
 [node name="Score_2" type="Label3D" parent="Players/Portrait_2"]
 visible = false
-position = Vector3(0, -0.462, 0.109)
+position = Vector3(0, -0.458, 0.109)
 text = "0"
 pixel_size = 0.00135
-font_size = 41
+font_size = 29
+line_spacing = -4.0
+outline_size = 6
 modulate = Color(0.79, 0.88, 0.95, 1)
+
+[node name="WinLabel_2" type="Label3D" parent="Players/Portrait_2"]
+visible = false
+position = Vector3(0, 0.172, 0.109)
+text = "KAZANDI"
+pixel_size = 0.00135
+font_size = 52
+outline_size = 8
+modulate = Color(1, 0.8, 0.36, 1)
+outline_modulate = Color(0.25, 0.03, 0.03, 1)
 
 [node name="WinnerBorder_2" type="Node3D" parent="Players/Portrait_2"]
 visible = false
@@ -558,11 +582,23 @@ material_override = SubResource("NumberCard")
 
 [node name="Score_3" type="Label3D" parent="Players/Portrait_3"]
 visible = false
-position = Vector3(0, -0.462, 0.109)
+position = Vector3(0, -0.458, 0.109)
 text = "0"
 pixel_size = 0.00135
-font_size = 41
+font_size = 29
+line_spacing = -4.0
+outline_size = 6
 modulate = Color(0.79, 0.88, 0.95, 1)
+
+[node name="WinLabel_3" type="Label3D" parent="Players/Portrait_3"]
+visible = false
+position = Vector3(0, 0.172, 0.109)
+text = "KAZANDI"
+pixel_size = 0.00135
+font_size = 52
+outline_size = 8
+modulate = Color(1, 0.8, 0.36, 1)
+outline_modulate = Color(0.25, 0.03, 0.03, 1)
 
 [node name="WinnerBorder_3" type="Node3D" parent="Players/Portrait_3"]
 visible = false
@@ -617,11 +653,23 @@ material_override = SubResource("NumberCard")
 
 [node name="Score_4" type="Label3D" parent="Players/Portrait_4"]
 visible = false
-position = Vector3(0, -0.462, 0.109)
+position = Vector3(0, -0.458, 0.109)
 text = "0"
 pixel_size = 0.00135
-font_size = 41
+font_size = 29
+line_spacing = -4.0
+outline_size = 6
 modulate = Color(0.79, 0.88, 0.95, 1)
+
+[node name="WinLabel_4" type="Label3D" parent="Players/Portrait_4"]
+visible = false
+position = Vector3(0, 0.172, 0.109)
+text = "KAZANDI"
+pixel_size = 0.00135
+font_size = 52
+outline_size = 8
+modulate = Color(1, 0.8, 0.36, 1)
+outline_modulate = Color(0.25, 0.03, 0.03, 1)
 
 [node name="WinnerBorder_4" type="Node3D" parent="Players/Portrait_4"]
 visible = false
@@ -676,11 +724,23 @@ material_override = SubResource("NumberCard")
 
 [node name="Score_5" type="Label3D" parent="Players/Portrait_5"]
 visible = false
-position = Vector3(0, -0.462, 0.109)
+position = Vector3(0, -0.458, 0.109)
 text = "0"
 pixel_size = 0.00135
-font_size = 41
+font_size = 29
+line_spacing = -4.0
+outline_size = 6
 modulate = Color(0.79, 0.88, 0.95, 1)
+
+[node name="WinLabel_5" type="Label3D" parent="Players/Portrait_5"]
+visible = false
+position = Vector3(0, 0.172, 0.109)
+text = "KAZANDI"
+pixel_size = 0.00135
+font_size = 52
+outline_size = 8
+modulate = Color(1, 0.8, 0.36, 1)
+outline_modulate = Color(0.25, 0.03, 0.03, 1)
 
 [node name="WinnerBorder_5" type="Node3D" parent="Players/Portrait_5"]
 visible = false
@@ -744,6 +804,13 @@ position = Vector3(0, -0.435, 0.076)
 mesh = SubResource("NumberMesh")
 material_override = SubResource("NumberCard")
 scale = Vector3(2.1, 1.0, 1.0)
+
+[node name="TargetCaption" type="Label3D" parent="TargetPanel"]
+position = Vector3(-0.52, -0.43, 0.11)
+text = "HEDEF"
+pixel_size = 0.00150
+font_size = 50
+modulate = Color(0.86, 0.95, 1, 1)
 
 [node name="TargetValue" type="Label3D" parent="TargetPanel"]
 position = Vector3(0, -0.43, 0.11)
