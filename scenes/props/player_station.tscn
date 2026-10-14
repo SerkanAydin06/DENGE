@@ -139,7 +139,7 @@ mesh = ExtResource("mesh_body")
 [node name="TouchConsole" type="Node3D" parent="Desk" unique_id=905380867]
 position = Vector3(0, 0.935, -0.76)
 rotation_degrees = Vector3(-82, 0, 0)
-scale = Vector3(0.22, 0.22, 0.22)
+scale = Vector3(0.20, 0.20, 0.20)
 
 [node name="ConsoleHousing" type="MeshInstance3D" parent="Desk/TouchConsole" unique_id=1554543729]
 material_override = ExtResource("m_dark_metal")
