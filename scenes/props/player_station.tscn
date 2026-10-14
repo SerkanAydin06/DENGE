@@ -47,6 +47,27 @@ size = Vector3(1.59, 0.94, 0.018)
 [sub_resource type="BoxMesh" id="b_TabletHighlight"]
 size = Vector3(0.119, 0.048, 0.007)
 
+[sub_resource type="StandardMaterial3D" id="m_StandbyBlack"]
+resource_name = "Monitor Standby Black"
+shading_mode = 0
+albedo_color = Color(0.003, 0.004, 0.006, 1)
+cull_mode = 2
+
+[sub_resource type="BoxMesh" id="b_StandbyBlack"]
+size = Vector3(2.40, 1.33, 0.013)
+
+[sub_resource type="CylinderMesh" id="b_CeilingCable"]
+top_radius = 0.017
+bottom_radius = 0.017
+height = 12.1
+radial_segments = 12
+
+[sub_resource type="BoxMesh" id="b_CeilingAnchor"]
+size = Vector3(0.30, 0.13, 0.27)
+
+[sub_resource type="BoxMesh" id="b_CeilingCrossBar"]
+size = Vector3(1.50, 0.10, 0.15)
+
 [sub_resource type="BoxMesh" id="b_MonitorBezel"]
 size = Vector3(2.55, 1.49, 0.1)
 
@@ -127,6 +148,16 @@ mesh = ExtResource("mesh_top")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78, -0.86)
 material_override = ExtResource("m_dark_metal")
 mesh = ExtResource("mesh_body")
+
+[node name="TabletInteractionHint" type="Label3D" parent="."]
+visible = false
+position = Vector3(0, 1.15, -0.76)
+text = "[E] ETKILESIM"
+font_size = 65
+pixel_size = 0.0017
+billboard = 1
+outline_size = 5
+modulate = Color(0.81, 0.97, 1, 1)
 
 [node name="TouchConsole" type="Node3D" parent="Desk" unique_id=905380867]
 transform = Transform3D(0.2, 0, 0, 0, 0.027834622, 0.19805361, 0, -0.19805361, 0.027834622, 0, 0.935, -0.76)
@@ -886,6 +917,33 @@ font_size = 40
 [node name="ResultDisplay" type="Node3D" parent="." unique_id=971122121]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1259656, -2.2591057)
 
+[node name="CeilingMount" type="Node3D" parent="ResultDisplay"]
+
+[node name="LeftCable" type="MeshInstance3D" parent="ResultDisplay/CeilingMount"]
+position = Vector3(-0.72, 8.23, -0.105)
+mesh = SubResource("b_CeilingCable")
+material_override = ExtResource("m_dark_metal")
+
+[node name="RightCable" type="MeshInstance3D" parent="ResultDisplay/CeilingMount"]
+position = Vector3(0.72, 8.23, -0.105)
+mesh = SubResource("b_CeilingCable")
+material_override = ExtResource("m_dark_metal")
+
+[node name="LeftRoofAnchor" type="MeshInstance3D" parent="ResultDisplay/CeilingMount"]
+position = Vector3(-0.72, 14.28, -0.105)
+mesh = SubResource("b_CeilingAnchor")
+material_override = ExtResource("m_dark_metal")
+
+[node name="RightRoofAnchor" type="MeshInstance3D" parent="ResultDisplay/CeilingMount"]
+position = Vector3(0.72, 14.28, -0.105)
+mesh = SubResource("b_CeilingAnchor")
+material_override = ExtResource("m_dark_metal")
+
+[node name="MonitorSupportBar" type="MeshInstance3D" parent="ResultDisplay/CeilingMount"]
+position = Vector3(0, 2.18, -0.105)
+mesh = SubResource("b_CeilingCrossBar")
+material_override = ExtResource("m_metal")
+
 [node name="ResultMonitor" type="Node3D" parent="ResultDisplay" unique_id=1235211843]
 transform = Transform3D(0.8, 0, 0, 0, 0.7878462, -0.13891855, 0, 0.13891855, 0.7878462, 0, 1.58, 0)
 
@@ -993,5 +1051,20 @@ pixel_size = 0.0015
 modulate = Color(0.39, 0.94, 0.98, 1)
 text = "E: TABLETI AL"
 font_size = 46
+
+[node name="StandbyScreen" type="Node3D" parent="ResultDisplay/ResultMonitor"]
+
+[node name="BlackFace" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor/StandbyScreen"]
+position = Vector3(0, 0, 0.156)
+mesh = SubResource("b_StandbyBlack")
+material_override = SubResource("m_StandbyBlack")
+
+[node name="CenterTitle" type="Label3D" parent="ResultDisplay/ResultMonitor/StandbyScreen"]
+position = Vector3(0, 0, 0.186)
+text = "DENGE"
+font_size = 152
+pixel_size = 0.002
+outline_size = 4
+modulate = Color(0.96, 0.97, 1, 1)
 
 [node name="MonitorBlueprint" parent="ResultDisplay/ResultMonitor" unique_id=1954923694 instance=ExtResource("m_blueprint")]
