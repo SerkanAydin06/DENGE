@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=19 format=3]
 
 [sub_resource type="StandardMaterial3D" id="GridFine"]
 resource_name = "Blueprint Thin Lines"
@@ -89,6 +89,12 @@ radius = 0.096
 height = 0.135
 radial_segments = 16
 rings = 8
+
+[sub_resource type="BoxMesh" id="CalculationCard"]
+size = Vector3(0.46, 0.17, 0.007)
+
+[sub_resource type="BoxMesh" id="PointsBanner"]
+size = Vector3(0.305, 0.125, 0.009)
 
 [node name="MonitorBlueprint" type="Node3D"]
 
@@ -818,4 +824,186 @@ text = "0.00"
 font_size = 74
 pixel_size = 0.00185
 modulate = Color(0.045, 0.095, 0.20, 1)
+
+
+[node name="CalculationPanel" type="Node3D" parent="."]
+visible = false
+
+
+[node name="AverageBox" type="MeshInstance3D" parent="CalculationPanel"]
+position = Vector3(-0.8, -0.43, 0.088)
+mesh = SubResource("CalculationCard")
+material_override = SubResource("NumberCard")
+
+
+[node name="AverageValue" type="Label3D" parent="CalculationPanel"]
+position = Vector3(-0.8, -0.43, 0.136)
+text = "--"
+font_size = 75
+pixel_size = 0.0017
+modulate = Color(0.045, 0.095, 0.20, 1)
+
+
+[node name="AverageCaption" type="Label3D" parent="CalculationPanel"]
+position = Vector3(-0.8, -0.548, 0.13)
+text = "ORTALAMA"
+font_size = 41
+pixel_size = 0.00145
+modulate = Color(0.78, 0.91, 1, 1)
+
+
+[node name="MultiplySign" type="Label3D" parent="CalculationPanel"]
+visible = false
+position = Vector3(-0.43, -0.43, 0.133)
+text = "x"
+font_size = 76
+pixel_size = 0.00185
+modulate = Color(0.94, 0.95, 1, 1)
+
+
+[node name="FactorValue" type="Label3D" parent="CalculationPanel"]
+visible = false
+position = Vector3(-0.10, -0.43, 0.136)
+text = "0.8"
+font_size = 82
+pixel_size = 0.00195
+modulate = Color(1, 0.25, 0.27, 1)
+
+
+[node name="FactorCaption" type="Label3D" parent="CalculationPanel"]
+visible = false
+position = Vector3(-0.10, -0.548, 0.13)
+text = "CARPAN"
+font_size = 38
+pixel_size = 0.00145
+modulate = Color(0.77, 0.89, 1, 1)
+
+
+[node name="EqualsSign" type="Label3D" parent="CalculationPanel"]
+visible = false
+position = Vector3(0.25, -0.43, 0.135)
+text = "="
+font_size = 80
+pixel_size = 0.00185
+modulate = Color(0.94, 0.95, 1, 1)
+
+
+[node name="AnswerBox" type="MeshInstance3D" parent="CalculationPanel"]
+visible = false
+position = Vector3(0.79, -0.43, 0.088)
+mesh = SubResource("CalculationCard")
+material_override = SubResource("NumberCard")
+
+
+[node name="AnswerValue" type="Label3D" parent="CalculationPanel"]
+visible = false
+position = Vector3(0.79, -0.43, 0.136)
+text = "--"
+font_size = 76
+pixel_size = 0.00162
+modulate = Color(0.045, 0.095, 0.20, 1)
+
+
+[node name="AnswerCaption" type="Label3D" parent="CalculationPanel"]
+visible = false
+position = Vector3(0.79, -0.548, 0.13)
+text = "HEDEF"
+font_size = 41
+pixel_size = 0.00145
+modulate = Color(0.77, 0.89, 1, 1)
+
+
+[node name="PointsOverlay_1" type="Node3D" parent="Players/Portrait_1"]
+visible = false
+
+
+[node name="Panel" type="MeshInstance3D" parent="Players/Portrait_1/PointsOverlay_1"]
+position = Vector3(0, -0.014, 0.117)
+mesh = SubResource("PointsBanner")
+material_override = SubResource("PortraitFace")
+
+
+[node name="PointsValue" type="Label3D" parent="Players/Portrait_1/PointsOverlay_1"]
+position = Vector3(0, -0.014, 0.138)
+text = "10 PUAN"
+font_size = 45
+pixel_size = 0.00165
+outline_size = 5
+modulate = Color(1, 1, 1, 1)
+
+
+[node name="PointsOverlay_2" type="Node3D" parent="Players/Portrait_2"]
+visible = false
+
+
+[node name="Panel" type="MeshInstance3D" parent="Players/Portrait_2/PointsOverlay_2"]
+position = Vector3(0, -0.014, 0.117)
+mesh = SubResource("PointsBanner")
+material_override = SubResource("PortraitFace")
+
+
+[node name="PointsValue" type="Label3D" parent="Players/Portrait_2/PointsOverlay_2"]
+position = Vector3(0, -0.014, 0.138)
+text = "10 PUAN"
+font_size = 45
+pixel_size = 0.00165
+outline_size = 5
+modulate = Color(1, 1, 1, 1)
+
+
+[node name="PointsOverlay_3" type="Node3D" parent="Players/Portrait_3"]
+visible = false
+
+
+[node name="Panel" type="MeshInstance3D" parent="Players/Portrait_3/PointsOverlay_3"]
+position = Vector3(0, -0.014, 0.117)
+mesh = SubResource("PointsBanner")
+material_override = SubResource("PortraitFace")
+
+
+[node name="PointsValue" type="Label3D" parent="Players/Portrait_3/PointsOverlay_3"]
+position = Vector3(0, -0.014, 0.138)
+text = "10 PUAN"
+font_size = 45
+pixel_size = 0.00165
+outline_size = 5
+modulate = Color(1, 1, 1, 1)
+
+
+[node name="PointsOverlay_4" type="Node3D" parent="Players/Portrait_4"]
+visible = false
+
+
+[node name="Panel" type="MeshInstance3D" parent="Players/Portrait_4/PointsOverlay_4"]
+position = Vector3(0, -0.014, 0.117)
+mesh = SubResource("PointsBanner")
+material_override = SubResource("PortraitFace")
+
+
+[node name="PointsValue" type="Label3D" parent="Players/Portrait_4/PointsOverlay_4"]
+position = Vector3(0, -0.014, 0.138)
+text = "10 PUAN"
+font_size = 45
+pixel_size = 0.00165
+outline_size = 5
+modulate = Color(1, 1, 1, 1)
+
+
+[node name="PointsOverlay_5" type="Node3D" parent="Players/Portrait_5"]
+visible = false
+
+
+[node name="Panel" type="MeshInstance3D" parent="Players/Portrait_5/PointsOverlay_5"]
+position = Vector3(0, -0.014, 0.117)
+mesh = SubResource("PointsBanner")
+material_override = SubResource("PortraitFace")
+
+
+[node name="PointsValue" type="Label3D" parent="Players/Portrait_5/PointsOverlay_5"]
+position = Vector3(0, -0.014, 0.138)
+text = "10 PUAN"
+font_size = 45
+pixel_size = 0.00165
+outline_size = 5
+modulate = Color(1, 1, 1, 1)
 
