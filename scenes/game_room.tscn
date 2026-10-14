@@ -37,25 +37,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.25)
 character_scene = ExtResource("9_gray_poise")
 
+[node name="Character" parent="Arena/PlayerStation_1/PlayerFigure" instance=ExtResource("9_gray_poise")]
+
 [node name="PlayerStation_2" parent="Arena" unique_id=1932574071 instance=ExtResource("4_station")]
 transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, 4.04199, 0, 1.31332)
 character_scene = ExtResource("10_player_2")
 player_number = 2
+
+[node name="Character" parent="Arena/PlayerStation_2/PlayerFigure" instance=ExtResource("10_player_2")]
 
 [node name="PlayerStation_3" parent="Arena" unique_id=161040697 instance=ExtResource("4_station")]
 transform = Transform3D(-0.80901706, 0, 0.5877852, 0, 1, 0, -0.5877852, 0, -0.80901706, 2.49809, 0, -3.43832)
 character_scene = ExtResource("10_player_3")
 player_number = 3
 
+[node name="Character" parent="Arena/PlayerStation_3/PlayerFigure" instance=ExtResource("10_player_3")]
+
 [node name="PlayerStation_4" parent="Arena" unique_id=2092527167 instance=ExtResource("4_station")]
 transform = Transform3D(-0.80901706, 0, -0.5877851, 0, 1, 0, 0.5877851, 0, -0.80901706, -2.49809, 0, -3.43832)
 character_scene = ExtResource("10_player_4")
 player_number = 4
 
+[node name="Character" parent="Arena/PlayerStation_4/PlayerFigure" instance=ExtResource("10_player_4")]
+
 [node name="PlayerStation_5" parent="Arena" unique_id=251548474 instance=ExtResource("4_station")]
 transform = Transform3D(0.30901712, 0, -0.9510565, 0, 1, 0, 0.9510565, 0, 0.30901712, -4.04199, 0, 1.31332)
 character_scene = ExtResource("10_player_5")
 player_number = 5
+
+[node name="Character" parent="Arena/PlayerStation_5/PlayerFigure" instance=ExtResource("10_player_5")]
+
+[editable path="Arena/PlayerStation_1"]
+[editable path="Arena/PlayerStation_2"]
+[editable path="Arena/PlayerStation_3"]
+[editable path="Arena/PlayerStation_4"]
+[editable path="Arena/PlayerStation_5"]
 
 [node name="Lighting" type="Node3D" parent="." unique_id=908139546]
 
