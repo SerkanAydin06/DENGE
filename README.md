@@ -69,3 +69,7 @@ Monitörün **koyu lacivert teknik ızgaralı zemini**, arkadaki **soluk terazi 
 ## Başlangıç puanı ve elenme
 
 Tüm beş oyuncu **10 puanla** başlar. Turun kazanan(lar)ı puan kaybetmez; diğerleri 1 puan kaybeder. Puan **0'a ulaştığında** oyuncu elenir, sonraki turlarda seçim yapamaz ve ortalama hesabına katılmaz. Puan 0'ın altına düşmez. Oyun sıfırlanınca herkes yeniden 10 puana döner.
+
+## Ekran animasyon sırası (referans düzeni)
+
+Oyuncular seçimlerini tamamlayınca büyük monitörde şu akış oynatılır: **(1)** Beş sayı tek tek beyaz kutularda açılır, bu aşamada resimler görünmez. **(2)** Kırmızı çerçeve içinde sayıların ortalaması hesaplanıp gösterilir. **(3)** Ortalama × **0,8** işlemi, cevabı henüz görünmeden ekrana gelir. **(4)** Hesaplanan **hedef sayı** işlemin sonucunda belirir. **(5)** Oyuncuların özgün silüetleri sayı kutularının üzerinde açılır ve hedef sayı altta kalır. **(6)** Kazananın resmi ve sayısı kırmızı çerçeveyle birlikte vurgulanır. **(7)** Son adımda bütün oyuncuların **kalan puanları**, doğrudan resimlerin üzerinde görünür; ardından E ile yeni tura geçilebilir. Sahne düzeni `scenes/props/monitor_blueprint.tscn` üzerinden değiştirilebilir. Yeni açılır panel eklenmez.
