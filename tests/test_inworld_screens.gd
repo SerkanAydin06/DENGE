@@ -7,6 +7,9 @@ func _initialize() -> void:
 	var station: DengePlayerStation = packed.instantiate() as DengePlayerStation
 	root.add_child(station)
 
+	var tablet: Node3D = station.get_node("Desk/TouchConsole") as Node3D
+	assert(is_equal_approx(tablet.scale.x, 0.20), "Tablet should be standard compact physical size")
+	assert(tablet.position.y < 1.0, "Tablet must lie on the desk, not float above it")
 	var number_grid: Node3D = station.get_node("Desk/TouchConsole/NumberGrid") as Node3D
 	assert(number_grid.get_child_count() == 101, "Tablet must show exactly 101 individual numbers")
 	assert(number_grid.has_node("Number_000"))
