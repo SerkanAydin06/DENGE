@@ -65,9 +65,6 @@ size = Vector3(2.17, 0.009, 0.014)
 [sub_resource type="BoxMesh" id="b_MonitorBezel"]
 size = Vector3(2.55, 1.49, 0.10)
 
-[sub_resource type="BoxMesh" id="b_MonitorSweep"]
-size = Vector3(2.3, 0.015, 0.012)
-
 [sub_resource type="BoxMesh" id="b_MonitorGlass"]
 size = Vector3(2.40, 1.33, 0.015)
 
@@ -909,7 +906,7 @@ material_override = ExtResource("m_metal")
 mesh = SubResource("b_ResultColumn")
 
 [node name="ResultMonitor" type="Node3D" parent="ResultDisplay" unique_id=1235211843]
-transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 1.58, 0)
+transform = Transform3D(0.88, 0, 0, 0, 0.82692949, 0.30097771, 0, -0.30097771, 0.82692949, 0, 1.58, 0)
 
 [node name="MonitorBezel" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor" unique_id=401473221]
 material_override = ExtResource("m_dark_metal")
@@ -1015,10 +1012,5 @@ text = "E: TABLETI AL"
 font_size = 46
 pixel_size = 0.00150
 modulate = Color(0.39, 0.94, 0.98, 1)
-
-[node name="MonitorSweep" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
-position = Vector3(0, 0.60, 0.135)
-mesh = SubResource("b_MonitorSweep")
-material_override = ExtResource("m_monitor_cyan")
 
 [node name="MonitorBlueprint" parent="ResultDisplay/ResultMonitor" instance=ExtResource("m_blueprint")]
