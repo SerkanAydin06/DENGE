@@ -142,21 +142,25 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 0.72, 0, -1, 0, -4.371139e-08, 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.14)
 
 [node name="Torso" type="MeshInstance3D" parent="PlayerFigure" unique_id=128408243]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99, 0)
 material_override = SubResource("m_Avatar")
 mesh = SubResource("c_AvatarBody")
 
 [node name="Head" type="MeshInstance3D" parent="PlayerFigure" unique_id=970770272]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42, 0)
 material_override = SubResource("m_AvatarFace")
 mesh = SubResource("s_AvatarHead")
 
 [node name="LeftArm" type="MeshInstance3D" parent="PlayerFigure" unique_id=405873590]
+visible = false
 transform = Transform3D(0.95105654, 0.309017, 0, -0.29389265, 0.90450853, -0.309017, -0.095491506, 0.29389265, 0.95105654, -0.25, 0.97, -0.08)
 material_override = SubResource("m_Avatar")
 mesh = SubResource("b_AvatarArm")
 
 [node name="RightArm" type="MeshInstance3D" parent="PlayerFigure" unique_id=1806069277]
+visible = false
 transform = Transform3D(0.95105654, -0.309017, 0, 0.29389265, 0.90450853, -0.309017, 0.095491506, 0.29389265, 0.95105654, 0.25, 0.97, -0.08)
 material_override = SubResource("m_Avatar")
 mesh = SubResource("b_AvatarArm")
