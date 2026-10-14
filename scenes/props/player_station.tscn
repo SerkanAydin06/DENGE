@@ -959,8 +959,45 @@ pixel_size = 0.00265
 font_size = 110
 modulate = Color(0.95, 0.98, 1, 1)
 
+[node name="PlayerReadouts" type="Node3D" parent="ResultDisplay/ResultMonitor"]
+
+[node name="Player_1" type="Label3D" parent="ResultDisplay/ResultMonitor/PlayerReadouts"]
+position = Vector3(-0.92, 0.035, 0.088)
+text = "01 / --"
+font_size = 56
+pixel_size = 0.0016
+modulate = Color(0.50, 0.89, 0.99, 1)
+
+[node name="Player_2" type="Label3D" parent="ResultDisplay/ResultMonitor/PlayerReadouts"]
+position = Vector3(-0.46, 0.035, 0.088)
+text = "02 / --"
+font_size = 56
+pixel_size = 0.0016
+modulate = Color(0.50, 0.89, 0.99, 1)
+
+[node name="Player_3" type="Label3D" parent="ResultDisplay/ResultMonitor/PlayerReadouts"]
+position = Vector3(0, 0.035, 0.088)
+text = "03 / --"
+font_size = 56
+pixel_size = 0.0016
+modulate = Color(0.50, 0.89, 0.99, 1)
+
+[node name="Player_4" type="Label3D" parent="ResultDisplay/ResultMonitor/PlayerReadouts"]
+position = Vector3(0.46, 0.035, 0.088)
+text = "04 / --"
+font_size = 56
+pixel_size = 0.0016
+modulate = Color(0.50, 0.89, 0.99, 1)
+
+[node name="Player_5" type="Label3D" parent="ResultDisplay/ResultMonitor/PlayerReadouts"]
+position = Vector3(0.92, 0.035, 0.088)
+text = "05 / --"
+font_size = 56
+pixel_size = 0.0016
+modulate = Color(0.50, 0.89, 0.99, 1)
+
 [node name="ResultDetails" type="Label3D" parent="ResultDisplay/ResultMonitor"]
-position = Vector3(0, -0.13, 0.082)
+position = Vector3(0, -0.29, 0.082)
 text = "HEDEF = ORTALAMA x 0.8"
 font_size = 56
 pixel_size = 0.00185
