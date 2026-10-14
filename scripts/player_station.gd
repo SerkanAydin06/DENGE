@@ -25,6 +25,9 @@ const GRID_TOP: float = 0.22
 @onready var average_frame: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/AverageFrame
 @onready var target_panel: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/TargetPanel
 @onready var target_value: Label3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/TargetPanel/TargetValue
+@onready var calculation_panel: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/CalculationPanel
+@onready var calculation_average: Label3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/CalculationPanel/AverageValue
+@onready var calculation_answer: Label3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/CalculationPanel/AnswerValue
 @onready var player_readouts: Array[Label3D] = [
 	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_1,
 	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_2,
@@ -116,44 +119,82 @@ func set_monitor_numbers(shown: Array[String]) -> void:
 			readout.modulate = Color(0.055, 0.115, 0.21, readout.modulate.a)
 
 
-func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [], score_lines: Array = []) -> void:
-	## Geometry, frames, portraits and grid are pre-authored in monitor_blueprint.tscn.
-	## score_lines: per player text shown under the number window on RESULT (distance and score).
-	var showing_average: bool = phase == "AVERAGE"
-	var showing_target: bool = phase == "TARGET" or phase == "RESULT"
-	average_frame.visible = showing_average
-	if showing_average:
-		average_frame.scale = Vector3(0.98, 0.75, 1.0)
-		var average_tween: Tween = create_tween()
-		average_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		average_tween.tween_property(average_frame, "scale", Vector3.ONE, 0.36)
-	target_panel.visible = showing_target
-	result_details.visible = not showing_target
-	if showing_target:
+func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [], point_totals: Array = [], average: float = -1.0) -> void:
+	## All elements are authored in monitor_blueprint.tscn, never in a 2D popup.
+	## REVEAL -> AVERAGE -> MULTIPLY -> CALCULATED -> PHOTO -> WIN -> SCORE.
+	var calculation_visible: bool = phase == "AVERAGE" or phase == "MULTIPLY" or phase == "CALCULATED"
+	var portraits_visible: bool = phase == "PHOTO" or phase == "WIN" or phase == "SCORE"
+	var factor_visible: bool = phase == "MULTIPLY" or phase == "CALCULATED"
+	var answer_visible: bool = phase == "CALCULATED"
+
+	average_frame.visible = calculation_visible
+	calculation_panel.visible = calculation_visible
+	target_panel.visible = portraits_visible
+	result_details.visible = phase == "RULES" or phase == "LOCKED" or phase == "REVEAL"
+	result_footer.visible = not calculation_visible
+
+	if calculation_visible:
+		calculation_average.text = "%.2f" % average
+		calculation_answer.text = "%.2f" % target if answer_visible else "--"
+		calculation_panel.get_node("MultiplySign").visible = factor_visible
+		calculation_panel.get_node("FactorValue").visible = factor_visible
+		calculation_panel.get_node("FactorCaption").visible = factor_visible
+		calculation_panel.get_node("EqualsSign").visible = answer_visible
+		calculation_panel.get_node("AnswerBox").visible = answer_visible
+		calculation_panel.get_node("AnswerValue").visible = answer_visible
+		calculation_panel.get_node("AnswerCaption").visible = answer_visible
+		if phase == "AVERAGE":
+			average_frame.scale = Vector3(0.98, 0.75, 1.0)
+			var outline_tween: Tween = create_tween()
+			outline_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			outline_tween.tween_property(average_frame, "scale", Vector3.ONE, 0.36)
+	else:
+		average_frame.scale = Vector3.ONE
+
+	if portraits_visible:
 		target_value.text = "%.2f" % target
-		if phase == "TARGET":
-			target_panel.scale = Vector3(0.80, 0.80, 1.0)
+		if phase == "PHOTO":
+			target_panel.scale = Vector3(0.85, 0.85, 1.0)
 			var target_tween: Tween = create_tween()
 			target_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-			target_tween.tween_property(target_panel, "scale", Vector3.ONE, 0.38)
+			target_tween.tween_property(target_panel, "scale", Vector3.ONE, 0.40)
 
 	for i in range(player_readouts.size()):
-		var portrait: Node3D = blueprint.get_node("Players/Portrait_%d" % [i + 1]) as Node3D
-		var winner_border: Node3D = portrait.get_node("WinnerBorder_%d" % [i + 1]) as Node3D
-		var win_label: Label3D = portrait.get_node("WinLabel_%d" % [i + 1]) as Label3D
-		var score_label: Label3D = portrait.get_node("Score_%d" % [i + 1]) as Label3D
-		var is_winner: bool = phase == "RESULT" and winners.has(i)
+		var portrait: Node3D = blueprint.get_node("Players/Portrait_%d" % (i + 1)) as Node3D
+		for child_name in ["PortraitPanel", "Head", "Torso"]:
+			var art: Node3D = portrait.get_node(child_name) as Node3D
+			art.visible = portraits_visible
+		var winner_border: Node3D = portrait.get_node("WinnerBorder_%d" % (i + 1)) as Node3D
+		var win_label: Label3D = portrait.get_node("WinLabel_%d" % (i + 1)) as Label3D
+		var legacy_score: Label3D = portrait.get_node("Score_%d" % (i + 1)) as Label3D
+		var points_overlay: Node3D = portrait.get_node("PointsOverlay_%d" % (i + 1)) as Node3D
+		var points_label: Label3D = points_overlay.get_node("PointsValue") as Label3D
+
+		var is_winner: bool = (phase == "WIN" or phase == "SCORE") and winners.has(i)
 		winner_border.visible = is_winner
-		win_label.visible = is_winner
-		score_label.visible = phase == "RESULT" and i < score_lines.size()
-		if i < score_lines.size():
-			score_label.text = str(score_lines[i])
-		if is_winner:
-			winner_border.scale = Vector3(0.90, 0.90, 1.0)
-			win_label.scale = Vector3(0.6, 0.6, 1.0)
-			var winner_tween: Tween = create_tween().set_parallel(true)
-			winner_tween.tween_property(winner_border, "scale", Vector3.ONE, 0.33).set_trans(Tween.TRANS_BACK)
-			winner_tween.tween_property(win_label, "scale", Vector3.ONE, 0.4).set_trans(Tween.TRANS_BACK)
+		win_label.visible = phase == "WIN" and is_winner
+		legacy_score.visible = false
+		points_overlay.visible = phase == "SCORE" and i < point_totals.size()
+		if i < point_totals.size():
+			points_label.text = "%d PUAN" % int(point_totals[i])
+
+		if phase == "PHOTO":
+			portrait.scale = Vector3(0.94, 0.94, 1.0)
+			var photo_tween: Tween = create_tween()
+			photo_tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+			photo_tween.tween_property(portrait, "scale", Vector3.ONE, 0.40)
+		elif phase == "WIN" and is_winner:
+			winner_border.scale = Vector3(0.9, 0.9, 1.0)
+			win_label.scale = Vector3(0.65, 0.65, 1.0)
+			var win_tween: Tween = create_tween().set_parallel(true)
+			win_tween.tween_property(winner_border, "scale", Vector3.ONE, 0.35).set_trans(Tween.TRANS_BACK)
+			win_tween.tween_property(win_label, "scale", Vector3.ONE, 0.4).set_trans(Tween.TRANS_BACK)
+		elif phase == "SCORE" and points_overlay.visible:
+			points_overlay.scale = Vector3(0.75, 0.75, 1.0)
+			var score_tween: Tween = create_tween()
+			score_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			score_tween.tween_property(points_overlay, "scale", Vector3.ONE, 0.40)
+
 
 func append_digit(digit: int) -> void:
 	## Optional keyboard input; on the screen all 101 entries remain individually selectable.
