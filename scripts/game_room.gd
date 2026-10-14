@@ -8,7 +8,7 @@ extends Node3D
 @export_range(0.4, 0.99, 0.01) var terminal_look_threshold: float = 0.72
 @export_range(0.1, 3.0, 0.1) var reveal_delay: float = 0.75
 @export_range(0.2, 0.8, 0.01) var tablet_pickup_seconds: float = 0.38
-@export_range(0.16, 0.35, 0.01) var tablet_hold_distance: float = 0.21
+@export_range(0.16, 0.35, 0.01) var tablet_hold_distance: float = 0.19
 
 @onready var player_camera: Camera3D = $PlayerCamera
 @onready var stations: Array[DengePlayerStation] = [
