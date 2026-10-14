@@ -49,6 +49,9 @@ size = Vector3(0.14, 1.12, 0.15)
 [sub_resource type="BoxMesh" id="b_MonitorBezel"]
 size = Vector3(1.2, 0.66, 0.08)
 
+[sub_resource type="BoxMesh" id="b_MonitorSweep"]
+size = Vector3(1.05, 0.012, 0.012)
+
 [sub_resource type="BoxMesh" id="b_MonitorGlass"]
 size = Vector3(1.08, 0.54, 0.012)
 
@@ -131,18 +134,105 @@ material_override = ExtResource("m_screen")
 mesh = SubResource("b_ConsoleGlass")
 
 [node name="TouchTitle" type="Label3D" parent="Desk/TouchConsole" unique_id=646914455]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0.06)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185, 0.075)
 pixel_size = 0.0018
 modulate = Color(0.81, 0.94, 0.95, 1)
 text = "DENGE"
 font_size = 38
 
 [node name="TouchBody" type="Label3D" parent="Desk/TouchConsole" unique_id=1255923686]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, 0.06)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.119, 0.075)
 pixel_size = 0.002
 modulate = Color(0.81, 0.94, 0.95, 1)
 text = "0 - 100"
 font_size = 38
+
+
+[node name="Keys" type="Node3D" parent="Desk/TouchConsole"]
+
+[node name="Key_00" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(-0.255, 0.045, 0.079)
+text = "1"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
+
+[node name="Key_01" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(0, 0.045, 0.079)
+text = "2"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
+
+[node name="Key_02" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(0.255, 0.045, 0.079)
+text = "3"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
+
+[node name="Key_03" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(-0.255, -0.025, 0.079)
+text = "4"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
+
+[node name="Key_04" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(0, -0.025, 0.079)
+text = "5"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
+
+[node name="Key_05" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(0.255, -0.025, 0.079)
+text = "6"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
+
+[node name="Key_06" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(-0.255, -0.095, 0.079)
+text = "7"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
+
+[node name="Key_07" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(0, -0.095, 0.079)
+text = "8"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
+
+[node name="Key_08" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(0.255, -0.095, 0.079)
+text = "9"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
+
+[node name="Key_09" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(-0.255, -0.165, 0.079)
+text = "SIL"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
+
+[node name="Key_10" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(0, -0.165, 0.079)
+text = "0"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
+
+[node name="Key_11" type="Label3D" parent="Desk/TouchConsole/Keys"]
+position = Vector3(0.255, -0.165, 0.079)
+text = "OK"
+font_size = 44
+pixel_size = 0.0016
+modulate = Color(0.74, 0.94, 1, 1)
 
 [node name="ResultDisplay" type="Node3D" parent="." unique_id=971122121]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3)
@@ -170,15 +260,35 @@ material_override = ExtResource("m_screen")
 mesh = SubResource("b_MonitorGlass")
 
 [node name="ResultTitle" type="Label3D" parent="ResultDisplay/ResultMonitor" unique_id=1341817703]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07, 0.06)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.245, 0.068)
 pixel_size = 0.0018
 modulate = Color(0.88, 0.93, 0.95, 1)
 text = "DENGE"
 font_size = 34
 
 [node name="ResultBody" type="Label3D" parent="ResultDisplay/ResultMonitor" unique_id=1644202936]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07, 0.06)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138, 0.068)
 pixel_size = 0.0017
 modulate = Color(0.88, 0.93, 0.95, 1)
 text = "BEKLENIYOR"
 font_size = 34
+
+[node name="ResultDetails" type="Label3D" parent="ResultDisplay/ResultMonitor"]
+position = Vector3(0, -0.026, 0.068)
+text = "HEDEF = ORTALAMA x 0.8"
+font_size = 28
+pixel_size = 0.00145
+line_spacing = 1.3
+modulate = Color(0.8, 0.92, 1, 1)
+
+[node name="ResultFooter" type="Label3D" parent="ResultDisplay/ResultMonitor"]
+position = Vector3(0, -0.25, 0.068)
+text = "E: TABLETI AC"
+font_size = 26
+pixel_size = 0.00155
+modulate = Color(0.6, 0.95, 0.96, 1)
+
+[node name="MonitorSweep" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor"]
+position = Vector3(0, 0.25, 0.062)
+mesh = SubResource("b_MonitorSweep")
+material_override = ExtResource("m_metal")
