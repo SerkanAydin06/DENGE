@@ -18,7 +18,18 @@ func _initialize() -> void:
 	assert(tablet.has_node("NumberGrid/Number_000"))
 	assert(tablet.has_node("NumberGrid/Number_100"))
 
+	var hint: Label3D = room.get_node("Arena/PlayerStation_1/TabletInteractionHint") as Label3D
+	camera.look_at(tablet.global_position, Vector3.UP)
+	room.call("_process", 0.016)
+	assert(hint.visible, "Tablet gaze must show the E interaction hint")
+	camera.rotation = Vector3.ZERO
+	room.call("_process", 0.016)
+	assert(not hint.visible, "E hint must disappear when looking away")
+	camera.look_at(tablet.global_position, Vector3.UP)
+
 	room.call("_set_tablet_mode", true)
+	room.call("_process", 0.016)
+	assert(not hint.visible, "E hint must hide while holding the tablet")
 	assert(tablet.get_parent() == camera, "Tablet must be camera-held while selecting")
 	await create_timer(0.5).timeout
 	assert(is_equal_approx(tablet.position.z, -0.19), "Held tablet must fill the seated player's view")
