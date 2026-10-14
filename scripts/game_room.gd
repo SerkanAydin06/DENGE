@@ -117,7 +117,7 @@ func _looking_at_tablet() -> bool:
 	return look.dot(towards) >= terminal_look_threshold
 
 func _set_tablet_mode(enabled: bool) -> void:
-	if enabled == tablet_mode or tablet_transition:
+	if enabled == tablet_mode:
 		return
 	tablet_mode = enabled
 	tablet_transition = true
