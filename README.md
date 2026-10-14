@@ -13,12 +13,12 @@ Tüm salon artık Godot sahnelerinde kaydedilmiş gerçek düğümlerden oluşur
 - `scenes/props/player_station.tscn` — deri koltuk, açılı masa, yatık dokunmatik ekran, sonuç monitörü
 - `scenes/props/balance_scale.tscn` — büyük terazi heykeli (eğim ayarı Inspector'dan)
 - `scenes/props/entrance_door.tscn` — çift kanatlı giriş/çıkış kapısı
-- `scenes/props/player_station.tscn` — fiziksel 12 tuşlu dokunmatik sayı tableti ve animasyonlu sonuç monitörü
+- `scenes/props/player_station.tscn` — 101 sayı içeren taşınabilir masa tableti, tavan askılı animasyonlu sonuç monitörü
 - `assets/materials/*.tres` — bütün malzemeler, renkler ve parlaklıklar
 
 **Düzenleme:** Godot'ta ana sahneyi açın. İç içe PackedScene örneklerinin parçalarını düzenlemek için ilgili `.tscn` dosyasını açın veya *Editable Children* kullanın. Koltukların yerini ana sahnede değiştirin, duvar/kubbe parçalarını RoomShell sahnesinde, malzemeleri .tres dosyalarında ayarlayın.
 
-**Kontrol:** Tablete bakıp `E` ile tablet etkileşimine gir. Fiziksel tuşlara tıkla veya klavyeden `0-9` kullan; `Backspace` siler, `Enter` sayıyı kilitler, `Esc` bakış moduna döner. Sonuçlar bitince `E` ile yeni tura geçilir.
+**Kontrol:** Tablete bakıp `E` ile tablet etkileşimine gir. Fiziksel tuşlara tıkla veya klavyeden `0-9` kullan; `Backspace` siler, `Enter` sayıyı kilitler, `Esc` bakış moduna döner. Sonuçlar bitince masadaki tablete bakıp `E` ile yeni tura geçilir.
 
 **Durum:** Sahne geometrileri Godot editöründe düzenlenebilir. Fiziksel tablette yalnızca sayı girişi vardır; açıklamalar, rakiplerin sayıları, hedef hesaplaması, tur sonuçları ve geçiş animasyonları yalnızca masadan ayrı 3D monitörlerde görüntülenir. Eski 2D sayı seçim ve sonuç popup sahneleri artık ana sahneye bağlı değildir.
 
@@ -33,10 +33,10 @@ Tüm salon artık Godot sahnelerinde kaydedilmiş gerçek düğümlerden oluşur
 - Her tur hedef sayı: **aktif oyuncuların seçtiği sayıların ortalaması × 0,8**.
 - Hedefe en yakın sayı(lar) kazanır; kazanmayan aktif oyuncular **-1 puan** alır. Eşit uzaklıktakiler birlikte kazanır.
 - Her oyuncu **10 puanla başlar**. Kaybedilen turlarda **1 puan düşer**. **0 puana düşen elenir** ve sonraki turların hesabına katılmaz.
-- Oyun bitince ya da insan oyuncu elenince sonuç ekranından **YENİDEN BAŞLAT** kullanılabilir.
+- Oyun bitince ya da insan oyuncu elenince masa tabletine bakıp **E** ile yeniden başlanabilir.
 - 3D salon, dokunmatik terminaller ve sonuç ekranı ayrı, düzenlenebilir Godot sahneleridir.
 
-Sahne: `scenes/ui/round_results_ui.tscn` — tur özeti; hesaplama: `scripts/round_rules.gd`.
+Sahne: `scenes/props/monitor_blueprint.tscn` — monitörde tur özeti; hesaplama: `scripts/round_rules.gd`.
 Test: `godot --headless --path . --script res://tests/test_round_rules.gd` (Godot kurulu makinede).
 
 ## Fiziksel ekran akışı
@@ -53,7 +53,7 @@ Test: `godot --headless --path . --script res://tests/test_round_rules.gd` (Godo
 - Masada tablet **standart yaklaşık 34 × 20 cm boyutundadır**, masanın üzerine yatık durur.
 - Oyuncu **E**'ye bastığında aynı 3D tablet yumuşak bir hareketle kameranın önüne gelir; ekranda büyük görünür, fiziksel boyutu değişmez.
 - Tablet yakındayken 0–100 sayılarına dokunulabilir. `TEMIZLE` ve `ONAY` çalışır. **Esc** tableti masaya geri bırakır; seçim onaylanınca da otomatik geri döner.
-- Ayrı 2D pencere yoktur. Oyun açıklamaları ve sonuçlar zemine bağlı büyük oyun monitöründe kalır.
+- Ayrı 2D pencere yoktur. Oyun açıklamaları ve sonuçlar tavandan asılı sonuç monitöründe kalır.
 
 Test: `godot --headless --path . --script res://tests/test_tablet_pickup.gd`.
 
@@ -63,7 +63,7 @@ Monitörün **koyu lacivert teknik ızgaralı zemini**, arkadaki **soluk terazi 
 
 ## Ekran boyutu ve yenileme
 
-- Monitör toplamda %20 küçültüldü (görünen genişlik yaklaşık 2,04 m); beş oyuncu kutusu ve çizimler orantılı kalır, ayak/stand etkilenmez.
+- Monitör toplamda %20 küçültüldü (görünen genişlik yaklaşık 2,04 m); beş oyuncu kutusu ve çizimler orantılı kalır; zemin ayağı kaldırılıp tavandan iki askı eklenmiştir.
 - Yenileme sırasında akan mavi şerit (`MonitorSweep`) sahneden ve animasyon kodundan çıkarıldı; metinlerin yumuşak belirmesi korundu.
 
 ## Başlangıç puanı ve elenme
@@ -73,3 +73,10 @@ Tüm beş oyuncu **10 puanla** başlar. Turun kazanan(lar)ı puan kaybetmez; di�
 ## Ekran animasyon sırası (referans düzeni)
 
 Oyuncular seçimlerini tamamlayınca büyük monitörde şu akış oynatılır: **(1)** Beş sayı tek tek beyaz kutularda açılır, bu aşamada resimler görünmez. **(2)** Kırmızı çerçeve içinde sayıların ortalaması hesaplanıp gösterilir. **(3)** Ortalama × **0,8** işlemi, cevabı henüz görünmeden ekrana gelir. **(4)** Hesaplanan **hedef sayı** işlemin sonucunda belirir. **(5)** Oyuncuların özgün silüetleri sayı kutularının üzerinde açılır ve hedef sayı altta kalır. **(6)** Kazananın resmi ve sayısı kırmızı çerçeveyle birlikte vurgulanır. **(7)** Son adımda bütün oyuncuların **kalan puanları**, doğrudan resimlerin üzerinde görünür; ardından E ile yeni tura geçilebilir. Sahne düzeni `scenes/props/monitor_blueprint.tscn` üzerinden değiştirilebilir. Yeni açılır panel eklenmez.
+
+## Siyah ekran, tur başlığı ve tavana bağlantı
+
+- **Seçim süresince:** Monitör siyah görünür; ortada sadece **DENGE** yazar. Oyuncu sayısı/tur başlığı, 0–100 yönergesi ve tablet için E yazısı **monitörde gösterilmez**.
+- **Herkes seçimini tamamlayınca:** Monitörde önce **1. TUR** (ilerleyen turlarda 2. TUR vb.) büyük yazıyla belirir; ardından sayılar sırayla açılır ve ortalama → ×0,8 → hedef → resimler → kazanan → kalan puanlar animasyonu oynar.
+- **E etkileşimi:** Sadece masadaki küçük tablete bakınca tabletin üstünde **[E] ETKİLEŞİM** belirir. E ile tablet elde tutulur; Esc ile masaya bırakılır. Tur sonuçlarından sonra da masadaki tablete bakarak E ile devam edilir.
+- **Monitör:** Oyuncunun son yükselttiği konum korunmuştur. Artık zemin ayağı yoktur; her oyuncunun monitörü tavan askı çubukları ve üst bağlantı parçalarıyla tavandan asılıdır. Bunlar Godot sahnesinde düzenlenebilir.
