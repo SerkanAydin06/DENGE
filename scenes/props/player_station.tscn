@@ -127,6 +127,14 @@ visible = false
 material_override = SubResource("m_Spill")
 mesh = SubResource("s_Impact")
 
+[node name="GeneratedSplash" type="Sprite3D" parent="DeathImpact"]
+visible = false
+position = Vector3(0, 0, 0.30)
+pixel_size = 0.00148
+billboard = 1
+shaded = false
+
+
 [node name="Chair" type="Node3D" parent="." unique_id=1204447294]
 
 [node name="Seat" type="MeshInstance3D" parent="Chair" unique_id=428542739]
@@ -1090,6 +1098,12 @@ font_size = 46
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.156)
 material_override = SubResource("m_StandbyBlack")
 mesh = SubResource("b_StandbyBlack")
+
+[node name="GeneratedLogo" type="Sprite3D" parent="ResultDisplay/ResultMonitor/StandbyScreen"]
+visible = false
+position = Vector3(0, 0, 0.202)
+pixel_size = 0.00145
+shaded = false
 
 [node name="CenterTitle" type="Label3D" parent="ResultDisplay/ResultMonitor/StandbyScreen" unique_id=1840495393]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.186)
