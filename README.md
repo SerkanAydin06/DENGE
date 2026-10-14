@@ -80,3 +80,7 @@ Oyuncular seçimlerini tamamlayınca büyük monitörde şu akış oynatılır: 
 - **Herkes seçimini tamamlayınca:** Monitörde önce **1. TUR** (ilerleyen turlarda 2. TUR vb.) büyük yazıyla belirir; ardından sayılar sırayla açılır ve ortalama → ×0,8 → hedef → resimler → kazanan → kalan puanlar animasyonu oynar.
 - **E etkileşimi:** Sadece masadaki küçük tablete bakınca tabletin üstünde **[E] ETKİLEŞİM** belirir. E ile tablet elde tutulur; Esc ile masaya bırakılır. Tur sonuçlarından sonra da masadaki tablete bakarak E ile devam edilir.
 - **Monitör:** Oyuncunun son yükselttiği konum korunmuştur. Artık zemin ayağı yoktur; her oyuncunun monitörü tavan askı çubukları ve üst bağlantı parçalarıyla tavandan asılıdır. Bunlar Godot sahnesinde düzenlenebilir.
+
+## Puan azaldıkça dolan terazi ve elenme animasyonu
+
+Her oyuncunun koltuğu arkasındaki terazinin **oyuncuya yakın sağ kefesi** puan kaybıyla dolmaya başlar: **10 puan = boş**, **9 puan = %10**, **5 puan = %50**, **1 puan = %90**, **0 puan = tam dolu**. Sıvı birikince kefe yavaşça ağırlaşıp alçalır. Puanı ilk kez **0'a ulaşan oyuncunun kefesi devrilir**; ışıklı sıvı oyuncunun başına dökülür, oyuncu koltuğunda yığılır ve görsel olarak oyundan çıkar. Bu, oyun kurallarındaki 0 puanda elenmeyle aynı anda tetiklenen, grafik şiddet içermeyen görsel animasyondur. Sıfırdan yeniden başlatıldığında kefeler boşalır, teraziler eski konumuna gelir ve oyuncular geri döner. Geometri Godot sahnesinde düzenlenebilir; yeni `tests/test_elimination_vfx.gd` test dosyası eklendi.
