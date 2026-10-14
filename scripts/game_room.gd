@@ -136,6 +136,8 @@ func _set_tablet_mode(enabled: bool) -> void:
 		tablet_motion.tween_property(player_console, "position", tablet_rest_position, tablet_pickup_seconds)
 		tablet_motion.tween_property(player_console, "rotation", tablet_rest_rotation, tablet_pickup_seconds)
 		tablet_motion.tween_property(player_console, "scale", tablet_rest_scale, tablet_pickup_seconds)
+		if not stations[0].tablet_locked and not revealing and not round_result_ready:
+			_broadcast("DENGE  |  TUR %02d" % round_number, "SAYI SECIMI", "0 - 100 ARASINDA SAYI SEC\nTEMIZLE VE ONAY TABLETTE", "E: TABLETI AL")
 
 	tablet_motion.finished.connect(_on_tablet_motion_finished)
 
