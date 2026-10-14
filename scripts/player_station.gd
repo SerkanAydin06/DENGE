@@ -32,7 +32,6 @@ const GRID_TOP: float = 0.22
 	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_4,
 	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_5
 ]
-@onready var sweep: MeshInstance3D = $ResultDisplay/ResultMonitor/MonitorSweep
 @onready var seat_eye: Marker3D = $SeatEye
 
 var entered_digits: String = ""
@@ -83,12 +82,13 @@ func set_monitor_page(title: String, headline: String, details: String, footer: 
 	result_footer.text = footer
 	if monitor_tween and monitor_tween.is_running():
 		monitor_tween.kill()
-	sweep.position.y = 0.60
+	# Soft text fade only; no moving cyan line across the screen.
+	result_title.modulate.a = 0.75
 	result_body.modulate.a = 0.28
 	monitor_tween = create_tween()
 	monitor_tween.set_parallel(true)
-	monitor_tween.tween_property(result_body, "modulate:a", 1.0, 0.46)
-	monitor_tween.tween_property(sweep, "position:y", -0.60, 0.64)
+	monitor_tween.tween_property(result_title, "modulate:a", 1.0, 0.28)
+	monitor_tween.tween_property(result_body, "modulate:a", 1.0, 0.38)
 
 func choose_number(number: int) -> void:
 	if not tablet_enabled or tablet_locked:
