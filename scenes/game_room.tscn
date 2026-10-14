@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ilbrc3b3vapx" path="res://scenes/center_platform.tscn" id="3_platform"]
 [ext_resource type="PackedScene" uid="uid://c2764vuxhopfy" path="res://scenes/props/player_station.tscn" id="4_station"]
 [ext_resource type="PackedScene" path="res://scenes/ui/number_terminal_ui.tscn" id="7_ui"]
+[ext_resource type="PackedScene" path="res://scenes/ui/round_results_ui.tscn" id="9_results"]
 [ext_resource type="PackedScene" path="res://scenes/props/entrance_door.tscn" id="8_door"]
 
 [sub_resource type="Environment" id="RoomEnvironment"]
@@ -78,6 +79,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0308666, 4.4)
 current = true
 
 [node name="NumberTerminalUI" parent="." unique_id=469598607 instance=ExtResource("7_ui")]
+
+[node name="RoundResultsUI" parent="." instance=ExtResource("9_results")]
 
 [node name="InteractionHints" type="CanvasLayer" parent="." unique_id=458959849]
 layer = 2
