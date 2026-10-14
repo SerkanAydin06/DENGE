@@ -15,6 +15,9 @@ func _initialize() -> void:
 	assert(station.has_node("PlayerFigure"))
 	assert(station.has_node("DeathSpillStream"))
 	assert(station.has_node("DeathImpact"))
+	assert(station.has_node("DeathImpact/GeneratedSplash"))
+	var artwork: Sprite3D = station.get_node("DeathImpact/GeneratedSplash") as Sprite3D
+	assert(artwork.texture == null or station.death_impact.mesh == null, "New splash art must replace the old impact sphere")
 
 	station.reset_life(false)
 	assert(station.current_points == 10)
