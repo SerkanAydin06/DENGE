@@ -117,7 +117,7 @@ func touch_world_ray(ray_origin: Vector3, ray_direction: Vector3) -> bool:
 		return false
 	for i in range(DIGIT_KEYS.size()):
 		var column: int = i % 3
-		var row: int = i / 3
+		var row: int = int(float(i) / 3.0)
 		if absf(hit.x - KEY_X[column]) < 0.115 and absf(hit.y - KEY_Y[row]) < 0.032:
 			_press_key(i)
 			return true
