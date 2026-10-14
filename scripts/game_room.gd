@@ -8,7 +8,7 @@ extends Node3D
 @export_range(0.1, 3.0, 0.1) var reveal_delay: float = 1.2
 @export_range(0.2, 4.0, 0.1) var bot_think_seconds: float = 1.0
 @export_range(0.2, 0.8, 0.01) var tablet_pickup_seconds: float = 0.38
-@export_range(0.16, 0.35, 0.01) var tablet_hold_distance: float = 0.19
+@export_range(0.16, 0.35, 0.01) var tablet_hold_distance: float = 0.30
 ## Tabletin yerel uzayinda sol/sag elin tuttugu kenar noktalari (olcek oncesi).
 @export var tablet_grip_left: Vector3 = Vector3(-0.86, -0.12, -0.05)
 @export var tablet_grip_right: Vector3 = Vector3(0.86, -0.12, -0.05)
@@ -168,7 +168,7 @@ func _set_tablet_mode(enabled: bool) -> void:
 		# so it appears large without using a separate screen-space popup.
 		player_console.reparent(player_camera, true)
 		tablet_motion = create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		tablet_motion.tween_property(player_console, "position", Vector3(0, -0.015, -tablet_hold_distance), tablet_pickup_seconds)
+		tablet_motion.tween_property(player_console, "position", Vector3(0, -0.05, -tablet_hold_distance), tablet_pickup_seconds)
 		tablet_motion.tween_property(player_console, "rotation", Vector3.ZERO, tablet_pickup_seconds)
 		tablet_motion.tween_property(player_console, "scale", tablet_rest_scale, tablet_pickup_seconds)
 

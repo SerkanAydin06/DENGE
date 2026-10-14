@@ -32,7 +32,7 @@ func _initialize() -> void:
 	assert(not hint.visible, "E hint must hide while holding the tablet")
 	assert(tablet.get_parent() == camera, "Tablet must be camera-held while selecting")
 	await create_timer(0.5).timeout
-	assert(is_equal_approx(tablet.position.z, -0.19), "Held tablet must fill the seated player's view")
+	assert(is_equal_approx(tablet.position.z, -room.tablet_hold_distance), "Held tablet must sit at the configured hold distance")
 
 	room.call("_set_tablet_mode", false)
 	assert(tablet.get_parent() == desk, "Tablet must return to its real desk")

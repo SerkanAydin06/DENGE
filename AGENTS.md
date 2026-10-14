@@ -52,7 +52,7 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 
 ## Tablet pickup / handheld view (user-locked)
 - **On the desk:** tablet must be a normal compact device, approximately 33.6 × 20.4 cm: `scenes/props/player_station.tscn` `Desk/TouchConsole` has local scale `Vector3(0.20, 0.20, 0.20)`, a near-flat angle, and rests directly on desktop.
-- **Press E:** `scripts/game_room.gd` reparents that **same real 3D object** to `PlayerCamera`, tweens it to 19 cm in front of the eyes (unchanged physical scale), so it fills most of the view as if lifted into the hands. Cursor becomes visible for the 101-number touch surface. No CanvasLayer, duplicate overlay, or screen-space tablet.
+- **Press E:** `scripts/game_room.gd` reparents that **same real 3D object** to `PlayerCamera`, tweens it to 30 cm in front of and slightly below the eyes (`tablet_hold_distance`, unchanged physical scale), held by both first-person hands without them covering the numbers. Cursor becomes visible for the 101-number touch surface. No CanvasLayer, duplicate overlay, or screen-space tablet.
 - **Esc/confirm:** smoothly return the real tablet to its exact editor-authored desk position, rotation and scale; selection confirmation continues the animated result sequence on the freestanding monitor.
 - `tests/test_tablet_pickup.gd` covers held/docked parent transitions, close-up pose and restoration. Do not regress to a permanently giant tablet on the desk.
 
