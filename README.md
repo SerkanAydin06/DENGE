@@ -13,14 +13,14 @@ Tüm salon artık Godot sahnelerinde kaydedilmiş gerçek düğümlerden oluşur
 - `scenes/props/player_station.tscn` — deri koltuk, açılı masa, yatık dokunmatik ekran, sonuç monitörü
 - `scenes/props/balance_scale.tscn` — büyük terazi heykeli (eğim ayarı Inspector'dan)
 - `scenes/props/entrance_door.tscn` — çift kanatlı giriş/çıkış kapısı
-- `scenes/ui/number_terminal_ui.tscn` — 0–100 sayı düğmeleri ve kilitleme
+- `scenes/props/player_station.tscn` — fiziksel 12 tuşlu dokunmatik sayı tableti ve animasyonlu sonuç monitörü
 - `assets/materials/*.tres` — bütün malzemeler, renkler ve parlaklıklar
 
 **Düzenleme:** Godot'ta ana sahneyi açın. İç içe PackedScene örneklerinin parçalarını düzenlemek için ilgili `.tscn` dosyasını açın veya *Editable Children* kullanın. Koltukların yerini ana sahnede değiştirin, duvar/kubbe parçalarını RoomShell sahnesinde, malzemeleri .tres dosyalarında ayarlayın.
 
-**Kontrol:** Fare ile bak; `E` ile sayı terminalini aç; 0–100 arasında sayı seçip kilitle; `Esc` ile kapat. Seçimden sonra tur sonucu ve puanları gösterilir, **SONRAKİ TUR** ile terminal sıfırlanır.
+**Kontrol:** Tablete bakıp `E` ile tablet etkileşimine gir. Fiziksel tuşlara tıkla veya klavyeden `0-9` kullan; `Backspace` siler, `Enter` sayıyı kilitler, `Esc` bakış moduna döner. Sonuçlar bitince `E` ile yeni tura geçilir.
 
-**Durum:** Bu sahneler yerleşim ve ışıklandırma açısından düzenlenebilir bir 3D prototiptir; filmin hazır 3D varlıklarının birebir kopyası değildir. Terminal seçimi hâlen 2D katman olarak açılır; fiziksel 3D ekran üzerinden doğrudan tıklama sonraki aşamadır.
+**Durum:** Sahne geometrileri Godot editöründe düzenlenebilir. Fiziksel tablette yalnızca sayı girişi vardır; açıklamalar, rakiplerin sayıları, hedef hesaplaması, tur sonuçları ve geçiş animasyonları yalnızca masadan ayrı 3D monitörlerde görüntülenir. Eski 2D sayı seçim ve sonuç popup sahneleri artık ana sahneye bağlı değildir.
 
 ## Salon simetrisi ve giriş
 - Salon kabuğu ana sahnede %16 genişletildi; salon yüksekliği %6 artırıldı.
@@ -38,3 +38,10 @@ Tüm salon artık Godot sahnelerinde kaydedilmiş gerçek düğümlerden oluşur
 
 Sahne: `scenes/ui/round_results_ui.tscn` — tur özeti; hesaplama: `scripts/round_rules.gd`.
 Test: `godot --headless --path . --script res://tests/test_round_rules.gd` (Godot kurulu makinede).
+
+## Fiziksel ekran akışı
+
+- **Tablet:** 1–9, 0, `SIL`, `OK` tuşları; sadece sayı girişi, kilitleme ve seçim durumu. Açılır 2D panel yok.
+- **Ayrı monitör:** Tur talimatları → beş sayının sırayla açıklanması → ortalama × 0,8 hedef animasyonu → kazanan/puanlar → `E` ile sonraki tur.
+- **Görüntü:** Her oyuncu istasyonundaki `ResultMonitor` `ResultTitle`, `ResultBody`, `ResultDetails`, `ResultFooter` ve hareketli `MonitorSweep` düğümlerinden oluşur; Godot editöründe ayrı ayrı düzenlenebilir.
+- Bilgisayar rakipleri şimdilik rastgele sayılar üretir. Görsel dil dramatik, özgün ve uyarlama sahnenin birebir kopyası değildir.
