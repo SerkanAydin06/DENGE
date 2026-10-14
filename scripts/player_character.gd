@@ -112,7 +112,7 @@ func _align_hips_to_seat() -> void:
 	var model: Node3D = get_node_or_null("Model") as Node3D
 	if hips < 0 or model == null:
 		return
-	var hip_local: Vector3 = global_transform.affine_inverse() * (skeleton.global_transform * skeleton.get_bone_global_rest(hips).origin)
+	var hip_local: Vector3 = to_local(skeleton.to_global(skeleton.get_bone_global_pose(hips).origin))
 	model.position += Vector3(0, seat_hip_height, -seat_hip_forward) - Vector3(0, hip_local.y, hip_local.z)
 
 ## Kemigi, cocuk kemigine giden yonu model uzayinda `direction` olacak sekilde dondurur.
@@ -122,8 +122,11 @@ func _aim(bone_suffix: String, child_suffix: String, direction: Vector3) -> void
 	if bone < 0 or child < 0 or direction.is_zero_approx():
 		return
 	var bone_global: Transform3D = _global_pose(bone)
-	var child_position: Vector3 = bone_global * skeleton.get_bone_pose(child).origin
-	var current: Vector3 = (child_position - bone_global.origin).normalized()
+	var child_position: Vector3 = _global_pose(child).origin
+	var bone_direction: Vector3 = child_position - bone_global.origin
+	if bone_direction.length_squared() <= 0.00000001:
+		return
+	var current: Vector3 = bone_direction.normalized()
 	var delta := Quaternion(current, direction.normalized())
 	_set_global_basis(bone, Basis(delta) * bone_global.basis.orthonormalized())
 
@@ -136,17 +139,14 @@ func _pitch(bone_suffix: String, degrees: float) -> void:
 	_set_global_basis(bone, Basis(Vector3.RIGHT, deg_to_rad(degrees)) * bone_global.basis.orthonormalized())
 
 func _set_global_basis(bone: int, target_basis: Basis) -> void:
-	var parent: int = skeleton.get_bone_parent(bone)
-	var parent_basis: Basis = _global_pose(parent).basis.orthonormalized() if parent >= 0 else Basis()
-	skeleton.set_bone_pose_rotation(bone, (parent_basis.inverse() * target_basis).get_rotation_quaternion())
+	# Godot handles the bone rest and parent offsets when converting a global pose.
+	var pose: Transform3D = _global_pose(bone)
+	pose.basis = target_basis.orthonormalized()
+	skeleton.set_bone_global_pose(bone, pose)
 
 func _global_pose(bone: int) -> Transform3D:
-	var pose: Transform3D = skeleton.get_bone_pose(bone)
-	var parent: int = skeleton.get_bone_parent(bone)
-	while parent >= 0:
-		pose = skeleton.get_bone_pose(parent) * pose
-		parent = skeleton.get_bone_parent(parent)
-	return pose
+	# get_bone_pose() alone omits the bone's rest hierarchy.
+	return skeleton.get_bone_global_pose(bone)
 
 ## Mixamo ("mixamorig_Hips") ve Meshy ("Hips") adlandirmasini birlikte destekler.
 func _find_bone(bone_suffix: String) -> int:
