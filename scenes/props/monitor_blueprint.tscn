@@ -468,28 +468,28 @@ outline_modulate = Color(0.25, 0.03, 0.03, 1)
 visible = false
 
 [node name="Top" type="MeshInstance3D" parent="Players/Portrait_1/WinnerBorder_1"]
-position = Vector3(0, -0.242, 0.099)
+position = Vector3(0, 0.155, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
+material_override = SubResource("RedInk")
 scale = Vector3(0.352, 2, 1)
 
 [node name="Bottom" type="MeshInstance3D" parent="Players/Portrait_1/WinnerBorder_1"]
-position = Vector3(0, -0.417, 0.099)
+position = Vector3(0, -0.417, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
+material_override = SubResource("RedInk")
 scale = Vector3(0.352, 2, 1)
 
 [node name="Left" type="MeshInstance3D" parent="Players/Portrait_1/WinnerBorder_1"]
-position = Vector3(-0.175, -0.33, 0.099)
+position = Vector3(-0.175, -0.131, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
-scale = Vector3(0.01, 37, 1)
+material_override = SubResource("RedInk")
+scale = Vector3(0.01, 114.4, 1)
 
 [node name="Right" type="MeshInstance3D" parent="Players/Portrait_1/WinnerBorder_1"]
-position = Vector3(0.175, -0.33, 0.099)
+position = Vector3(0.175, -0.131, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
-scale = Vector3(0.01, 37, 1)
+material_override = SubResource("RedInk")
+scale = Vector3(0.01, 114.4, 1)
 
 [node name="Portrait_2" type="Node3D" parent="Players"]
 position = Vector3(-0.46, 0.16, 0)
@@ -539,28 +539,28 @@ outline_modulate = Color(0.25, 0.03, 0.03, 1)
 visible = false
 
 [node name="Top" type="MeshInstance3D" parent="Players/Portrait_2/WinnerBorder_2"]
-position = Vector3(0, -0.242, 0.099)
+position = Vector3(0, 0.155, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
+material_override = SubResource("RedInk")
 scale = Vector3(0.352, 2, 1)
 
 [node name="Bottom" type="MeshInstance3D" parent="Players/Portrait_2/WinnerBorder_2"]
-position = Vector3(0, -0.417, 0.099)
+position = Vector3(0, -0.417, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
+material_override = SubResource("RedInk")
 scale = Vector3(0.352, 2, 1)
 
 [node name="Left" type="MeshInstance3D" parent="Players/Portrait_2/WinnerBorder_2"]
-position = Vector3(-0.175, -0.33, 0.099)
+position = Vector3(-0.175, -0.131, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
-scale = Vector3(0.01, 37, 1)
+material_override = SubResource("RedInk")
+scale = Vector3(0.01, 114.4, 1)
 
 [node name="Right" type="MeshInstance3D" parent="Players/Portrait_2/WinnerBorder_2"]
-position = Vector3(0.175, -0.33, 0.099)
+position = Vector3(0.175, -0.131, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
-scale = Vector3(0.01, 37, 1)
+material_override = SubResource("RedInk")
+scale = Vector3(0.01, 114.4, 1)
 
 [node name="Portrait_3" type="Node3D" parent="Players"]
 position = Vector3(0, 0.16, 0)
@@ -610,28 +610,28 @@ outline_modulate = Color(0.25, 0.03, 0.03, 1)
 visible = false
 
 [node name="Top" type="MeshInstance3D" parent="Players/Portrait_3/WinnerBorder_3"]
-position = Vector3(0, -0.242, 0.099)
+position = Vector3(0, 0.155, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
+material_override = SubResource("RedInk")
 scale = Vector3(0.352, 2, 1)
 
 [node name="Bottom" type="MeshInstance3D" parent="Players/Portrait_3/WinnerBorder_3"]
-position = Vector3(0, -0.417, 0.099)
+position = Vector3(0, -0.417, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
+material_override = SubResource("RedInk")
 scale = Vector3(0.352, 2, 1)
 
 [node name="Left" type="MeshInstance3D" parent="Players/Portrait_3/WinnerBorder_3"]
-position = Vector3(-0.175, -0.33, 0.099)
+position = Vector3(-0.175, -0.131, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
-scale = Vector3(0.01, 37, 1)
+material_override = SubResource("RedInk")
+scale = Vector3(0.01, 114.4, 1)
 
 [node name="Right" type="MeshInstance3D" parent="Players/Portrait_3/WinnerBorder_3"]
-position = Vector3(0.175, -0.33, 0.099)
+position = Vector3(0.175, -0.131, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
-scale = Vector3(0.01, 37, 1)
+material_override = SubResource("RedInk")
+scale = Vector3(0.01, 114.4, 1)
 
 [node name="Portrait_4" type="Node3D" parent="Players"]
 position = Vector3(0.46, 0.16, 0)
@@ -681,28 +681,28 @@ outline_modulate = Color(0.25, 0.03, 0.03, 1)
 visible = false
 
 [node name="Top" type="MeshInstance3D" parent="Players/Portrait_4/WinnerBorder_4"]
-position = Vector3(0, -0.242, 0.099)
+position = Vector3(0, 0.155, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
+material_override = SubResource("RedInk")
 scale = Vector3(0.352, 2, 1)
 
 [node name="Bottom" type="MeshInstance3D" parent="Players/Portrait_4/WinnerBorder_4"]
-position = Vector3(0, -0.417, 0.099)
+position = Vector3(0, -0.417, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
+material_override = SubResource("RedInk")
 scale = Vector3(0.352, 2, 1)
 
 [node name="Left" type="MeshInstance3D" parent="Players/Portrait_4/WinnerBorder_4"]
-position = Vector3(-0.175, -0.33, 0.099)
+position = Vector3(-0.175, -0.131, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
-scale = Vector3(0.01, 37, 1)
+material_override = SubResource("RedInk")
+scale = Vector3(0.01, 114.4, 1)
 
 [node name="Right" type="MeshInstance3D" parent="Players/Portrait_4/WinnerBorder_4"]
-position = Vector3(0.175, -0.33, 0.099)
+position = Vector3(0.175, -0.131, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
-scale = Vector3(0.01, 37, 1)
+material_override = SubResource("RedInk")
+scale = Vector3(0.01, 114.4, 1)
 
 [node name="Portrait_5" type="Node3D" parent="Players"]
 position = Vector3(0.92, 0.16, 0)
@@ -752,28 +752,28 @@ outline_modulate = Color(0.25, 0.03, 0.03, 1)
 visible = false
 
 [node name="Top" type="MeshInstance3D" parent="Players/Portrait_5/WinnerBorder_5"]
-position = Vector3(0, -0.242, 0.099)
+position = Vector3(0, 0.155, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
+material_override = SubResource("RedInk")
 scale = Vector3(0.352, 2, 1)
 
 [node name="Bottom" type="MeshInstance3D" parent="Players/Portrait_5/WinnerBorder_5"]
-position = Vector3(0, -0.417, 0.099)
+position = Vector3(0, -0.417, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
+material_override = SubResource("RedInk")
 scale = Vector3(0.352, 2, 1)
 
 [node name="Left" type="MeshInstance3D" parent="Players/Portrait_5/WinnerBorder_5"]
-position = Vector3(-0.175, -0.33, 0.099)
+position = Vector3(-0.175, -0.131, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
-scale = Vector3(0.01, 37, 1)
+material_override = SubResource("RedInk")
+scale = Vector3(0.01, 114.4, 1)
 
 [node name="Right" type="MeshInstance3D" parent="Players/Portrait_5/WinnerBorder_5"]
-position = Vector3(0.175, -0.33, 0.099)
+position = Vector3(0.175, -0.131, 0.105)
 mesh = SubResource("ScaleSegment")
-material_override = SubResource("WinnerInk")
-scale = Vector3(0.01, 37, 1)
+material_override = SubResource("RedInk")
+scale = Vector3(0.01, 114.4, 1)
 
 [node name="AverageFrame" type="Node3D" parent="."]
 visible = false
