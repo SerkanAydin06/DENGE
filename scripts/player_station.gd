@@ -116,8 +116,9 @@ func set_monitor_numbers(shown: Array[String]) -> void:
 			readout.modulate = Color(0.055, 0.115, 0.21, readout.modulate.a)
 
 
-func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [], new_scores: Array = []) -> void:
+func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [], score_lines: Array = []) -> void:
 	## Geometry, frames, portraits and grid are pre-authored in monitor_blueprint.tscn.
+	## score_lines: per player text shown under the number window on RESULT (distance and score).
 	var showing_average: bool = phase == "AVERAGE"
 	var showing_target: bool = phase == "TARGET" or phase == "RESULT"
 	average_frame.visible = showing_average
@@ -130,23 +131,29 @@ func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [],
 	result_details.visible = not showing_target
 	if showing_target:
 		target_value.text = "%.2f" % target
-		target_panel.scale = Vector3(0.80, 0.80, 1.0)
-		var target_tween: Tween = create_tween()
-		target_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		target_tween.tween_property(target_panel, "scale", Vector3.ONE, 0.38)
+		if phase == "TARGET":
+			target_panel.scale = Vector3(0.80, 0.80, 1.0)
+			var target_tween: Tween = create_tween()
+			target_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			target_tween.tween_property(target_panel, "scale", Vector3.ONE, 0.38)
 
 	for i in range(player_readouts.size()):
 		var portrait: Node3D = blueprint.get_node("Players/Portrait_%d" % [i + 1]) as Node3D
 		var winner_border: Node3D = portrait.get_node("WinnerBorder_%d" % [i + 1]) as Node3D
+		var win_label: Label3D = portrait.get_node("WinLabel_%d" % [i + 1]) as Label3D
 		var score_label: Label3D = portrait.get_node("Score_%d" % [i + 1]) as Label3D
-		winner_border.visible = phase == "RESULT" and winners.has(i)
-		score_label.visible = phase == "RESULT" and i < new_scores.size()
-		if i < new_scores.size():
-			score_label.text = "PUAN %d" % int(new_scores[i])
-		if winner_border.visible:
+		var is_winner: bool = phase == "RESULT" and winners.has(i)
+		winner_border.visible = is_winner
+		win_label.visible = is_winner
+		score_label.visible = phase == "RESULT" and i < score_lines.size()
+		if i < score_lines.size():
+			score_label.text = str(score_lines[i])
+		if is_winner:
 			winner_border.scale = Vector3(0.90, 0.90, 1.0)
-			var winner_tween: Tween = create_tween()
+			win_label.scale = Vector3(0.6, 0.6, 1.0)
+			var winner_tween: Tween = create_tween().set_parallel(true)
 			winner_tween.tween_property(winner_border, "scale", Vector3.ONE, 0.33).set_trans(Tween.TRANS_BACK)
+			winner_tween.tween_property(win_label, "scale", Vector3.ONE, 0.4).set_trans(Tween.TRANS_BACK)
 
 func append_digit(digit: int) -> void:
 	## Optional keyboard input; on the screen all 101 entries remain individually selectable.

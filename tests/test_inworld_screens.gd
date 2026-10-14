@@ -6,6 +6,7 @@ func _initialize() -> void:
 	assert(packed != null, "Player station scene not found")
 	var station: DengePlayerStation = packed.instantiate() as DengePlayerStation
 	root.add_child(station)
+	await process_frame
 
 	var tablet: Node3D = station.get_node("Desk/TouchConsole") as Node3D
 	assert(is_equal_approx(tablet.scale.x, 0.20), "Tablet should be standard compact physical size")
@@ -54,10 +55,12 @@ func _initialize() -> void:
 	assert(not station.average_frame.visible)
 	assert(station.target_panel.visible)
 	assert(station.target_value.text == "24.00")
-	station.set_monitor_phase("RESULT", 24.0, [2], [-1, -1, 0, -1, -1])
+	station.set_monitor_phase("RESULT", 24.0, [2], ["FARK 6.00\nPUAN -1 (-1)", "B", "C", "D", "E"])
 	assert(blueprint.get_node("Players/Portrait_3/WinnerBorder_3").visible)
+	assert(blueprint.get_node("Players/Portrait_3/WinLabel_3").visible, "Winner needs a KAZANDI label")
 	assert(not blueprint.get_node("Players/Portrait_2/WinnerBorder_2").visible)
-	assert(blueprint.get_node("Players/Portrait_1/Score_1").text == "PUAN -1")
+	assert(not blueprint.get_node("Players/Portrait_2/WinLabel_2").visible)
+	assert(blueprint.get_node("Players/Portrait_1/Score_1").text == "FARK 6.00\nPUAN -1 (-1)")
 	station.set_monitor_phase("RULES")
 	assert(not station.target_panel.visible)
 	assert(not station.average_frame.visible)

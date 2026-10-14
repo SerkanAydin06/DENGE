@@ -6,6 +6,7 @@ func _initialize() -> void:
 	assert(room_scene != null)
 	var room: Node3D = room_scene.instantiate() as Node3D
 	root.add_child(room)
+	await process_frame
 	var tablet: Node3D = room.get_node("Arena/PlayerStation_1/Desk/TouchConsole") as Node3D
 	var desk: Node3D = tablet.get_parent() as Node3D
 	var camera: Camera3D = room.get_node("PlayerCamera") as Camera3D
