@@ -42,8 +42,8 @@ Test: `godot --headless --path . --script res://tests/test_round_rules.gd` (Godo
 ## Fiziksel ekran akışı
 
 - **Tablet:** 0’dan 100’e kadar **101 sayı, her biri ayrı dokunulabilir seçenek**, seçili sayıyı vurgulama, `TEMIZLE` ve `ONAY`. Tam ekran panel yok.
-- **Ayrı monitör:** Yaklaşık **2,55 × 1,49 m**, koyu mavi ışıklı zemin, camgöbeği çerçeve, 5 oyuncunun ayrı sayı alanı, ortalama/hedef hesabı, kazanan/puanlar ve sırayla açıklama animasyonu.
-- **Görüntü:** Her istasyonda `ResultTitle`, `ResultBody`, `PlayerReadouts/Player_1..5`, `ResultDetails`, `ResultFooter`, `MonitorSweep` ve çerçeve ışıkları Godot editöründe düzenlenebilir.
+- **Ayrı monitör:** Yaklaşık **2,24 × 1,31 m**, koyu mavi ışıklı zemin, camgöbeği çerçeve, 5 oyuncunun ayrı sayı alanı, ortalama/hedef hesabı, kazanan/puanlar ve sırayla açıklama animasyonu.
+- **Görüntü:** Her istasyonda `ResultTitle`, `ResultBody`, `PlayerReadouts/Player_1..5`, `ResultDetails`, `ResultFooter` ve çerçeve ışıkları Godot editöründe düzenlenebilir.
 - Bilgisayar rakipleri şimdilik rastgele sayılar üretir. Görsel dil dramatik, özgün ve uyarlama sahnenin birebir kopyası değildir.
 
 **Tablet seçimi:** `E` ile standart boyutlu tableti eline al ve büyük yakın görünümde fare imlecini aç; 0–100 arasından istediğin sayıya tıkla, `ONAY` ile kilitle. `TEMIZLE` seçimi siler. Klavyeden rakam/Enter alternatif olarak kullanılabilir. Bütün oyun açıklamaları ve sonuç animasyonları sadece büyük 3D monitöre gider.
@@ -60,3 +60,8 @@ Test: `godot --headless --path . --script res://tests/test_tablet_pickup.gd`.
 ## Referans görsellerindeki monitör düzeni
 
 Monitörün **koyu lacivert teknik ızgaralı zemini**, arkadaki **soluk terazi çizimi**, üstte **5 özgün oyuncu silüeti** ve hemen altında **5 beyaz sayı kutusu** bulunur. Seçimler kutularda sırayla belirir. Ortalama hesaplanırken sayı kutuları **kırmızı dikdörtgen çerçeve** içine alınır. Hedef sayı ortada, alt bölümde ayrı bir beyaz kutuda görünür. Son aşamada kazanan kutusu vurgulanır, puanlar görünür. Tüm bu sahne unsurları `scenes/props/monitor_blueprint.tscn` üzerinden düzenlenebilir; hiçbir açılır panel yoktur.
+
+## Ekran boyutu ve yenileme
+
+- Monitörün tamamı %12 küçültüldü (görünen genişlik yaklaşık 2,24 m); beş oyuncu kutusu ve çizimler orantılı kalır, ayak/stand etkilenmez.
+- Yenileme sırasında akan mavi şerit (`MonitorSweep`) sahneden ve animasyon kodundan çıkarıldı; metinlerin yumuşak belirmesi korundu.
