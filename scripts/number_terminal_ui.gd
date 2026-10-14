@@ -40,7 +40,19 @@ func _lock() -> void:
 		button.disabled = true
 	selection_locked.emit(chosen)
 
+func reset_for_next_round() -> void:
+	chosen = -1
+	locked = false
+	chosen_label.text = "0-100 ARASINDA SAYI SEC"
+	lock_button.text = "SAYIYI KILITLE"
+	lock_button.disabled = true
+	for button in number_buttons:
+		button.disabled = false
+		button.modulate = Color.WHITE
+
 func open() -> void:
+	if locked:
+		return
 	visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
