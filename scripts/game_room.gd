@@ -9,6 +9,9 @@ extends Node3D
 @export_range(0.2, 4.0, 0.1) var bot_think_seconds: float = 1.0
 @export_range(0.2, 0.8, 0.01) var tablet_pickup_seconds: float = 0.38
 @export_range(0.16, 0.35, 0.01) var tablet_hold_distance: float = 0.19
+## Tabletin yerel uzayinda sol/sag elin tuttugu kenar noktalari (olcek oncesi).
+@export var tablet_grip_left: Vector3 = Vector3(-0.86, -0.12, -0.05)
+@export var tablet_grip_right: Vector3 = Vector3(0.86, -0.12, -0.05)
 @export_range(0.88, 0.995, 0.005) var tablet_look_threshold: float = 0.955
 
 @onready var player_camera: Camera3D = $PlayerCamera
@@ -43,6 +46,8 @@ func _ready() -> void:
 	view_yaw = player_camera.rotation.y
 	view_pitch = player_camera.rotation.x
 	player_camera.current = true
+	# Govde gorundugu icin yakin kirpma mesafesi kucuk tutulur.
+	player_camera.near = 0.03
 	for i in range(stations.size()):
 		stations[i].reset_life(i == 0)
 	stations[0].number_locked.connect(_on_selection_locked)
@@ -56,10 +61,27 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _process(_delta: float) -> void:
+	_update_first_person_body()
 	# This E hint belongs to the small physical tablet, never to the monitor.
 	tablet_interaction_hint.visible = (not tablet_mode and not tablet_transition
 		and not revealing and (round_result_ready or not stations[0].tablet_locked)
 		and _looking_at_tablet())
+
+
+## Birinci sahis: kamera karakterin goz noktasini izler, govde bakis yonunu
+## kismen takip eder, tablet tutulurken eller tabletin kenarlarini kavrar.
+func _update_first_person_body() -> void:
+	var character: DengePlayerCharacter = stations[0].get_character()
+	if character == null or not character.first_person:
+		return
+	player_camera.global_position = character.eye_global_position()
+	character.set_view_yaw(rad_to_deg(view_yaw))
+	var holding: bool = tablet_mode and player_console.get_parent() == player_camera
+	if holding:
+		var xf: Transform3D = player_console.global_transform
+		character.set_hold_targets(xf * tablet_grip_left, xf * tablet_grip_right, true)
+	else:
+		character.set_hold_targets(Vector3.ZERO, Vector3.ZERO, false)
 
 
 func _looking_at_tablet() -> bool:

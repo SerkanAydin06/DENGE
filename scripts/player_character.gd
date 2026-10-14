@@ -46,9 +46,18 @@ const RELAXED_FINGERS: Vector3 = Vector3(18, 26, 14)
 const RELAXED_THUMB: Vector3 = Vector3(10, 15, 8)
 const FIST_FINGERS: Vector3 = Vector3(85, 95, 65)
 const FIST_THUMB: Vector3 = Vector3(35, 45, 25)
+const HOLD_CURL: Vector3 = Vector3(35, 45, 30)
+const HOLD_THUMB: Vector3 = Vector3(5, 10, 5)
 
 var skeleton: Skeleton3D
 var mood: String = "IDLE"
+## Birinci sahis: bas gizlenir, kendiliginden hareketler kapanir, kamera goz noktasini izler.
+var first_person: bool = false
+var _view_yaw_degrees: float = 0.0
+var _hold_left: Vector3 = Vector3.ZERO
+var _hold_right: Vector3 = Vector3.ZERO
+var _holding: bool = false
+var _hold_weight: float = 0.0
 var _time: float = 0.0
 var _mood_time: float = 0.0
 var _look_target: Vector2 = Vector2.ZERO
@@ -87,6 +96,33 @@ func set_mood(new_mood: String) -> void:
 	_next_think_switch = randf_range(1.5, 3.0)
 	_think_chin = randf() < 0.4
 
+func set_first_person(enabled: bool) -> void:
+	first_person = enabled
+	_look_current = Vector2.ZERO
+	_look_target = Vector2.ZERO
+
+## Birinci sahiste kamera yonu (derece); govde ve omuzlar bir kismini izler.
+func set_view_yaw(degrees: float) -> void:
+	_view_yaw_degrees = degrees
+
+## Tablet tutulurken iki elin dunya uzayindaki tutma noktalari.
+func set_hold_targets(left_world: Vector3, right_world: Vector3, holding: bool) -> void:
+	_holding = holding
+	if holding:
+		_hold_left = left_world
+		_hold_right = right_world
+
+## Kafanin icindeki goz noktasi (dunya uzayi). Birinci sahis kamerasi bunu izler.
+func eye_global_position() -> Vector3:
+	var head: int = _find_bone("Head")
+	if skeleton == null or head < 0:
+		return global_position + Vector3(0, 1.2, 0)
+	var xf: Transform3D = skeleton.global_transform
+	var origin: Vector3 = xf * _global_pose(head).origin
+	var up: Vector3 = (xf.basis * Vector3.UP).normalized()
+	var forward: Vector3 = (xf.basis * Vector3.BACK).normalized()
+	return origin + up * 0.085 + forward * 0.09
+
 func apply_seated_pose() -> void:
 	_build_pose(_current)
 
@@ -95,7 +131,11 @@ func _process(delta: float) -> void:
 		return
 	_time += delta
 	_mood_time += delta
-	_update_look(delta)
+	_hold_weight = move_toward(_hold_weight, 1.0 if _holding else 0.0, delta * 3.5)
+	if first_person:
+		_look_current = Vector2.ZERO
+	else:
+		_update_look(delta)
 	if mood == "THINK":
 		_next_think_switch -= delta
 		if _next_think_switch <= 0.0:
@@ -128,6 +168,8 @@ func _mood_targets(state: String) -> Dictionary:
 		"l_thumb": RELAXED_THUMB,
 		"r_thumb": RELAXED_THUMB,
 	}
+	if first_person and state == "THINK":
+		state = "IDLE"
 	match state:
 		"THINK":
 			t["head"] = head_pitch + 10.0
@@ -203,7 +245,8 @@ func _build_pose(p: Dictionary) -> void:
 	var sway: float = _noise.get_noise_1d(_time * 10.0) if idle_motion else 0.0
 	var look: Vector2 = _look_current * float(p["look"]) if idle_motion else Vector2.ZERO
 
-	_rotate_global(_find_bone("Spine"), Basis(Vector3.RIGHT, deg_to_rad(float(p["spine"]) + breath * breath_degrees)) * Basis(Vector3.BACK, deg_to_rad(sway * sway_degrees)))
+	var body_yaw: float = _view_yaw_degrees * 0.35 if first_person else 0.0
+	_rotate_global(_find_bone("Spine"), Basis(Vector3.UP, deg_to_rad(body_yaw)) * Basis(Vector3.RIGHT, deg_to_rad(float(p["spine"]) + breath * breath_degrees)) * Basis(Vector3.BACK, deg_to_rad(sway * sway_degrees)))
 	for side: String in ["Left", "Right"]:
 		var side_sign: float = 1.0 if side == "Left" else -1.0
 		_rotate_global(_find_bone(side + "Shoulder"), Basis(Vector3.BACK, deg_to_rad(breath * 0.8 * side_sign)))
@@ -221,10 +264,53 @@ func _build_pose(p: Dictionary) -> void:
 		_aim(side + "UpLeg", side + "Leg", thigh_direction * mirror)
 		_aim(side + "Leg", side + "Foot", shin_direction * mirror)
 		_aim(side + "Foot", side + "ToeBase", foot_direction * mirror)
-		_aim(side + "Arm", side + "ForeArm", (p[prefix + "upper"] as Vector3) * mirror)
-		_aim(side + "ForeArm", side + "Hand", (p[prefix + "fore"] as Vector3) * mirror)
-		_twist_palm(side, (p[prefix + "palm"] as Vector3) * mirror)
-		_curl_fingers(side, p, prefix)
+		var upper: Vector3 = (p[prefix + "upper"] as Vector3) * mirror
+		var fore: Vector3 = (p[prefix + "fore"] as Vector3) * mirror
+		var palm_dir: Vector3 = (p[prefix + "palm"] as Vector3) * mirror
+		var curls: Dictionary = p
+		if _hold_weight > 0.0:
+			var ik: Array = _solve_arm(side, _hold_left if side == "Left" else _hold_right, mirror)
+			if not ik.is_empty():
+				upper = upper.normalized().lerp(ik[0], _hold_weight)
+				fore = fore.normalized().lerp(ik[1], _hold_weight)
+				# Avuclar tabletin yanlarina doner, parmaklar kenari kavrar.
+				palm_dir = palm_dir.normalized().lerp(Vector3(-1.0, 0.35, -0.2) * mirror, _hold_weight)
+				curls = p.duplicate()
+				for key in ["fingers", "index", "thumb"]:
+					curls[prefix + key] = (p[prefix + key] as Vector3).lerp(HOLD_CURL if key != "thumb" else HOLD_THUMB, _hold_weight)
+		_aim(side + "Arm", side + "ForeArm", upper)
+		_aim(side + "ForeArm", side + "Hand", fore)
+		_twist_palm(side, palm_dir)
+		_curl_fingers(side, curls, prefix)
+	if first_person:
+		# Kamera kafanin icinde: kafa ve sac kucultulerek gizlenir.
+		var head_bone: int = _find_bone("Head")
+		if head_bone >= 0:
+			skeleton.set_bone_pose_scale(head_bone, Vector3.ONE * 0.001)
+
+## Iki kemikli basit IK: omuzdan hedefe uzanan ust kol ve on kol yonleri (model uzayi).
+func _solve_arm(side: String, target_world: Vector3, mirror: Vector3) -> Array:
+	var arm: int = _find_bone(side + "Arm")
+	var forearm: int = _find_bone(side + "ForeArm")
+	var hand: int = _find_bone(side + "Hand")
+	if arm < 0 or forearm < 0 or hand < 0:
+		return []
+	var shoulder: Vector3 = _global_pose(arm).origin
+	var upper_len: float = _global_pose(arm).origin.distance_to(_global_pose(forearm).origin)
+	var fore_len: float = _global_pose(forearm).origin.distance_to(_global_pose(hand).origin)
+	var target: Vector3 = skeleton.global_transform.affine_inverse() * target_world
+	var reach: Vector3 = target - shoulder
+	var dist: float = clampf(reach.length(), 0.001, (upper_len + fore_len) * 0.995)
+	if reach.is_zero_approx() or upper_len <= 0.0:
+		return []
+	var cos_a: float = clampf((upper_len * upper_len + dist * dist - fore_len * fore_len) / (2.0 * upper_len * dist), -1.0, 1.0)
+	var pole: Vector3 = Vector3(0.6, -1.0, -0.3) * mirror
+	var bend_axis: Vector3 = reach.cross(pole)
+	if bend_axis.is_zero_approx():
+		return []
+	var upper_dir: Vector3 = reach.normalized().rotated(bend_axis.normalized(), acos(cos_a))
+	var elbow: Vector3 = shoulder + upper_dir * upper_len
+	return [upper_dir, (shoulder + reach.normalized() * dist - elbow).normalized()]
 
 ## On kolu kendi ekseni etrafinda cevirerek avucu hedef yone dondurur.
 func _twist_palm(side: String, target_palm: Vector3) -> void:
@@ -252,24 +338,53 @@ func _twist_palm(side: String, target_palm: Vector3) -> void:
 
 ## Parmak eklemlerini kendi yerel X ekseni etrafinda avuca dogru bukar.
 func _curl_fingers(side: String, p: Dictionary, prefix: String) -> void:
+	var palm: Vector3 = _palm_normal(side)
 	var drum: float = 0.0
-	if idle_motion and (mood == "LOCKED" or mood == "WATCH" or mood == "IDLE"):
+	if idle_motion and not first_person and (mood == "LOCKED" or mood == "WATCH" or mood == "IDLE"):
 		drum = 1.0
 	for finger_index in range(FINGER_NAMES.size()):
 		var finger: String = FINGER_NAMES[finger_index]
 		var curl: Vector3 = p[prefix + ("index" if finger == "Index" else "fingers")]
 		# Beklerken parmaklarla masaya tiklatma dalgasi.
 		var wave: float = drum * maxf(0.0, sin(_time * TAU * 1.3 - float(finger_index) * 0.9)) * maxf(0.0, sin(_time * 0.7))
-		_curl_chain(side + "Hand" + finger, curl + Vector3(18.0, 10.0, 0.0) * wave)
-	_curl_chain(side + "HandThumb", p[prefix + "thumb"])
+		_curl_chain(side + "Hand" + finger, curl + Vector3(18.0, 10.0, 0.0) * wave, palm)
+	_curl_chain(side + "HandThumb", p[prefix + "thumb"], palm)
 
-func _curl_chain(chain: String, degrees: Vector3) -> void:
-	for joint in range(3):
+## Avucun su anki normali (model uzayi). Sol elde parmaklar x (serce->isaret), sag elde tersi.
+func _palm_normal(side: String) -> Vector3:
+	var hand: int = _find_bone(side + "Hand")
+	var index: int = _find_bone(side + "HandIndex1")
+	var pinky: int = _find_bone(side + "HandPinky1")
+	var middle: int = _find_bone(side + "HandMiddle1")
+	if hand < 0 or index < 0 or pinky < 0 or middle < 0:
+		return Vector3.ZERO
+	var fingers: Vector3 = _global_pose(middle).origin - _global_pose(hand).origin
+	var across: Vector3 = _global_pose(index).origin - _global_pose(pinky).origin
+	var palm: Vector3 = fingers.cross(across) * (1.0 if side == "Left" else -1.0)
+	return palm.normalized() if not palm.is_zero_approx() else Vector3.ZERO
+
+## Her eklemi parmak yonu x avuc normali ekseni etrafinda avuca dogru bukar.
+## Model uzayinda hesaplandigi icin Meshy ve Mixamo iskeletlerinde ayni sonucu verir.
+func _curl_chain(chain: String, degrees: Vector3, palm: Vector3) -> void:
+	if palm.is_zero_approx():
+		return
+	var bones: Array[int] = []
+	for joint in range(4):
 		var bone: int = _find_bone(chain + str(joint + 1))
-		if bone < 0:
+		if bone >= 0:
+			bones.append(bone)
+	for joint in range(mini(3, bones.size())):
+		var bone: int = bones[joint]
+		var tip: int = bones[joint + 1] if joint + 1 < bones.size() else -1
+		var from_bone: int = bone if tip >= 0 else bones[joint - 1] if joint > 0 else -1
+		var to_bone: int = tip if tip >= 0 else bone
+		if from_bone < 0:
 			continue
-		var rest: Quaternion = skeleton.get_bone_rest(bone).basis.get_rotation_quaternion()
-		skeleton.set_bone_pose_rotation(bone, rest * Quaternion(Vector3.RIGHT, deg_to_rad(degrees[joint])))
+		var direction: Vector3 = _global_pose(to_bone).origin - _global_pose(from_bone).origin
+		var axis: Vector3 = direction.cross(palm)
+		if axis.is_zero_approx():
+			continue
+		_rotate_global(bone, Basis(axis.normalized(), deg_to_rad(degrees[joint])))
 
 func _align_hips_to_seat() -> void:
 	var hips: int = _find_bone("Hips")

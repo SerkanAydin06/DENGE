@@ -83,6 +83,10 @@ func set_character_mood(mood: String) -> void:
 	if character:
 		character.set_mood(mood)
 
+## Koltuktaki karakter (yoksa null).
+func get_character() -> DengePlayerCharacter:
+	return player_figure.get_node_or_null("Character") as DengePlayerCharacter
+
 func eye_position() -> Vector3:
 	return seat_eye.global_position
 
@@ -271,7 +275,10 @@ func reset_life(first_person: bool = false) -> void:
 	current_points = DengeRoundRules.STARTING_SCORE
 	player_figure.rotation_degrees = Vector3.ZERO
 	player_figure.position = Vector3(0, 0, 0.14)
-	player_figure.visible = not first_person
+	player_figure.visible = true
+	var character: DengePlayerCharacter = player_figure.get_node_or_null("Character") as DengePlayerCharacter
+	if character:
+		character.set_first_person(first_person)
 	death_stream.visible = false
 	death_impact.visible = false
 	death_impact.transparency = 0.0
@@ -305,11 +312,12 @@ func eliminate_player() -> void:
 	collapse_tween = create_tween().set_parallel(true)
 	collapse_tween.tween_property(death_impact, "scale", Vector3(1.6, 1.3, 1.6), 0.6)
 	collapse_tween.tween_property(death_impact, "transparency", 1.0, 0.75)
-	if not hide_first_person_figure:
-		collapse_tween.tween_property(player_figure, "rotation_degrees", Vector3(-62, 0, 12), 0.75)
-		collapse_tween.tween_property(player_figure, "position:y", -0.42, 0.75)
+	# Birinci sahiste de govde yigilir; kamera goz noktasini izledigi icin birlikte duser.
+	collapse_tween.tween_property(player_figure, "rotation_degrees", Vector3(-62, 0, 12), 0.75)
+	collapse_tween.tween_property(player_figure, "position:y", -0.42, 0.75)
 	await collapse_tween.finished
-	player_figure.visible = false
+	if not hide_first_person_figure:
+		player_figure.visible = false
 	death_stream.visible = false
 	death_impact.visible = false
 
