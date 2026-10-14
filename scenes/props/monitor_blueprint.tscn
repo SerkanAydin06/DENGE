@@ -301,11 +301,11 @@ material_override = SubResource("GridStrong")
 [node name="BalanceMotif" type="Node3D" parent="."]
 
 [node name="Pillar" type="MeshInstance3D" parent="BalanceMotif"]
-position = Vector3(0, -0.25, 0.062)
+position = Vector3(0, -0.075, 0.062)
 mesh = SubResource("ScaleSegment")
 material_override = SubResource("BalanceInk")
-rotation_degrees = Vector3(0, 0, 0)
-scale = Vector3(0.68, 1, 1)
+rotation_degrees = Vector3(0, 0, 90)
+scale = Vector3(0.75, 1, 1)
 
 [node name="Foot" type="MeshInstance3D" parent="BalanceMotif"]
 position = Vector3(0, -0.59, 0.062)
