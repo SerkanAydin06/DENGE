@@ -83,6 +83,53 @@ size = Vector3(0.017, 1.23, 0.014)
 [sub_resource type="BoxMesh" id="b_MonitorDivider"]
 size = Vector3(2.17, 0.009, 0.014)
 
+[sub_resource type="StandardMaterial3D" id="m_Avatar"]
+resource_name = "Seated Player Dark Uniform"
+albedo_color = Color(0.11, 0.16, 0.22, 1)
+metallic = 0.1
+roughness = 0.86
+
+[sub_resource type="StandardMaterial3D" id="m_AvatarFace"]
+resource_name = "Seated Player Face"
+albedo_color = Color(0.50, 0.43, 0.37, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="m_Spill"]
+resource_name = "Pouring Luminous Liquid"
+shading_mode = 0
+albedo_color = Color(0.22, 0.85, 0.96, 0.86)
+transparency = 1
+emission_enabled = true
+emission = Color(0.06, 0.64, 0.95, 1)
+emission_energy_multiplier = 1.2
+
+[sub_resource type="CapsuleMesh" id="c_AvatarBody"]
+radius = 0.17
+height = 0.64
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereMesh" id="s_AvatarHead"]
+radius = 0.17
+height = 0.34
+radial_segments = 20
+rings = 10
+
+[sub_resource type="BoxMesh" id="b_AvatarArm"]
+size = Vector3(0.11, 0.43, 0.16)
+
+[sub_resource type="CylinderMesh" id="c_PourStream"]
+top_radius = 0.048
+bottom_radius = 0.06
+height = 1.0
+radial_segments = 14
+
+[sub_resource type="SphereMesh" id="s_Impact"]
+radius = 0.26
+height = 0.52
+radial_segments = 20
+rings = 10
+
 [node name="PlayerStation" type="Node3D" unique_id=676832732]
 script = ExtResource("1_script")
 
@@ -94,6 +141,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.15)
 
 [node name="RearBalanceScale" parent="." unique_id=1042972394 instance=ExtResource("rear_balance_scale")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 0.72, 0, -1, 0, -4.371139e-08, 0, 3.3955922, 2.7098055)
+
+[node name="PlayerFigure" type="Node3D" parent="."]
+position = Vector3(0, 0, 0.14)
+
+[node name="Torso" type="MeshInstance3D" parent="PlayerFigure"]
+position = Vector3(0, 0.99, 0)
+mesh = SubResource("c_AvatarBody")
+material_override = SubResource("m_Avatar")
+
+[node name="Head" type="MeshInstance3D" parent="PlayerFigure"]
+position = Vector3(0, 1.42, 0)
+mesh = SubResource("s_AvatarHead")
+material_override = SubResource("m_AvatarFace")
+
+[node name="LeftArm" type="MeshInstance3D" parent="PlayerFigure"]
+position = Vector3(-0.25, 0.97, -0.08)
+rotation_degrees = Vector3(18, 0, -18)
+mesh = SubResource("b_AvatarArm")
+material_override = SubResource("m_Avatar")
+
+[node name="RightArm" type="MeshInstance3D" parent="PlayerFigure"]
+position = Vector3(0.25, 0.97, -0.08)
+rotation_degrees = Vector3(18, 0, 18)
+mesh = SubResource("b_AvatarArm")
+material_override = SubResource("m_Avatar")
+
+[node name="DeathSpillStream" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("c_PourStream")
+material_override = SubResource("m_Spill")
+
+[node name="DeathImpact" type="MeshInstance3D" parent="."]
+visible = false
+position = Vector3(0, 1.47, 0.14)
+mesh = SubResource("s_Impact")
+material_override = SubResource("m_Spill")
 
 [node name="Chair" type="Node3D" parent="." unique_id=1204447294]
 
