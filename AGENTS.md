@@ -46,7 +46,7 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 - E picks up the compact physical tablet **from anywhere while seated**; clicks select individual numbers 0-100; TEMIZLE clears, ONAY locks; keyboard digits and Enter are optional; Esc sets it back on its desk. After results finish, E proceeds to next round.
 
 ## Large game monitor (design locked)
-- Every station owns a **approximately 2.24m × 1.31m** visible freestanding blue-and-cyan monitor: `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. It remains a floor-mounted display, not attached to desks.
+- Every station owns a **approximately 2.04m × 1.19m** visible freestanding blue-and-cyan monitor: `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. It remains a floor-mounted display, not attached to desks.
 - Scene-authored glowing frame, subtle text fades (no moving scanline) and five player-number readout labels (no HUD/popup). Separate emission materials in `assets/materials/monitor_glass.tres`, `monitor_cyan.tres` and `tablet_selection.tres`.
 - The physical desk tablet visibly lists **all 101 values (0..100 individually)** in ten columns and eleven rows, plus TEMIZLE and ONAY. Do not regress to digit keypad, screenspace number picker or modal result screen.
 
@@ -63,6 +63,12 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 - Each player sees identical monitor content; the separate 101-number small handheld tablet remains entry-only. Headless checks live in `tests/test_inworld_screens.gd`.
 
 ## Monitor size / refresh polish (2026-10-14)
-- The complete monitor visual is uniformly 0.88-scaled through `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. This keeps the proportions and alignment of blueprint grid, portraits, five number tiles, frame and labels. The floor stand stays at original scale. Physical visible face ~2.24 × 1.31 m.
+- The complete monitor visual is uniformly 0.80-scaled through `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. This keeps the proportions and alignment of blueprint grid, portraits, five number tiles, frame and labels. The floor stand stays at original scale. Physical visible face ~2.04 × 1.19 m.
 - **No moving blue refresh bar:** `MonitorSweep` mesh/subresource and associated tween were removed intentionally. `set_monitor_page()` only fades the title and headline. Do not reintroduce scan sweeps.
 - `tests/test_inworld_screens.gd` guards the smaller transform and absence of scanline, and existing monitor phase results.
+
+## Starting points and zero elimination (user-locked)
+- All five players begin with **10 points** (`DengeRoundRules.STARTING_SCORE`). The player(s) closest to the 0.8× average target retain their current points; all other active players lose 1 point per round.
+- **At 0 points, a player is eliminated** (`DengeRoundRules.ELIMINATION_SCORE = 0`). Their choice is -1, excluded from future averages, and their score never becomes negative. The starting/reset scores in `scripts/game_room.gd` must be 10 for all five players.
+- The score/threshold are announced on the freestanding result monitor. New eliminations show ELENDI / PUAN 0. Headless rule checks in `tests/test_round_rules.gd` exercise threshold, ties and exclusions.
+- Result monitor is at 80% scale (physical face ~2.04 × 1.19 m). Do not alter the user's manually authored position and screen styling.
