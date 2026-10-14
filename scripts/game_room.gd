@@ -43,6 +43,8 @@ func _ready() -> void:
 	view_yaw = player_camera.rotation.y
 	view_pitch = player_camera.rotation.x
 	player_camera.current = true
+	for i in range(stations.size()):
+		stations[i].reset_life(i == 0)
 	stations[0].number_locked.connect(_on_selection_locked)
 	# The same real 3D tablet is moved into the camera's hands and returned to its desk.
 	tablet_desk_parent = player_console.get_parent() as Node3D
@@ -305,8 +307,22 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 	)
 	await get_tree().create_timer(reveal_delay * 1.7).timeout
 
-	# 6: After the winning moment, overlay remaining points ON each portrait.
-	scores = result["scores"]
+	# The losing players' nearby bowls gain liquid according to their new scores.
+	# Any newly eliminated player reaches 0, receives a final spill and dies.
+	var new_scores: Array[int] = result["scores"]
+	for i in range(stations.size()):
+		stations[i].update_life_points(new_scores[i], 0.9)
+	await get_tree().create_timer(1.0).timeout
+
+	var newly_eliminated: Array = result["eliminated_now"]
+	for index in newly_eliminated:
+		stations[int(index)].eliminate_player()
+	if not newly_eliminated.is_empty():
+		_broadcast("DENGE  |  ELEME", "0 PUAN - ELENDI", "KEFE BOSALIYOR...", "")
+		await get_tree().create_timer(2.8).timeout
+
+	# 6: After any elimination, overlay remaining points on all portraits.
+	scores = new_scores
 	var survivor_ids: Array = result["survivors"]
 	game_finished = scores[0] <= DengeRoundRules.ELIMINATION_SCORE or survivor_ids.size() <= 1
 	# The E interaction prompt belongs to the real desk tablet only.
@@ -332,6 +348,8 @@ func _next_round() -> void:
 	if game_finished:
 		round_number = 1
 		scores = [DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE, DengeRoundRules.STARTING_SCORE]
+		for i in range(stations.size()):
+			stations[i].reset_life(i == 0)
 		game_finished = false
 	else:
 		round_number += 1
