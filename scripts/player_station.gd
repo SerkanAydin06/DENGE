@@ -22,6 +22,8 @@ const GRID_TOP: float = 0.22
 @onready var result_details: Label3D = $ResultDisplay/ResultMonitor/ResultDetails
 @onready var result_footer: Label3D = $ResultDisplay/ResultMonitor/ResultFooter
 @onready var blueprint: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint
+@onready var standby_screen: Node3D = $ResultDisplay/ResultMonitor/StandbyScreen
+@onready var standby_title: Label3D = $ResultDisplay/ResultMonitor/StandbyScreen/CenterTitle
 @onready var average_frame: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/AverageFrame
 @onready var target_panel: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/TargetPanel
 @onready var target_value: Label3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/TargetPanel/TargetValue
@@ -48,7 +50,7 @@ func _ready() -> void:
 	for number in range(DengeRoundRules.MAX_NUMBER + 1):
 		number_labels.append(touch_target.get_node("NumberGrid/Number_%03d" % number) as Label3D)
 	reset_tablet(1)
-	set_monitor_page("DENGE", "OTURUM HAZIR", "HEDEF = ORTALAMA x 0.8", "E: SAYI SEC")
+	set_monitor_phase("STANDBY")
 
 func eye_position() -> Vector3:
 	return seat_eye.global_position
@@ -119,8 +121,30 @@ func set_monitor_numbers(shown: Array[String]) -> void:
 			readout.modulate = Color(0.055, 0.115, 0.21, readout.modulate.a)
 
 
+func set_monitor_intro_title(round_id: int) -> void:
+	standby_title.text = "%d. TUR" % round_id
+	standby_title.modulate.a = 0.0
+	var title_tween: Tween = create_tween()
+	title_tween.tween_property(standby_title, "modulate:a", 1.0, 0.5)
+
+
 func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [], point_totals: Array = [], average: float = -1.0) -> void:
-	## All elements are authored in monitor_blueprint.tscn, never in a 2D popup.
+	## All content is on the scene-authored monitor, never a 2D popup.
+	## Standby/round title are truly black and hide every blueprint/readout element.
+	var intro_visible: bool = phase == "STANDBY" or phase == "ROUND_TITLE"
+	standby_screen.visible = intro_visible
+	blueprint.visible = not intro_visible
+	result_title.visible = not intro_visible
+	result_body.visible = not intro_visible
+	result_details.visible = not intro_visible
+	result_footer.visible = not intro_visible
+	for readout in player_readouts:
+		readout.visible = not intro_visible
+	if intro_visible:
+		if phase == "STANDBY":
+			standby_title.text = "DENGE"
+			standby_title.modulate.a = 1.0
+		return
 	## REVEAL -> AVERAGE -> MULTIPLY -> CALCULATED -> PHOTO -> WIN -> SCORE.
 	var calculation_visible: bool = phase == "AVERAGE" or phase == "MULTIPLY" or phase == "CALCULATED"
 	var portraits_visible: bool = phase == "PHOTO" or phase == "WIN" or phase == "SCORE"
