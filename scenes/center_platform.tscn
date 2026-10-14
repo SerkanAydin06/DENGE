@@ -7,28 +7,29 @@
 top_radius = 9.287598
 bottom_radius = 9.287598
 height = 0.25
-radial_segments = 8
+radial_segments = 5
 
 [sub_resource type="CylinderMesh" id="TopStepMesh"]
 top_radius = 8.2890625
 bottom_radius = 8.2890625
 height = 0.35
-radial_segments = 8
+radial_segments = 5
 
 [sub_resource type="CylinderMesh" id="SurfaceMesh"]
 top_radius = 7.005371
 bottom_radius = 7.005371
 height = 0.06
-radial_segments = 8
+radial_segments = 5
 
 [node name="CenterPlatform" type="Node3D" unique_id=309557848]
+rotation_degrees = Vector3(0, 36, 0)
 
-[node name="LowerOctagon" type="MeshInstance3D" parent="." unique_id=1293542548]
+[node name="LowerPentagon" type="MeshInstance3D" parent="." unique_id=1293542548]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
 material_override = ExtResource("2_dark")
 mesh = SubResource("BaseMesh")
 
-[node name="UpperOctagon" type="MeshInstance3D" parent="." unique_id=993773964]
+[node name="UpperPentagon" type="MeshInstance3D" parent="." unique_id=993773964]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
 material_override = ExtResource("1_concrete")
 mesh = SubResource("TopStepMesh")
