@@ -9,6 +9,7 @@ extends Node3D
 @export_range(0.2, 4.0, 0.1) var bot_think_seconds: float = 1.0
 @export_range(0.2, 0.8, 0.01) var tablet_pickup_seconds: float = 0.38
 @export_range(0.16, 0.35, 0.01) var tablet_hold_distance: float = 0.19
+@export_range(0.88, 0.995, 0.005) var tablet_look_threshold: float = 0.955
 
 @onready var player_camera: Camera3D = $PlayerCamera
 @onready var stations: Array[DengePlayerStation] = [
@@ -19,6 +20,7 @@ extends Node3D
 	$Arena/PlayerStation_5
 ]
 @onready var player_console: Node3D = $Arena/PlayerStation_1/Desk/TouchConsole
+@onready var tablet_interaction_hint: Label3D = $Arena/PlayerStation_1/TabletInteractionHint
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var round_number: int = 1
@@ -51,6 +53,21 @@ func _ready() -> void:
 	_prepare_round()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+func _process(_delta: float) -> void:
+	# This E hint belongs to the small physical tablet, never to the monitor.
+	tablet_interaction_hint.visible = (not tablet_mode and not tablet_transition
+		and not revealing and not round_result_ready and not stations[0].tablet_locked
+		and _looking_at_tablet())
+
+
+func _looking_at_tablet() -> bool:
+	var to_tablet: Vector3 = player_console.global_position - player_camera.global_position
+	if to_tablet.length_squared() < 0.001:
+		return false
+	var forward: Vector3 = -player_camera.global_transform.basis.z
+	return forward.dot(to_tablet.normalized()) >= tablet_look_threshold
+
+
 func _exit_tree() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -75,7 +92,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		if event.keycode == KEY_E and not revealing and not round_result_ready:
-			if not stations[0].tablet_locked and not tablet_mode:
+			if not stations[0].tablet_locked and not tablet_mode and _looking_at_tablet():
 				_set_tablet_mode(true)
 				get_viewport().set_input_as_handled()
 			return
@@ -129,7 +146,7 @@ func _set_tablet_mode(enabled: bool) -> void:
 		tablet_motion.tween_property(player_console, "position", Vector3(0, -0.015, -tablet_hold_distance), tablet_pickup_seconds)
 		tablet_motion.tween_property(player_console, "rotation", Vector3.ZERO, tablet_pickup_seconds)
 		tablet_motion.tween_property(player_console, "scale", tablet_rest_scale, tablet_pickup_seconds)
-		_broadcast("DENGE  |  TUR %02d" % round_number, "SAYINI SEC", "TABLETTE 0 - 100 SAYILARINI DOKUN\nTEMIZLE / ONAY VEYA KLAVYE 0-9", "ESC: TABLETI BIRAK")
+
 	else:
 		# Put the physical tablet back exactly where the Godot scene places it.
 		player_console.reparent(tablet_desk_parent, true)
@@ -137,8 +154,7 @@ func _set_tablet_mode(enabled: bool) -> void:
 		tablet_motion.tween_property(player_console, "position", tablet_rest_position, tablet_pickup_seconds)
 		tablet_motion.tween_property(player_console, "rotation", tablet_rest_rotation, tablet_pickup_seconds)
 		tablet_motion.tween_property(player_console, "scale", tablet_rest_scale, tablet_pickup_seconds)
-		if not stations[0].tablet_locked and not revealing and not round_result_ready:
-			_broadcast("DENGE  |  TUR %02d" % round_number, "SAYI SECIMI", "0 - 100 ARASINDA SAYI SEC\nTEMIZLE VE ONAY TABLETTE", "E: TABLETI AL")
+
 
 	tablet_motion.finished.connect(_on_tablet_motion_finished)
 
@@ -157,7 +173,7 @@ func _broadcast(title: String, headline: String, details: String, footer: String
 func _prepare_round() -> void:
 	for station in stations:
 		station.set_monitor_numbers(["--", "--", "--", "--", "--"])
-		station.set_monitor_phase("RULES")
+		station.set_monitor_phase("STANDBY")
 	tablet_mode = false
 	revealing = false
 	round_result_ready = false
@@ -166,12 +182,7 @@ func _prepare_round() -> void:
 			stations[i].disable_tablet()
 		else:
 			stations[i].reset_tablet(round_number)
-	_broadcast(
-		"DENGE  |  TUR %02d" % round_number,
-		"EN YAKIN SAYI KAZANIR",
-		"HEDEF = ORTALAMA x 0.8\nBASLANGIC: 10 PUAN | 0 PUANDA ELENIR",
-		"E: TABLETI AL"
-	)
+	# Until everyone locks a number, every monitor shows only DENGE.
 
 func _on_selection_locked(value: int) -> void:
 	if game_finished or revealing or round_result_ready:
@@ -181,11 +192,6 @@ func _on_selection_locked(value: int) -> void:
 	revealing = true
 
 	var selections: Array[int] = []
-	var ready_count: int = 0
-	var active_count: int = 0
-	for i in range(stations.size()):
-		if scores[i] > DengeRoundRules.ELIMINATION_SCORE:
-			active_count += 1
 	for i in range(stations.size()):
 		if scores[i] <= DengeRoundRules.ELIMINATION_SCORE:
 			selections.append(-1)
@@ -193,21 +199,22 @@ func _on_selection_locked(value: int) -> void:
 		if i == 0:
 			selections.append(value)
 		else:
-			# Diger oyuncular sirayla dusunup tabletlerinde kilitler.
-			_broadcast("DENGE  |  TUR %02d" % round_number, "SECIMLER BEKLENIYOR", "HAZIR: %d / %d" % [ready_count, active_count], "OYUNCU %d SECIYOR..." % (i + 1))
+			# Opponents lock their choices silently while the monitor remains black.
 			await get_tree().create_timer(bot_think_seconds * rng.randf_range(0.6, 1.4)).timeout
 			var bot_value: int = _bot_choice()
 			stations[i].choose_number(bot_value)
 			stations[i].confirm_number()
 			selections.append(bot_value)
-		ready_count += 1
-	_broadcast("DENGE  |  TUR %02d" % round_number, "HERKES SECTI", "HAZIR: %d / %d" % [ready_count, active_count], "SAYILAR ACIKLANIYOR...")
-	await get_tree().create_timer(reveal_delay).timeout
 
 	var result: Dictionary = DengeRoundRules.resolve_round(selections, scores)
 	if result.is_empty():
 		revealing = false
 		return
+	# Only now, after every active player locks in, announce the round.
+	_set_all_monitor_phases("ROUND_TITLE")
+	for station in stations:
+		station.set_monitor_intro_title(round_number)
+	await get_tree().create_timer(reveal_delay * 1.6).timeout
 	_play_monitor_sequence(selections, result)
 
 func _bot_choice() -> int:
