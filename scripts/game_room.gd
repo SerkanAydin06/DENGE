@@ -5,7 +5,6 @@ extends Node3D
 @export_range(0.0005, 0.01, 0.0005) var mouse_sensitivity: float = 0.0025
 @export_range(30.0, 160.0, 1.0) var max_yaw_degrees: float = 95.0
 @export_range(20.0, 89.0, 1.0) var max_pitch_degrees: float = 55.0
-@export_range(0.4, 0.99, 0.01) var terminal_look_threshold: float = 0.72
 @export_range(0.1, 3.0, 0.1) var reveal_delay: float = 0.75
 @export_range(0.2, 0.8, 0.01) var tablet_pickup_seconds: float = 0.38
 @export_range(0.16, 0.35, 0.01) var tablet_hold_distance: float = 0.19
@@ -75,7 +74,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		if event.keycode == KEY_E and not revealing and not round_result_ready:
-			if not stations[0].tablet_locked and _looking_at_tablet():
+			if not stations[0].tablet_locked and not tablet_mode:
 				_set_tablet_mode(true)
 				get_viewport().set_input_as_handled()
 			return
@@ -110,11 +109,6 @@ func _handle_tablet_keyboard(event: InputEventKey) -> bool:
 		stations[0].confirm_number()
 		return true
 	return false
-
-func _looking_at_tablet() -> bool:
-	var towards: Vector3 = (player_console.global_position - player_camera.global_position).normalized()
-	var look: Vector3 = -player_camera.global_transform.basis.z
-	return look.dot(towards) >= terminal_look_threshold
 
 func _set_tablet_mode(enabled: bool) -> void:
 	if enabled == tablet_mode:
@@ -172,7 +166,7 @@ func _prepare_round() -> void:
 		"DENGE  |  TUR %02d" % round_number,
 		"SAYI SECIMI",
 		"TABLETTE 0 - 100 TEK TEK SEC\nHEDEF = ORTALAMA x 0.8\nEN YAKIN SAYI KAZANIR",
-		"TABLETE BAK + E"
+		"E: TABLETI AL"
 	)
 
 func _on_selection_locked(value: int) -> void:
