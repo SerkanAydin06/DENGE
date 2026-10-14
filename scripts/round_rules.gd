@@ -1,12 +1,14 @@
 extends RefCounted
 class_name DengeRoundRules
 ## Pure round rules, independent of the room and user interface.
+## Players start at 10 points and are eliminated on reaching zero.
 ## A -1 selection means an already-eliminated player.
 
 const MIN_NUMBER: int = 0
 const MAX_NUMBER: int = 100
 const TARGET_MULTIPLIER: float = 0.8
-const ELIMINATION_SCORE: int = -10
+const STARTING_SCORE: int = 10
+const ELIMINATION_SCORE: int = 0
 const EPSILON: float = 0.00001
 
 static func resolve_round(selections: Array[int], current_scores: Array[int]) -> Dictionary:
