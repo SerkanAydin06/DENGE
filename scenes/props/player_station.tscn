@@ -14,6 +14,49 @@
 [ext_resource type="Material" path="res://assets/materials/tablet_selection.tres" id="m_tablet_select"]
 [ext_resource type="PackedScene" uid="uid://bha7yuu3layx0" path="res://scenes/props/balance_scale.tscn" id="rear_balance_scale"]
 
+[sub_resource type="StandardMaterial3D" id="m_Avatar"]
+resource_name = "Seated Player Dark Uniform"
+albedo_color = Color(0.11, 0.16, 0.22, 1)
+metallic = 0.1
+roughness = 0.86
+
+[sub_resource type="CapsuleMesh" id="c_AvatarBody"]
+radius = 0.17
+height = 0.64
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="m_AvatarFace"]
+resource_name = "Seated Player Face"
+albedo_color = Color(0.5, 0.43, 0.37, 1)
+roughness = 0.85
+
+[sub_resource type="SphereMesh" id="s_AvatarHead"]
+radius = 0.17
+height = 0.34
+radial_segments = 20
+rings = 10
+
+[sub_resource type="BoxMesh" id="b_AvatarArm"]
+size = Vector3(0.11, 0.43, 0.16)
+
+[sub_resource type="StandardMaterial3D" id="m_Spill"]
+resource_name = "Pouring Luminous Liquid"
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.22, 0.85, 0.96, 0.86)
+
+[sub_resource type="CylinderMesh" id="c_PourStream"]
+top_radius = 0.048
+bottom_radius = 0.06
+height = 1.0
+radial_segments = 14
+
+[sub_resource type="SphereMesh" id="s_Impact"]
+radius = 0.26
+height = 0.52
+radial_segments = 20
+rings = 10
+
 [sub_resource type="BoxMesh" id="b_Seat"]
 size = Vector3(0.7, 0.13, 0.62)
 
@@ -47,15 +90,6 @@ size = Vector3(1.59, 0.94, 0.018)
 [sub_resource type="BoxMesh" id="b_TabletHighlight"]
 size = Vector3(0.119, 0.048, 0.007)
 
-[sub_resource type="StandardMaterial3D" id="m_StandbyBlack"]
-resource_name = "Monitor Standby Black"
-shading_mode = 0
-albedo_color = Color(0.003, 0.004, 0.006, 1)
-cull_mode = 2
-
-[sub_resource type="BoxMesh" id="b_StandbyBlack"]
-size = Vector3(2.40, 1.33, 0.013)
-
 [sub_resource type="CylinderMesh" id="b_CeilingCable"]
 top_radius = 0.017
 bottom_radius = 0.017
@@ -63,10 +97,10 @@ height = 12.1
 radial_segments = 12
 
 [sub_resource type="BoxMesh" id="b_CeilingAnchor"]
-size = Vector3(0.30, 0.13, 0.27)
+size = Vector3(0.3, 0.13, 0.27)
 
 [sub_resource type="BoxMesh" id="b_CeilingCrossBar"]
-size = Vector3(1.50, 0.10, 0.15)
+size = Vector3(1.5, 0.1, 0.15)
 
 [sub_resource type="BoxMesh" id="b_MonitorBezel"]
 size = Vector3(2.55, 1.49, 0.1)
@@ -83,52 +117,14 @@ size = Vector3(0.017, 1.23, 0.014)
 [sub_resource type="BoxMesh" id="b_MonitorDivider"]
 size = Vector3(2.17, 0.009, 0.014)
 
-[sub_resource type="StandardMaterial3D" id="m_Avatar"]
-resource_name = "Seated Player Dark Uniform"
-albedo_color = Color(0.11, 0.16, 0.22, 1)
-metallic = 0.1
-roughness = 0.86
-
-[sub_resource type="StandardMaterial3D" id="m_AvatarFace"]
-resource_name = "Seated Player Face"
-albedo_color = Color(0.50, 0.43, 0.37, 1)
-roughness = 0.85
-
-[sub_resource type="StandardMaterial3D" id="m_Spill"]
-resource_name = "Pouring Luminous Liquid"
+[sub_resource type="StandardMaterial3D" id="m_StandbyBlack"]
+resource_name = "Monitor Standby Black"
+cull_mode = 2
 shading_mode = 0
-albedo_color = Color(0.22, 0.85, 0.96, 0.86)
-transparency = 1
-emission_enabled = true
-emission = Color(0.06, 0.64, 0.95, 1)
-emission_energy_multiplier = 1.2
+albedo_color = Color(0.003, 0.004, 0.006, 1)
 
-[sub_resource type="CapsuleMesh" id="c_AvatarBody"]
-radius = 0.17
-height = 0.64
-radial_segments = 16
-rings = 8
-
-[sub_resource type="SphereMesh" id="s_AvatarHead"]
-radius = 0.17
-height = 0.34
-radial_segments = 20
-rings = 10
-
-[sub_resource type="BoxMesh" id="b_AvatarArm"]
-size = Vector3(0.11, 0.43, 0.16)
-
-[sub_resource type="CylinderMesh" id="c_PourStream"]
-top_radius = 0.048
-bottom_radius = 0.06
-height = 1.0
-radial_segments = 14
-
-[sub_resource type="SphereMesh" id="s_Impact"]
-radius = 0.26
-height = 0.52
-radial_segments = 20
-rings = 10
+[sub_resource type="BoxMesh" id="b_StandbyBlack"]
+size = Vector3(2.4, 1.33, 0.013)
 
 [node name="PlayerStation" type="Node3D" unique_id=676832732]
 script = ExtResource("1_script")
@@ -142,41 +138,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.15)
 [node name="RearBalanceScale" parent="." unique_id=1042972394 instance=ExtResource("rear_balance_scale")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 0.72, 0, -1, 0, -4.371139e-08, 0, 3.3955922, 2.7098055)
 
-[node name="PlayerFigure" type="Node3D" parent="."]
-position = Vector3(0, 0, 0.14)
+[node name="PlayerFigure" type="Node3D" parent="." unique_id=1885324422]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.14)
 
-[node name="Torso" type="MeshInstance3D" parent="PlayerFigure"]
-position = Vector3(0, 0.99, 0)
+[node name="Torso" type="MeshInstance3D" parent="PlayerFigure" unique_id=128408243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99, 0)
+material_override = SubResource("m_Avatar")
 mesh = SubResource("c_AvatarBody")
-material_override = SubResource("m_Avatar")
 
-[node name="Head" type="MeshInstance3D" parent="PlayerFigure"]
-position = Vector3(0, 1.42, 0)
-mesh = SubResource("s_AvatarHead")
+[node name="Head" type="MeshInstance3D" parent="PlayerFigure" unique_id=970770272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42, 0)
 material_override = SubResource("m_AvatarFace")
+mesh = SubResource("s_AvatarHead")
 
-[node name="LeftArm" type="MeshInstance3D" parent="PlayerFigure"]
-position = Vector3(-0.25, 0.97, -0.08)
-rotation_degrees = Vector3(18, 0, -18)
-mesh = SubResource("b_AvatarArm")
+[node name="LeftArm" type="MeshInstance3D" parent="PlayerFigure" unique_id=405873590]
+transform = Transform3D(0.95105654, 0.309017, 0, -0.29389265, 0.90450853, -0.309017, -0.095491506, 0.29389265, 0.95105654, -0.25, 0.97, -0.08)
 material_override = SubResource("m_Avatar")
-
-[node name="RightArm" type="MeshInstance3D" parent="PlayerFigure"]
-position = Vector3(0.25, 0.97, -0.08)
-rotation_degrees = Vector3(18, 0, 18)
 mesh = SubResource("b_AvatarArm")
-material_override = SubResource("m_Avatar")
 
-[node name="DeathSpillStream" type="MeshInstance3D" parent="."]
+[node name="RightArm" type="MeshInstance3D" parent="PlayerFigure" unique_id=1806069277]
+transform = Transform3D(0.95105654, -0.309017, 0, 0.29389265, 0.90450853, -0.309017, 0.095491506, 0.29389265, 0.95105654, 0.25, 0.97, -0.08)
+material_override = SubResource("m_Avatar")
+mesh = SubResource("b_AvatarArm")
+
+[node name="DeathSpillStream" type="MeshInstance3D" parent="." unique_id=1326444887]
 visible = false
+material_override = SubResource("m_Spill")
 mesh = SubResource("c_PourStream")
-material_override = SubResource("m_Spill")
 
-[node name="DeathImpact" type="MeshInstance3D" parent="."]
+[node name="DeathImpact" type="MeshInstance3D" parent="." unique_id=528351721]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47, 0.14)
 visible = false
-position = Vector3(0, 1.47, 0.14)
-mesh = SubResource("s_Impact")
 material_override = SubResource("m_Spill")
+mesh = SubResource("s_Impact")
 
 [node name="Chair" type="Node3D" parent="." unique_id=1204447294]
 
@@ -232,18 +226,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78, -0.86)
 material_override = ExtResource("m_dark_metal")
 mesh = ExtResource("mesh_body")
 
-[node name="TabletInteractionHint" type="Label3D" parent="."]
-visible = false
-position = Vector3(0, 1.15, -0.76)
-text = "[E] ETKILESIM"
-font_size = 65
-pixel_size = 0.0017
-billboard = 1
-outline_size = 5
-modulate = Color(0.81, 0.97, 1, 1)
-
 [node name="TouchConsole" type="Node3D" parent="Desk" unique_id=905380867]
-transform = Transform3D(0.2, 0, 0, 0, 0.027834622, 0.19805361, 0, -0.19805361, 0.027834622, 0, 0.935, -0.76)
+transform = Transform3D(0.2, 0, 0, 0, 0.027834622, 0.19805361, 0, -0.19805361, 0.027834622, 0, 0.935, -0.5470052)
 
 [node name="ConsoleHousing" type="MeshInstance3D" parent="Desk/TouchConsole" unique_id=1554543729]
 material_override = ExtResource("m_dark_metal")
@@ -997,35 +981,45 @@ modulate = Color(0.43, 1, 0.9, 1)
 text = "ONAY"
 font_size = 40
 
+[node name="TabletInteractionHint" type="Label3D" parent="." unique_id=811792358]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, -0.76)
+visible = false
+pixel_size = 0.0017
+billboard = 1
+modulate = Color(0.81, 0.97, 1, 1)
+text = "[E] ETKILESIM"
+font_size = 65
+outline_size = 5
+
 [node name="ResultDisplay" type="Node3D" parent="." unique_id=971122121]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1259656, -2.2591057)
 
-[node name="CeilingMount" type="Node3D" parent="ResultDisplay"]
+[node name="CeilingMount" type="Node3D" parent="ResultDisplay" unique_id=1256370220]
 
-[node name="LeftCable" type="MeshInstance3D" parent="ResultDisplay/CeilingMount"]
-position = Vector3(-0.72, 8.23, -0.105)
+[node name="LeftCable" type="MeshInstance3D" parent="ResultDisplay/CeilingMount" unique_id=1109781392]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72, 8.23, -0.105)
+material_override = ExtResource("m_dark_metal")
 mesh = SubResource("b_CeilingCable")
-material_override = ExtResource("m_dark_metal")
 
-[node name="RightCable" type="MeshInstance3D" parent="ResultDisplay/CeilingMount"]
-position = Vector3(0.72, 8.23, -0.105)
+[node name="RightCable" type="MeshInstance3D" parent="ResultDisplay/CeilingMount" unique_id=1564500668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.72, 8.23, -0.105)
+material_override = ExtResource("m_dark_metal")
 mesh = SubResource("b_CeilingCable")
-material_override = ExtResource("m_dark_metal")
 
-[node name="LeftRoofAnchor" type="MeshInstance3D" parent="ResultDisplay/CeilingMount"]
-position = Vector3(-0.72, 14.28, -0.105)
+[node name="LeftRoofAnchor" type="MeshInstance3D" parent="ResultDisplay/CeilingMount" unique_id=1677705989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72, 14.28, -0.105)
+material_override = ExtResource("m_dark_metal")
 mesh = SubResource("b_CeilingAnchor")
-material_override = ExtResource("m_dark_metal")
 
-[node name="RightRoofAnchor" type="MeshInstance3D" parent="ResultDisplay/CeilingMount"]
-position = Vector3(0.72, 14.28, -0.105)
+[node name="RightRoofAnchor" type="MeshInstance3D" parent="ResultDisplay/CeilingMount" unique_id=1247457963]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.72, 14.28, -0.105)
+material_override = ExtResource("m_dark_metal")
 mesh = SubResource("b_CeilingAnchor")
-material_override = ExtResource("m_dark_metal")
 
-[node name="MonitorSupportBar" type="MeshInstance3D" parent="ResultDisplay/CeilingMount"]
-position = Vector3(0, 2.18, -0.105)
-mesh = SubResource("b_CeilingCrossBar")
+[node name="MonitorSupportBar" type="MeshInstance3D" parent="ResultDisplay/CeilingMount" unique_id=1847359377]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.18, -0.105)
 material_override = ExtResource("m_metal")
+mesh = SubResource("b_CeilingCrossBar")
 
 [node name="ResultMonitor" type="Node3D" parent="ResultDisplay" unique_id=1235211843]
 transform = Transform3D(0.8, 0, 0, 0, 0.7878462, -0.13891855, 0, 0.13891855, 0.7878462, 0, 1.58, 0)
@@ -1135,19 +1129,19 @@ modulate = Color(0.39, 0.94, 0.98, 1)
 text = "E: TABLETI AL"
 font_size = 46
 
-[node name="StandbyScreen" type="Node3D" parent="ResultDisplay/ResultMonitor"]
+[node name="StandbyScreen" type="Node3D" parent="ResultDisplay/ResultMonitor" unique_id=1908293481]
 
-[node name="BlackFace" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor/StandbyScreen"]
-position = Vector3(0, 0, 0.156)
-mesh = SubResource("b_StandbyBlack")
+[node name="BlackFace" type="MeshInstance3D" parent="ResultDisplay/ResultMonitor/StandbyScreen" unique_id=1085484313]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.156)
 material_override = SubResource("m_StandbyBlack")
+mesh = SubResource("b_StandbyBlack")
 
-[node name="CenterTitle" type="Label3D" parent="ResultDisplay/ResultMonitor/StandbyScreen"]
-position = Vector3(0, 0, 0.186)
+[node name="CenterTitle" type="Label3D" parent="ResultDisplay/ResultMonitor/StandbyScreen" unique_id=1840495393]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.186)
+pixel_size = 0.002
+modulate = Color(0.96, 0.97, 1, 1)
 text = "DENGE"
 font_size = 152
-pixel_size = 0.002
 outline_size = 4
-modulate = Color(0.96, 0.97, 1, 1)
 
 [node name="MonitorBlueprint" parent="ResultDisplay/ResultMonitor" unique_id=1954923694 instance=ExtResource("m_blueprint")]
