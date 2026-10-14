@@ -93,4 +93,4 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 ## Player characters (Meshy, rigged)
 - Rigged Meshy/Mixamo GLBs live in `assets/models/players/`. Each gets a wrapper scene in `scenes/characters/` (root script `scripts/player_character.gd`) that poses the skeleton seated; pose angles are Inspector exports.
 - Stations pick their character via `character_scene` export in `scenes/game_room.tscn`; when set, the placeholder capsule parts of `PlayerFigure` are hidden and the character is parented under it (collapse animation still applies). Station 1 is first-person, so its figure stays hidden.
-- Currently all five stations use `gray_poise.tscn` until the remaining four models are uploaded.
+- Station 1 uses `gray_poise.tscn`; stations 2-5 use `player_2..5.tscn` (Meshy text-to-3d → remesh ~25k tris → rigging, textures repacked to JPEG). Posing aims limbs at model-space target directions (exports) and aligns the hip bone to `seat_hip_height`, so any Mixamo- or Meshy-named skeleton works.

@@ -1,18 +1,20 @@
 extends Node3D
 class_name DengePlayerCharacter
 ## Meshy/Mixamo iskeletli karakteri koltukta oturur poza getirir.
-## Acilar derece cinsinden, modelin dinlenme pozundaki eksenlere gore uygulanir
-## (X: one/arkaya egilme, Z: yana acilma). Inspector'dan ince ayar yapilabilir.
+## Uzuvlar, dinlenme pozundan bagimsiz olarak model uzayindaki hedef yonlere
+## cevrilir (+Z ileri, +X karakterin solu; sag taraf aynalanir). Inspector'dan ayarlanabilir.
 
-@export var thigh_pitch: float = -88.0
-@export var knee_pitch: float = 92.0
-@export var foot_pitch: float = -8.0
+@export var thigh_direction: Vector3 = Vector3(0.08, -0.12, 1.0)
+@export var shin_direction: Vector3 = Vector3(0.02, -1.0, 0.12)
+@export var foot_direction: Vector3 = Vector3(0.0, -0.35, 1.0)
+@export var upper_arm_direction: Vector3 = Vector3(0.18, -0.92, 0.3)
+@export var forearm_direction: Vector3 = Vector3(0.06, -0.4, 1.0)
 @export var spine_pitch: float = 6.0
 @export var head_pitch: float = 4.0
-@export var upper_arm_down: float = 12.0
-@export var upper_arm_forward: float = -28.0
-@export var forearm_pitch: float = -62.0
-@export var hand_pitch: float = 10.0
+## Kalca kemiginin koltuktaki hedef konumu (karakter kokune gore, metre).
+## Farkli boydaki modeller bu noktaya hizalanir.
+@export var seat_hip_height: float = 0.615
+@export var seat_hip_forward: float = 0.0
 
 var skeleton: Skeleton3D
 
@@ -23,30 +25,65 @@ func _ready() -> void:
 		return
 	skeleton = found[0] as Skeleton3D
 	apply_seated_pose()
+	_align_hips_to_seat()
 
 func apply_seated_pose() -> void:
 	skeleton.reset_bone_poses()
-	_rotate("Spine", Vector3(spine_pitch, 0, 0))
-	_rotate("Head", Vector3(head_pitch, 0, 0))
+	_pitch("Spine", spine_pitch)
+	_pitch("Head", head_pitch)
 	for side: String in ["Left", "Right"]:
-		# Karakterin solu +X yonunde; sag taraf aynalanir.
-		var mirror: float = 1.0 if side == "Left" else -1.0
-		_rotate(side + "UpLeg", Vector3(thigh_pitch, 0, 0))
-		_rotate(side + "Leg", Vector3(knee_pitch, 0, 0))
-		_rotate(side + "Foot", Vector3(foot_pitch, 0, 0))
-		_rotate(side + "Arm", Vector3(upper_arm_forward, 0, -upper_arm_down * mirror))
-		_rotate(side + "ForeArm", Vector3(forearm_pitch, 0, 0))
-		_rotate(side + "Hand", Vector3(hand_pitch, 0, 0))
+		var mirror := Vector3(1, 1, 1) if side == "Left" else Vector3(-1, 1, 1)
+		_aim(side + "UpLeg", side + "Leg", thigh_direction * mirror)
+		_aim(side + "Leg", side + "Foot", shin_direction * mirror)
+		_aim(side + "Foot", side + "ToeBase", foot_direction * mirror)
+		_aim(side + "Arm", side + "ForeArm", upper_arm_direction * mirror)
+		_aim(side + "ForeArm", side + "Hand", forearm_direction * mirror)
 
-## Kemigi, ebeveynine gore model uzayindaki eksenlerle (derece) dondurur.
-func _rotate(bone_suffix: String, euler_degrees: Vector3) -> void:
-	var bone: int = skeleton.find_bone("mixamorig_" + bone_suffix)
-	if bone < 0:
-		bone = skeleton.find_bone("mixamorig:" + bone_suffix)
+func _align_hips_to_seat() -> void:
+	var hips: int = _find_bone("Hips")
+	var model: Node3D = get_node_or_null("Model") as Node3D
+	if hips < 0 or model == null:
+		return
+	var hip_local: Vector3 = global_transform.affine_inverse() * (skeleton.global_transform * skeleton.get_bone_global_rest(hips).origin)
+	model.position += Vector3(0, seat_hip_height, -seat_hip_forward) - Vector3(0, hip_local.y, hip_local.z)
+
+## Kemigi, cocuk kemigine giden yonu model uzayinda `direction` olacak sekilde dondurur.
+func _aim(bone_suffix: String, child_suffix: String, direction: Vector3) -> void:
+	var bone: int = _find_bone(bone_suffix)
+	var child: int = _find_bone(child_suffix)
+	if bone < 0 or child < 0 or direction.is_zero_approx():
+		return
+	var bone_global: Transform3D = _global_pose(bone)
+	var child_position: Vector3 = bone_global * skeleton.get_bone_pose(child).origin
+	var current: Vector3 = (child_position - bone_global.origin).normalized()
+	var delta := Quaternion(current, direction.normalized())
+	_set_global_basis(bone, Basis(delta) * bone_global.basis.orthonormalized())
+
+## Kemigi kendi ekleminde model uzayi X ekseni etrafinda one egdirir (derece).
+func _pitch(bone_suffix: String, degrees: float) -> void:
+	var bone: int = _find_bone(bone_suffix)
 	if bone < 0:
 		return
-	var global_rest: Basis = skeleton.get_bone_global_rest(bone).basis.orthonormalized()
-	var delta := Basis.from_euler(Vector3(deg_to_rad(euler_degrees.x), deg_to_rad(euler_degrees.y), deg_to_rad(euler_degrees.z)))
-	var local_delta: Basis = global_rest.inverse() * delta * global_rest
-	var rest: Basis = skeleton.get_bone_rest(bone).basis.orthonormalized()
-	skeleton.set_bone_pose_rotation(bone, (rest * local_delta).get_rotation_quaternion())
+	var bone_global: Transform3D = _global_pose(bone)
+	_set_global_basis(bone, Basis(Vector3.RIGHT, deg_to_rad(degrees)) * bone_global.basis.orthonormalized())
+
+func _set_global_basis(bone: int, global_basis: Basis) -> void:
+	var parent: int = skeleton.get_bone_parent(bone)
+	var parent_basis: Basis = _global_pose(parent).basis.orthonormalized() if parent >= 0 else Basis()
+	skeleton.set_bone_pose_rotation(bone, (parent_basis.inverse() * global_basis).get_rotation_quaternion())
+
+func _global_pose(bone: int) -> Transform3D:
+	var pose: Transform3D = skeleton.get_bone_pose(bone)
+	var parent: int = skeleton.get_bone_parent(bone)
+	while parent >= 0:
+		pose = skeleton.get_bone_pose(parent) * pose
+		parent = skeleton.get_bone_parent(parent)
+	return pose
+
+## Mixamo ("mixamorig_Hips") ve Meshy ("Hips") adlandirmasini birlikte destekler.
+func _find_bone(bone_suffix: String) -> int:
+	for bone_name in ["mixamorig_" + bone_suffix, "mixamorig:" + bone_suffix, bone_suffix]:
+		var bone: int = skeleton.find_bone(bone_name)
+		if bone >= 0:
+			return bone
+	return -1
