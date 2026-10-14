@@ -57,6 +57,16 @@ func _initialize() -> void:
 	assert(blueprint.has_node("Grid/GridH_12"))
 	assert(blueprint.has_node("BalanceMotif/Beam"))
 	assert(blueprint.has_node("Players/Portrait_5/Head"))
+	assert(blueprint.has_node("Players/Portrait_5/PortraitImage"))
+	assert(blueprint.has_node("Players/Portrait_5/WinnerBorder_5/FrameImage"))
+	assert(station.has_node("ResultDisplay/ResultMonitor/StandbyScreen/GeneratedLogo"))
+	assert(station.has_node("DeathImpact/GeneratedSplash"))
+	# ZIP textures are optional in GitHub-only checkout; authored sprites are always present.
+	var pack_installed: bool = ResourceLoader.exists("res://assets/generated/portrait_1.png", "Texture2D")
+	if pack_installed:
+		for i in range(1, 6):
+			var picture: Sprite3D = blueprint.get_node("Players/Portrait_%d/PortraitImage" % i) as Sprite3D
+			assert(picture.texture != null, "Every portrait needs its installed image")
 	assert(blueprint.has_node("Players/Portrait_5/NumberTile"))
 	assert(blueprint.has_node("CalculationPanel/AverageValue"))
 	assert(blueprint.has_node("CalculationPanel/FactorValue"))
@@ -64,6 +74,7 @@ func _initialize() -> void:
 	assert(blueprint.has_node("Players/Portrait_5/PointsOverlay_5/PointsValue"))
 	assert(station.has_node("ResultDisplay/ResultMonitor/StandbyScreen/BlackFace"))
 	assert(station.standby_screen.visible, "Black DENGE standby must be visible at launch")
+	assert(station.generated_logo.visible == (station.generated_logo.texture != null))
 	assert(station.standby_title.text == "DENGE")
 	assert(not station.blueprint.visible, "Grid should not appear until all numbers locked")
 
@@ -78,6 +89,7 @@ func _initialize() -> void:
 	assert(not station.standby_screen.visible)
 	assert(station.blueprint.visible)
 	assert(not blueprint.get_node("Players/Portrait_1/PortraitPanel").visible)
+	assert(not blueprint.get_node("Players/Portrait_1/PortraitImage").visible)
 	assert(not station.calculation_panel.visible)
 	assert(not station.target_panel.visible)
 
@@ -103,6 +115,8 @@ func _initialize() -> void:
 	# 5) Next, show portraits over chosen numbers with target below.
 	station.set_monitor_phase("PHOTO", 13.28)
 	assert(blueprint.get_node("Players/Portrait_1/PortraitPanel").visible)
+	assert(blueprint.get_node("Players/Portrait_1/PortraitImage").visible == pack_installed)
+	assert(blueprint.get_node("Players/Portrait_1/Head").visible != pack_installed)
 	assert(not station.calculation_panel.visible)
 	assert(station.target_panel.visible)
 	assert(station.target_value.text == "13.28")
