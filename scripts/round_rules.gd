@@ -19,8 +19,14 @@ static func resolve_round(selections: Array[int], current_scores: Array[int]) ->
 	var sum_of_choices: int = 0
 	var active_indices: Array[int] = []
 	for i in range(selections.size()):
-		if selections[i] == -1:
+		if current_scores[i] <= ELIMINATION_SCORE:
+			if selections[i] != -1:
+				push_error("DENGE: eliminated players cannot select a number.")
+				return {}
 			continue
+		if selections[i] == -1:
+			push_error("DENGE: active players must submit a number.")
+			return {}
 		if selections[i] < MIN_NUMBER or selections[i] > MAX_NUMBER:
 			push_error("DENGE: selection must be between 0 and 100.")
 			return {}
