@@ -104,13 +104,15 @@ func _set_tablet_mode(enabled: bool) -> void:
 	tablet_mode = enabled
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if enabled else Input.MOUSE_MODE_CAPTURED
 	if enabled:
-		_broadcast("DENGE  |  TUR %02d" % round_number, "SAYINI GIR", "TABLETE DOKUN VEYA 0-9 TUSLA\nSIL: GERI    OK: KILITLE", "ESC: BAKISA DON")
+		_broadcast("DENGE  |  TUR %02d" % round_number, "SAYINI SEC", "TABLETTE 0 - 100 SAYILARINI DOKUN\nTEMIZLE / ONAY VEYA KLAVYE 0-9", "ESC: BAKISA DON")
 
 func _broadcast(title: String, headline: String, details: String, footer: String) -> void:
 	for station in stations:
 		station.set_monitor_page(title, headline, details, footer)
 
 func _prepare_round() -> void:
+	for station in stations:
+		station.set_monitor_numbers(["--", "--", "--", "--", "--"])
 	tablet_mode = false
 	revealing = false
 	round_result_ready = false
@@ -122,7 +124,7 @@ func _prepare_round() -> void:
 	_broadcast(
 		"DENGE  |  TUR %02d" % round_number,
 		"SAYI SECIMI",
-		"0 - 100 ARASINDA SAYI GIR\nHEDEF = ORTALAMA x 0.8\nEN YAKIN SAYI KAZANIR",
+		"TABLETTE 0 - 100 TEK TEK SEC\nHEDEF = ORTALAMA x 0.8\nEN YAKIN SAYI KAZANIR",
 		"TABLETE BAK + E"
 	)
 
@@ -155,6 +157,8 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 	var shown: Array[String] = ["--", "--", "--", "--", "--"]
 	for i in range(selections.size()):
 		shown[i] = str(selections[i]) if selections[i] >= 0 else "X"
+		for station in stations:
+			station.set_monitor_numbers(shown)
 		_broadcast(
 			"DENGE  |  SAYILAR",
 			"OYUNCU %d: %s" % [i + 1, shown[i]],
