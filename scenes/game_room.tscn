@@ -17,6 +17,21 @@ background_color = Color(0.02, 0.025, 0.035, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.65, 0.72, 0.8, 1)
 ambient_light_energy = 0.35
+tonemap_mode = 3
+tonemap_exposure = 1.2
+tonemap_white = 6.0
+ssao_enabled = true
+ssao_radius = 1.2
+ssao_intensity = 2.2
+ssil_enabled = true
+glow_enabled = true
+glow_intensity = 0.6
+glow_bloom = 0.04
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.012
+volumetric_fog_albedo = Color(0.82, 0.88, 0.95, 1)
+volumetric_fog_anisotropy = 0.45
+volumetric_fog_length = 40.0
 
 [node name="GameRoom" type="Node3D" unique_id=1511081169]
 script = ExtResource("1_script")
@@ -82,18 +97,10 @@ environment = SubResource("RoomEnvironment")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.5, 0)
 light_color = Color(0.78, 0.91, 0.99, 1)
 light_energy = 3.0
-light_cull_mask = 4294967293
 shadow_enabled = true
 spot_range = 22.0
 spot_angle = 43.0
 
-[node name="DomeSpotCharacters" type="SpotLight3D" parent="Lighting"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15.5, 0)
-light_color = Color(0.78, 0.91, 0.99, 1)
-light_energy = 3.0
-light_cull_mask = 2
-spot_range = 22.0
-spot_angle = 43.0
 
 [node name="WarmScaleFocus" type="OmniLight3D" parent="Lighting" unique_id=1785794833]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9, 0)
