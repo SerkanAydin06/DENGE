@@ -84,3 +84,7 @@ Oyuncular seçimlerini tamamlayınca büyük monitörde şu akış oynatılır: 
 ## Puan azaldıkça dolan terazi ve elenme animasyonu
 
 Her oyuncunun koltuğu arkasındaki terazinin **oyuncuya yakın sağ kefesi** puan kaybıyla dolmaya başlar: **10 puan = boş**, **9 puan = %10**, **5 puan = %50**, **1 puan = %90**, **0 puan = tam dolu**. Sıvı birikince kefe yavaşça ağırlaşıp alçalır. Puanı ilk kez **0'a ulaşan oyuncunun kefesi devrilir**; ışıklı sıvı oyuncunun başına dökülür, oyuncu koltuğunda yığılır ve görsel olarak oyundan çıkar. Bu, oyun kurallarındaki 0 puanda elenmeyle aynı anda tetiklenen, grafik şiddet içermeyen görsel animasyondur. Sıfırdan yeniden başlatıldığında kefeler boşalır, teraziler eski konumuna gelir ve oyuncular geri döner. Geometri Godot sahnesinde düzenlenebilir; yeni `tests/test_elimination_vfx.gd` test dosyası eklendi.
+
+## Üretilen görsellerin entegrasyonu (8 PNG)
+
+Özgün konsept portreler (5 oyuncu), parlak DENGE logosu, kazananın kırmızı çerçevesi ve eleme sıvı efekti için Godot sahnelerine `Sprite3D` düğümleri eklendi. Resimler `assets/generated/portrait_1.png` … `portrait_5.png`, `denge_logo.png`, `winner_frame.png`, `elimination_splash.png` yollarından otomatik yüklenir. **Görsel paketi ZIP'ini proje köküne açmak gerekir; bu PNG ikili dosyaları GitHub'daki metin bağlayıcısı ile yüklenemedi.** Dosyalar bulunmazsa eski sahne resimleri/efektleriyle oyun çalışır. Ayrıntılar: `assets/generated/README.md`.
