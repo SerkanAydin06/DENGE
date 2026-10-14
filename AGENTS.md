@@ -43,9 +43,15 @@ Read this file before any task. Applies to Claude Code, ChatGPT/Codex and other 
 - No fullscreen number selection UI or fullscreen results UI in `scenes/game_room.tscn`; do not reconnect the legacy `number_terminal_ui.tscn` or `round_results_ui.tscn` overlay scenes.
 - `scripts/player_station.gd` manages scene-authored 101-number touchscreen (`NumberGrid/Number_000..100`) and 3D monitor labels/sweep. `scripts/game_room.gd` maps camera rays to the physical tablet and drives phased monitor reveals.
 - All instructions, calculations, results and game animations are displayed **on the freestanding 3D monitor, never on the tablet or an overlaid popup**. Tablet is exclusively for 0–100 entry and lock indication.
-- E starts tablet interaction when looking at it; clicks select individual numbers 0-100; TEMIZLE clears, ONAY locks; keyboard digits and Enter are optional, Esc leaves. After results finish, E proceeds to next round.
+- E picks up the compact physical tablet **from anywhere while seated**; clicks select individual numbers 0-100; TEMIZLE clears, ONAY locks; keyboard digits and Enter are optional; Esc sets it back on its desk. After results finish, E proceeds to next round.
 
 ## Large game monitor (design locked)
 - Every station owns a **2.55m × 1.49m** freestanding blue-and-cyan monitor: `ResultDisplay/ResultMonitor` in `scenes/props/player_station.tscn`. It remains a floor-mounted display, not attached to desks.
 - Scene-authored glowing frame, scan sweep and five player-number readout labels (no HUD/popup). Separate emission materials in `assets/materials/monitor_glass.tres`, `monitor_cyan.tres` and `tablet_selection.tres`.
 - The physical desk tablet visibly lists **all 101 values (0..100 individually)** in ten columns and eleven rows, plus TEMIZLE and ONAY. Do not regress to digit keypad, screenspace number picker or modal result screen.
+
+## Tablet pickup / handheld view (user-locked)
+- **On the desk:** tablet must be a normal compact device, approximately 33.6 × 20.4 cm: `scenes/props/player_station.tscn` `Desk/TouchConsole` has local scale `Vector3(0.20, 0.20, 0.20)`, a near-flat angle, and rests directly on desktop.
+- **Press E:** `scripts/game_room.gd` reparents that **same real 3D object** to `PlayerCamera`, tweens it to 19 cm in front of the eyes (unchanged physical scale), so it fills most of the view as if lifted into the hands. Cursor becomes visible for the 101-number touch surface. No CanvasLayer, duplicate overlay, or screen-space tablet.
+- **Esc/confirm:** smoothly return the real tablet to its exact editor-authored desk position, rotation and scale; selection confirmation continues the animated result sequence on the freestanding monitor.
+- `tests/test_tablet_pickup.gd` covers held/docked parent transitions, close-up pose and restoration. Do not regress to a permanently giant tablet on the desk.
