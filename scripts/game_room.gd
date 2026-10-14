@@ -156,6 +156,7 @@ func _broadcast(title: String, headline: String, details: String, footer: String
 func _prepare_round() -> void:
 	for station in stations:
 		station.set_monitor_numbers(["--", "--", "--", "--", "--"])
+		station.set_monitor_phase("RULES")
 	tablet_mode = false
 	revealing = false
 	round_result_ready = false
@@ -166,8 +167,8 @@ func _prepare_round() -> void:
 			stations[i].reset_tablet(round_number)
 	_broadcast(
 		"DENGE  |  TUR %02d" % round_number,
-		"SAYI SECIMI",
-		"TABLETTE 0 - 100 TEK TEK SEC\nHEDEF = ORTALAMA x 0.8\nEN YAKIN SAYI KAZANIR",
+		"EN YAKIN SAYI KAZANIR",
+		"HEDEF = ORTALAMA x 0.8",
 		"E: TABLETI AL"
 	)
 
@@ -194,54 +195,70 @@ func _on_selection_locked(value: int) -> void:
 	_play_monitor_sequence(selections, result)
 
 func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
-	_broadcast("DENGE  |  TUR %02d" % round_number, "SECIMLER KILITLENDI", "OYUNCULARIN SAYILARI\nACIKLANACAK...", "HESAPLAMA BASLIYOR")
+	# An original in-world adaptation of the provided blue schematic display.
+	# Five portrait/silhouette cards always remain on the monitor.
+	_set_all_monitor_phases("LOCKED")
+	_broadcast("DENGE  |  TUR %02d" % round_number, "SECIMLER KILITLENDI", "BES OYUNCUNUN SAYISI ACIKLANACAK", "BIRAZDAN...")
 	await get_tree().create_timer(reveal_delay).timeout
 
 	var shown: Array[String] = ["--", "--", "--", "--", "--"]
+	_set_all_monitor_phases("REVEAL")
 	for i in range(selections.size()):
-		shown[i] = str(selections[i]) if selections[i] >= 0 else "X"
+		shown[i] = "%d" % selections[i] if selections[i] >= 0 else "X"
 		for station in stations:
 			station.set_monitor_numbers(shown)
 		_broadcast(
-			"DENGE  |  SAYILAR",
-			"OYUNCU %d: %s" % [i + 1, shown[i]],
-			_format_numbers(shown),
-			"ACIKLAMA SURUYOR..."
+			"DENGE  |  SECIMLER",
+			"OYUNCU %d SAYISINI SECTI" % (i + 1),
+			"SAYILAR SIRAYLA ACIKLANIYOR",
+			"OYUNCU %d / 5" % (i + 1)
 		)
 		await get_tree().create_timer(reveal_delay).timeout
 
+	# Red outline highlights the same five number boxes while calculating the mean.
+	_set_all_monitor_phases("AVERAGE")
 	_broadcast(
-		"DENGE  |  HESAPLAMA",
-		"HEDEF: %.2f" % result["target"],
-		"ORTALAMA: %.2f\nCARPAN: 0.80\nEN YAKIN SAYI KAZANIR" % result["average"],
-		"SONUC HESAPLANIYOR..."
+		"DENGE  |  ORTALAMA",
+		"ORTALAMA: %.2f" % result["average"],
+		"BES SAYININ ORTALAMASI" if result["survivors"].size() == 5 else "AKTIF SAYILARIN ORTALAMASI",
+		"SONRAKI: HEDEF = ORTALAMA x 0.8"
+	)
+	await get_tree().create_timer(reveal_delay * 1.5).timeout
+
+	# Target appears in the separate lower white tile, not a popup.
+	_set_all_monitor_phases("TARGET", float(result["target"]))
+	_broadcast(
+		"DENGE  |  HEDEF",
+		"ORTALAMA x 0.8",
+		"",
+		"HEDEFE EN YAKIN SAYI KAZANIR"
 	)
 	await get_tree().create_timer(reveal_delay * 1.8).timeout
 
 	scores = result["scores"]
 	var winners: Array = result["winners"]
 	var survivor_ids: Array = result["survivors"]
-	var winner_names: PackedStringArray = []
+	var names: PackedStringArray = []
 	for index in winners:
-		winner_names.append(str(index + 1))
-	var who: String = ", ".join(winner_names)
+		names.append(str(index + 1))
+	var who: String = ", ".join(names)
 	game_finished = scores[0] <= DengeRoundRules.ELIMINATION_SCORE or survivor_ids.size() <= 1
 	var footer: String = "E: YENIDEN BASLAT" if game_finished else "E: SONRAKI TUR"
-	var details: String = _format_scores()
+	_set_all_monitor_phases("RESULT", float(result["target"]), winners, scores)
 	_broadcast(
 		"DENGE  |  TUR %02d SONUCU" % round_number,
 		"KAZANAN: %s" % who,
-		"HEDEF: %.2f\n%s" % [result["target"], details],
+		"",
 		footer
 	)
 	revealing = false
 	round_result_ready = true
 
-func _format_numbers(shown: Array[String]) -> String:
-	return "1:%s    2:%s    3:%s\n4:%s    5:%s" % [shown[0], shown[1], shown[2], shown[3], shown[4]]
 
-func _format_scores() -> String:
-	return "1:%d    2:%d    3:%d\n4:%d    5:%d" % [scores[0], scores[1], scores[2], scores[3], scores[4]]
+func _set_all_monitor_phases(phase: String, target: float = -1.0, winners: Array = [], score_values: Array = []) -> void:
+	for station in stations:
+		station.set_monitor_phase(phase, target, winners, score_values)
+
 
 func _next_round() -> void:
 	if not round_result_ready:
