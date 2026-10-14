@@ -56,3 +56,7 @@ Test: `godot --headless --path . --script res://tests/test_round_rules.gd` (Godo
 - Ayrı 2D pencere yoktur. Oyun açıklamaları ve sonuçlar zemine bağlı büyük oyun monitöründe kalır.
 
 Test: `godot --headless --path . --script res://tests/test_tablet_pickup.gd`.
+
+## Referans görsellerindeki monitör düzeni
+
+Monitörün **koyu lacivert teknik ızgaralı zemini**, arkadaki **soluk terazi çizimi**, üstte **5 özgün oyuncu silüeti** ve hemen altında **5 beyaz sayı kutusu** bulunur. Seçimler kutularda sırayla belirir. Ortalama hesaplanırken sayı kutuları **kırmızı dikdörtgen çerçeve** içine alınır. Hedef sayı ortada, alt bölümde ayrı bir beyaz kutuda görünür. Son aşamada kazanan kutusu vurgulanır, puanlar görünür. Tüm bu sahne unsurları `scenes/props/monitor_blueprint.tscn` üzerinden düzenlenebilir; hiçbir açılır panel yoktur.
