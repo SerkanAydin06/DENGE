@@ -21,6 +21,10 @@ const GRID_TOP: float = 0.22
 @onready var result_body: Label3D = $ResultDisplay/ResultMonitor/ResultBody
 @onready var result_details: Label3D = $ResultDisplay/ResultMonitor/ResultDetails
 @onready var result_footer: Label3D = $ResultDisplay/ResultMonitor/ResultFooter
+@onready var blueprint: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint
+@onready var average_frame: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/AverageFrame
+@onready var target_panel: Node3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/TargetPanel
+@onready var target_value: Label3D = $ResultDisplay/ResultMonitor/MonitorBlueprint/TargetPanel/TargetValue
 @onready var player_readouts: Array[Label3D] = [
 	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_1,
 	$ResultDisplay/ResultMonitor/PlayerReadouts/Player_2,
@@ -100,8 +104,46 @@ func set_monitor_numbers(shown: Array[String]) -> void:
 	if shown.size() != player_readouts.size():
 		return
 	for i in range(player_readouts.size()):
-		player_readouts[i].text = "%02d / %s" % [i + 1, shown[i]]
-		player_readouts[i].modulate = Color(0.47, 0.9, 1.0, 1.0) if shown[i] == "--" else Color(0.98, 0.97, 0.79, 1.0)
+		var readout: Label3D = player_readouts[i]
+		if readout.text != shown[i]:
+			readout.text = shown[i]
+			readout.modulate.a = 0.30
+			var reveal_tween: Tween = create_tween()
+			reveal_tween.tween_property(readout, "modulate:a", 1.0, 0.33)
+		if shown[i] == "X":
+			readout.modulate = Color(0.72, 0.16, 0.19, readout.modulate.a)
+		else:
+			readout.modulate = Color(0.055, 0.115, 0.21, readout.modulate.a)
+
+
+func set_monitor_phase(phase: String, target: float = -1.0, winners: Array = [], new_scores: Array = []) -> void:
+	## Geometry, frames, portraits and grid are pre-authored in monitor_blueprint.tscn.
+	var showing_average: bool = phase == "AVERAGE"
+	var showing_target: bool = phase == "TARGET" or phase == "RESULT"
+	average_frame.visible = showing_average
+	target_panel.visible = showing_target
+	result_details.visible = not showing_target
+	if showing_target:
+		target_value.text = "%.2f" % target
+		if target_panel.scale != Vector3.ONE:
+			target_panel.scale = Vector3.ONE
+		target_panel.scale = Vector3(0.80, 0.80, 1.0)
+		var target_tween: Tween = create_tween()
+		target_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		target_tween.tween_property(target_panel, "scale", Vector3.ONE, 0.38)
+
+	for i in range(player_readouts.size()):
+		var portrait: Node3D = blueprint.get_node("Players/Portrait_%d" % [i + 1]) as Node3D
+		var winner_border: Node3D = portrait.get_node("WinnerBorder_%d" % [i + 1]) as Node3D
+		var score_label: Label3D = portrait.get_node("Score_%d" % [i + 1]) as Label3D
+		winner_border.visible = phase == "RESULT" and winners.has(i)
+		score_label.visible = phase == "RESULT" and i < new_scores.size()
+		if i < new_scores.size():
+			score_label.text = "PUAN %d" % int(new_scores[i])
+		if winner_border.visible:
+			winner_border.scale = Vector3(0.90, 0.90, 1.0)
+			var winner_tween: Tween = create_tween()
+			winner_tween.tween_property(winner_border, "scale", Vector3.ONE, 0.33).set_trans(Tween.TRANS_BACK)
 
 func append_digit(digit: int) -> void:
 	## Optional keyboard input; on the screen all 101 entries remain individually selectable.
