@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/round_results_ui.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="ResultPanel"]
+bg_color = Color(0.06, 0.08, 0.105, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.7, 0.78, 1)
+content_margin_left = 38.0
+content_margin_top = 34.0
+content_margin_right = 38.0
+content_margin_bottom = 34.0
+
+[node name="RoundResultsUI" type="CanvasLayer"]
+layer = 7
+visible = false
+script = ExtResource("1_script")
+
+[node name="Shade" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.78)
+
+[node name="Panel" type="PanelContainer" parent="Shade"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -530.0
+offset_top = -350.0
+offset_right = 530.0
+offset_bottom = 350.0
+theme_override_styles/panel = SubResource("ResultPanel")
+
+[node name="Content" type="VBoxContainer" parent="Shade/Panel"]
+theme_override_constants/separation = 19
+
+[node name="Title" type="Label" parent="Shade/Panel/Content"]
+theme_override_font_sizes/font_size = 35
+text = "DENGE | TUR SONUCU"
+horizontal_alignment = 1
+
+[node name="Target" type="Label" parent="Shade/Panel/Content"]
+theme_override_font_sizes/font_size = 26
+text = "ORTALAMA / HEDEF"
+horizontal_alignment = 1
+
+[node name="Separator" type="HSeparator" parent="Shade/Panel/Content"]
+
+[node name="Players" type="VBoxContainer" parent="Shade/Panel/Content"]
+theme_override_constants/separation = 14
+
+[node name="Player1" type="Label" parent="Shade/Panel/Content/Players"]
+theme_override_font_sizes/font_size = 24
+text = "OYUNCU 1"
+
+[node name="Player2" type="Label" parent="Shade/Panel/Content/Players"]
+theme_override_font_sizes/font_size = 24
+text = "OYUNCU 2"
+
+[node name="Player3" type="Label" parent="Shade/Panel/Content/Players"]
+theme_override_font_sizes/font_size = 24
+text = "OYUNCU 3"
+
+[node name="Player4" type="Label" parent="Shade/Panel/Content/Players"]
+theme_override_font_sizes/font_size = 24
+text = "OYUNCU 4"
+
+[node name="Player5" type="Label" parent="Shade/Panel/Content/Players"]
+theme_override_font_sizes/font_size = 24
+text = "OYUNCU 5"
+
+[node name="Outcome" type="Label" parent="Shade/Panel/Content"]
+theme_override_font_sizes/font_size = 26
+text = "KAZANAN"
+horizontal_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="Shade/Panel/Content"]
+custom_minimum_size = Vector2(0, 64)
+theme_override_font_sizes/font_size = 26
+text = "SONRAKI TUR"
