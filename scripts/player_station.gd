@@ -76,11 +76,12 @@ func _install_character() -> void:
 			return
 		character.name = "Character"
 		player_figure.add_child(character)
-	var has_character: bool = character != null
-	for part in ["Torso", "Head", "LeftArm", "RightArm"]:
-		var placeholder: Node3D = player_figure.get_node_or_null(part) as Node3D
-		if placeholder:
-			placeholder.visible = not has_character
+
+## Koltuktaki karakterin ruh hali (IDLE, THINK, LOCKED, WATCH, WIN, LOSE).
+func set_character_mood(mood: String) -> void:
+	var character: DengePlayerCharacter = player_figure.get_node_or_null("Character") as DengePlayerCharacter
+	if character:
+		character.set_mood(mood)
 
 func eye_position() -> Vector3:
 	return seat_eye.global_position

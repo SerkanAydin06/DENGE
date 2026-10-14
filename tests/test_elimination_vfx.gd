@@ -12,7 +12,7 @@ func _initialize() -> void:
 	assert(station.rear_scale != null)
 	assert(station.rear_scale.has_node("BeamPivot/RightSuspension/RightPan/PanContents"))
 	assert(station.rear_scale.has_node("BeamPivot/RightSuspension/RightPan/PourLip"))
-	assert(station.has_node("PlayerFigure/Head"))
+	assert(station.has_node("PlayerFigure"))
 	assert(station.has_node("DeathSpillStream"))
 	assert(station.has_node("DeathImpact"))
 

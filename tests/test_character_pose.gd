@@ -24,6 +24,14 @@ func _initialize() -> void:
 			var pose: Transform3D = actor.skeleton.get_bone_global_pose(bone)
 			assert(pose.origin.is_finite(), "Invalid seated bone position: " + path)
 			assert(pose.basis.x.is_finite() and pose.basis.y.is_finite() and pose.basis.z.is_finite(), "Invalid seated bone orientation: " + path)
+		for mood in DengePlayerCharacter.MOODS:
+			actor.set_mood(mood)
+			for frame in range(4):
+				actor._process(0.25)
+			for bone in range(actor.skeleton.get_bone_count()):
+				assert(actor.skeleton.get_bone_global_pose(bone).origin.is_finite(), "Invalid %s pose: %s" % [mood, path])
+		for mesh in actor.find_children("*", "MeshInstance3D", true, false):
+			assert((mesh as MeshInstance3D).layers == actor.character_layers, "Character mesh must use the character light layer")
 		actor.free()
-	print("DENGE: five rigged models and seated skeleton transforms validated.")
+	print("DENGE: five rigged models, seated pose, moods and light layer validated.")
 	quit(0)

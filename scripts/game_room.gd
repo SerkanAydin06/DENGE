@@ -185,6 +185,8 @@ func _prepare_round() -> void:
 			stations[i].disable_tablet()
 		else:
 			stations[i].reset_tablet(round_number)
+	# Rakipler tur basinda dusunur ve tabletlerine dokunur.
+	_set_all_moods("THINK")
 	# Until everyone locks a number, every monitor shows only DENGE.
 
 func _on_selection_locked(value: int) -> void:
@@ -207,6 +209,7 @@ func _on_selection_locked(value: int) -> void:
 			var bot_value: int = _bot_choice()
 			stations[i].choose_number(bot_value)
 			stations[i].confirm_number()
+			stations[i].set_character_mood("LOCKED")
 			selections.append(bot_value)
 
 	var result: Dictionary = DengeRoundRules.resolve_round(selections, scores)
@@ -215,6 +218,7 @@ func _on_selection_locked(value: int) -> void:
 		return
 	# Only now, after every active player locks in, announce the round.
 	_set_all_monitor_phases("ROUND_TITLE")
+	_set_all_moods("WATCH")
 	for station in stations:
 		station.set_monitor_intro_title(round_number)
 	await get_tree().create_timer(reveal_delay * 1.6).timeout
@@ -299,6 +303,8 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 
 	# 5: Winner frame spans the portrait and chosen-number card.
 	_set_all_monitor_phases("WIN", float(result["target"]), winners)
+	for i in range(stations.size()):
+		stations[i].set_character_mood("WIN" if winners.has(i) else "LOSE")
 	_broadcast(
 		"DENGE  |  KAZANAN",
 		winner_title,
@@ -335,6 +341,11 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 	)
 	revealing = false
 	round_result_ready = true
+
+
+func _set_all_moods(mood: String) -> void:
+	for station in stations:
+		station.set_character_mood(mood)
 
 
 func _set_all_monitor_phases(phase: String, target: float = -1.0, winners: Array = [], point_totals: Array = [], average: float = -1.0) -> void:
