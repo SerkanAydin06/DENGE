@@ -1,6 +1,45 @@
 # DENGE
 
-Godot 4 ile geliştirilen 3D psikolojik strateji oyunu.
+Godot 4.7 ile geliştirilen, 5 kişilik 3D psikolojik sayı seçme oyunu. Sürüm **1.0.0**.
+
+## Nasıl oynanır
+
+Her turda herkes 0–100 arasında gizlice bir sayı seçer. **Hedef = seçilen sayıların ortalaması × 0,8**. Hedefe en yakın sayıyı seçen kazanır, diğerleri 1 puan kaybeder. Herkes 10 puanla başlar; 0 puana düşen elenir. Sen 1. oyuncusun; diğer 4 koltukta bilgisayar rakipleri oturur.
+
+## Kontroller
+
+| Tuş | İşlev |
+|---|---|
+| Fare | Etrafa bakmak |
+| `E` (masadaki tablete bakarken) | Tableti eline al / tur bitince yeni tura geç |
+| Sol tık (tablet eldeyken) | Sayı seç, `TEMIZLE`, `ONAY` |
+| `0–9`, `Backspace`, `Enter` | Klavyeyle sayı girme, silme, onaylama |
+| `Esc` | Tablet eldeyse masaya bırak; değilse **duraklatma menüsü** (Devam Et / Tam Ekran / Oyundan Çık) |
+| `F11` | Tam ekran ↔ pencere |
+
+## Sistem gereksinimleri
+
+- Windows 10/11 (64 bit) veya Linux (x86_64)
+- Vulkan 1.1 ya da DirectX 12 destekli ekran kartı (Forward+ çizici)
+- Ses yok
+
+## Derleme (dışa aktarma)
+
+1. Godot **4.7.1** ve aynı sürümün *Export Templates* paketini kurun (Editor → Manage Export Templates).
+2. `Project → Export` menüsünde hazır iki ayar vardır: **Windows Desktop** → `builds/windows/DENGE.exe`, **Linux** → `builds/linux/DENGE.x86_64`. Oyun verisi tek dosyaya gömülür.
+3. Komut satırından: `godot --headless --path . --export-release "Windows Desktop" builds/windows/DENGE.exe`
+
+`tests/`, `tools/`, `assets/source/` ve `*.md` dosyaları pakete girmez. `builds/` klasörü git'e eklenmez.
+
+## Testler
+
+`godot --headless --path . --script res://tests/<test>.gd` — 7 test: kurallar, tablet, monitör, eleme efekti, karakter pozları, karakter sahneleri, duraklatma menüsü.
+
+Kaynak ve lisans notları: `CREDITS.md`.
+
+---
+
+# Geliştirici notları
 
 ## Godot'ta düzenlenebilir salon
 
@@ -18,9 +57,9 @@ Tüm salon artık Godot sahnelerinde kaydedilmiş gerçek düğümlerden oluşur
 
 **Düzenleme:** Godot'ta ana sahneyi açın. İç içe PackedScene örneklerinin parçalarını düzenlemek için ilgili `.tscn` dosyasını açın veya *Editable Children* kullanın. Koltukların yerini ana sahnede değiştirin, duvar/kubbe parçalarını RoomShell sahnesinde, malzemeleri .tres dosyalarında ayarlayın.
 
-**Kontrol:** Tablete bakıp `E` ile tablet etkileşimine gir. Fiziksel tuşlara tıkla veya klavyeden `0-9` kullan; `Backspace` siler, `Enter` sayıyı kilitler, `Esc` bakış moduna döner. Sonuçlar bitince masadaki tablete bakıp `E` ile yeni tura geçilir.
+**Kontrol:** Tablete bakıp `E` ile tablet etkileşimine gir. Fiziksel tuşlara tıkla veya klavyeden `0-9` kullan; `Backspace` siler, `Enter` sayıyı kilitler, `Esc` bakış moduna döner, bakış modunda duraklatma menüsünü açar. Sonuçlar bitince masadaki tablete bakıp `E` ile yeni tura geçilir.
 
-**Durum:** Sahne geometrileri Godot editöründe düzenlenebilir. Fiziksel tablette yalnızca sayı girişi vardır; açıklamalar, rakiplerin sayıları, hedef hesaplaması, tur sonuçları ve geçiş animasyonları yalnızca masadan ayrı 3D monitörlerde görüntülenir. Eski 2D sayı seçim ve sonuç popup sahneleri artık ana sahneye bağlı değildir.
+**Durum:** Sahne geometrileri Godot editöründe düzenlenebilir. Fiziksel tablette yalnızca sayı girişi vardır; açıklamalar, rakiplerin sayıları, hedef hesaplaması, tur sonuçları ve geçiş animasyonları yalnızca masadan ayrı 3D monitörlerde görüntülenir. Eski 2D sayı seçim ve sonuç popup sahneleri kaldırıldı.
 
 ## Salon simetrisi ve giriş
 - Salon kabuğu ana sahnede %16 genişletildi; salon yüksekliği %6 artırıldı.
@@ -44,7 +83,7 @@ Test: `godot --headless --path . --script res://tests/test_round_rules.gd` (Godo
 - **Tablet:** 0’dan 100’e kadar **101 sayı, her biri ayrı dokunulabilir seçenek**, seçili sayıyı vurgulama, `TEMIZLE` ve `ONAY`. Tam ekran panel yok.
 - **Ayrı monitör:** Yaklaşık **2,04 × 1,19 m**, koyu mavi ışıklı zemin, camgöbeği çerçeve, 5 oyuncunun ayrı sayı alanı, ortalama/hedef hesabı, kazanan/puanlar ve sırayla açıklama animasyonu.
 - **Görüntü:** Her istasyonda `ResultTitle`, `ResultBody`, `PlayerReadouts/Player_1..5`, `ResultDetails`, `ResultFooter` ve çerçeve ışıkları Godot editöründe düzenlenebilir.
-- Bilgisayar rakipleri şimdilik rastgele sayılar üretir. Görsel dil dramatik, özgün ve uyarlama sahnenin birebir kopyası değildir.
+- Bilgisayar rakipleri 50 × 0,8^k çevresinde, gürültülü sayılar seçer. Görsel dil dramatik, özgün ve uyarlama sahnenin birebir kopyası değildir.
 
 **Tablet seçimi:** `E` ile standart boyutlu tableti eline al ve büyük yakın görünümde fare imlecini aç; 0–100 arasından istediğin sayıya tıkla, `ONAY` ile kilitle. `TEMIZLE` seçimi siler. Klavyeden rakam/Enter alternatif olarak kullanılabilir. Bütün oyun açıklamaları ve sonuç animasyonları sadece büyük 3D monitöre gider.
 
@@ -87,4 +126,4 @@ Her oyuncunun koltuğu arkasındaki terazinin **oyuncuya yakın sağ kefesi** pu
 
 ## Üretilen görsellerin entegrasyonu (8 PNG)
 
-Özgün konsept portreler (5 oyuncu), parlak DENGE logosu, kazananın kırmızı çerçevesi ve eleme sıvı efekti için Godot sahnelerine `Sprite3D` düğümleri eklendi. Resimler `assets/generated/portrait_1.png` … `portrait_5.png`, `denge_logo.png`, `winner_frame.png`, `elimination_splash.png` yollarından otomatik yüklenir. **Görsel paketi ZIP'ini proje köküne açmak gerekir; bu PNG ikili dosyaları GitHub'daki metin bağlayıcısı ile yüklenemedi.** Dosyalar bulunmazsa eski sahne resimleri/efektleriyle oyun çalışır. Ayrıntılar: `assets/generated/README.md`.
+Özgün konsept portreler (5 oyuncu), parlak DENGE logosu, kazananın kırmızı çerçevesi ve eleme sıvı efekti için Godot sahnelerine `Sprite3D` düğümleri eklendi. Resimler `assets/generated/portrait_1.png` … `portrait_5.png`, `denge_logo.png`, `winner_frame.png`, `elimination_splash.png` yollarından otomatik yüklenir. PNG dosyaları repodadır. Dosyalar bulunmazsa eski sahne resimleri/efektleriyle oyun çalışır. Ayrıntılar: `assets/generated/README.md`.
