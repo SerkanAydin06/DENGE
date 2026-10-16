@@ -338,7 +338,7 @@ func eliminate_player() -> void:
 	current_points = 0
 	# The heavy near-player bowl tips; an authored liquid stream extends to the head.
 	rear_scale.spill()
-	await get_tree().create_timer(0.35).timeout
+	await get_tree().create_timer(0.35, false).timeout
 	elimination_tween = create_tween()
 	elimination_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	elimination_tween.tween_method(_render_death_stream, 0.0, 1.0, 1.15)

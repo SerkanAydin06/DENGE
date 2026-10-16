@@ -10,8 +10,10 @@ func _initialize() -> void:
 		DengeRoundRules.STARTING_SCORE,
 		DengeRoundRules.STARTING_SCORE
 	]
-	assert(DengeRoundRules.STARTING_SCORE == 10)
-	assert(DengeRoundRules.ELIMINATION_SCORE == 0)
+	var starting_score: int = DengeRoundRules.STARTING_SCORE
+	var elimination_score: int = DengeRoundRules.ELIMINATION_SCORE
+	assert(starting_score == 10)
+	assert(elimination_score == 0)
 
 	var normal: Dictionary = DengeRoundRules.resolve_round([20, 30, 40, 50, 60], starting)
 	assert(is_equal_approx(normal["average"], 40.0))

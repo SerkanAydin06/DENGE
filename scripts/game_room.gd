@@ -24,6 +24,7 @@ extends Node3D
 ]
 @onready var player_console: Node3D = $Arena/PlayerStation_1/Desk/TouchConsole
 @onready var tablet_interaction_hint: Label3D = $Arena/PlayerStation_1/TabletInteractionHint
+@onready var pause_menu: DengePauseMenu = $PauseMenu
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var round_number: int = 1
@@ -101,7 +102,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if tablet_mode:
 				_set_tablet_mode(false)
 			else:
-				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				pause_menu.open()
 			get_viewport().set_input_as_handled()
 			return
 
@@ -227,7 +228,7 @@ func _on_selection_locked(value: int) -> void:
 			selections.append(value)
 		else:
 			# Opponents lock their choices silently while the monitor remains black.
-			await get_tree().create_timer(bot_think_seconds * rng.randf_range(0.6, 1.4)).timeout
+			await get_tree().create_timer(bot_think_seconds * rng.randf_range(0.6, 1.4), false).timeout
 			var bot_value: int = _bot_choice()
 			stations[i].choose_number(bot_value)
 			stations[i].confirm_number()
@@ -243,7 +244,7 @@ func _on_selection_locked(value: int) -> void:
 	_set_all_moods("WATCH")
 	for station in stations:
 		station.set_monitor_intro_title(round_number)
-	await get_tree().create_timer(reveal_delay * 1.6).timeout
+	await get_tree().create_timer(reveal_delay * 1.6, false).timeout
 	_play_monitor_sequence(selections, result)
 
 func _bot_choice() -> int:
@@ -260,7 +261,7 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 	# Only the freestanding 3D monitor displays calculations and results.
 	_set_all_monitor_phases("REVEAL")
 	_broadcast("DENGE  |  TUR %02d" % round_number, "SAYILAR ACIKLANIYOR", "", "SECIMLER TEK TEK GOSTERILIYOR")
-	await get_tree().create_timer(reveal_delay).timeout
+	await get_tree().create_timer(reveal_delay, false).timeout
 
 	var shown: Array[String] = ["--", "--", "--", "--", "--"]
 	for i in range(selections.size()):
@@ -273,7 +274,7 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 			"",
 			"OYUNCU %d / %d" % [i + 1, selections.size()]
 		)
-		await get_tree().create_timer(reveal_delay).timeout
+		await get_tree().create_timer(reveal_delay, false).timeout
 
 	# 1: Average appears by itself in the white bottom card.
 	_set_all_monitor_phases("AVERAGE", -1.0, [], [], float(result["average"]))
@@ -283,7 +284,7 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 		"",
 		""
 	)
-	await get_tree().create_timer(reveal_delay * 1.4).timeout
+	await get_tree().create_timer(reveal_delay * 1.4, false).timeout
 
 	# 2: Show the multiplication operation, keeping the answer hidden.
 	_set_all_monitor_phases("MULTIPLY", -1.0, [], [], float(result["average"]))
@@ -293,7 +294,7 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 		"",
 		""
 	)
-	await get_tree().create_timer(reveal_delay * 1.3).timeout
+	await get_tree().create_timer(reveal_delay * 1.3, false).timeout
 
 	# 3: Reveal the numerical result at the end of the equation.
 	_set_all_monitor_phases("CALCULATED", float(result["target"]), [], [], float(result["average"]))
@@ -303,7 +304,7 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 		"",
 		""
 	)
-	await get_tree().create_timer(reveal_delay * 1.5).timeout
+	await get_tree().create_timer(reveal_delay * 1.5, false).timeout
 
 	# 4: Switch from the equation to portraits over the same five number cards.
 	_set_all_monitor_phases("PHOTO", float(result["target"]))
@@ -313,7 +314,7 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 		"",
 		"HEDEF SAYI ALTTA"
 	)
-	await get_tree().create_timer(reveal_delay * 1.5).timeout
+	await get_tree().create_timer(reveal_delay * 1.5, false).timeout
 
 	var winners: Array = result["winners"]
 	var winner_numbers: PackedStringArray = []
@@ -333,21 +334,21 @@ func _play_monitor_sequence(selections: Array[int], result: Dictionary) -> void:
 		"",
 		"PUANLAR ACIKLANACAK"
 	)
-	await get_tree().create_timer(reveal_delay * 1.7).timeout
+	await get_tree().create_timer(reveal_delay * 1.7, false).timeout
 
 	# The losing players' nearby bowls gain liquid according to their new scores.
 	# Any newly eliminated player reaches 0, receives a final spill and dies.
 	var new_scores: Array[int] = result["scores"]
 	for i in range(stations.size()):
 		stations[i].update_life_points(new_scores[i], 0.9)
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(1.0, false).timeout
 
 	var newly_eliminated: Array = result["eliminated_now"]
 	for index in newly_eliminated:
 		stations[int(index)].eliminate_player()
 	if not newly_eliminated.is_empty():
 		_broadcast("DENGE  |  ELEME", "0 PUAN - ELENDI", "KEFE BOSALIYOR...", "")
-		await get_tree().create_timer(2.8).timeout
+		await get_tree().create_timer(2.8, false).timeout
 
 	# 6: After any elimination, overlay remaining points on all portraits.
 	scores = new_scores
